@@ -1,0 +1,587 @@
+Welkom bij deze les "Inleiding programmeren in Python", onderdeel van de WizTech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Computers programmeren is net als fietsen: Je leert 't door 't te doen.
+Daarom gaan we maar gelijk aan de slag.
+
+De allereerste stap is dat je Python installeert op je computer.
+Een alternatief voor deze inleidende les, is dat je via je browser werkt op een on-line geinstalleerde Python.
+Je hoeft dan niets te installeren.
+Links voor beide mogelijkheden staan op WizTech.nl.
+
+Als je eenmaal Python op je eigen computer hebt geinstalleerd,
+leer je 't meest als je 't op een Spartaanse manier gebruikt.
+
+Het gaat in deze cursus om snappen wat je doet.
+De bedoeling is dat je heer en meester / dame en meesteres wordt van je computer.
+In een auto rijden is 1 ding, maar onder de motorkap kijken en weten hoe je de remvloeistof kunt bijvullen iets heel anders.
+
+Omdat begrip het doel is, raad ik je aan NIET via een zogenaamde IDE (Interactive Development Environment) zoals PyCharm te werken,
+maar via een simpele editor, zoals Notepad++, Gedit of Visual Studio Code.
+Let op, dat is iets heel anders als Visual Studio, een kermis van storende toeters en bellen,
+die bij elke versie op een andere plaats zitten.
+
+Schakel facititeiten zoals het automatisch aanvullen van code en plaatsen van sluithaakjes uit.
+Probeer als 't even kan met 10 vingers op de juiste toetsen te typen.
+Met de vloek van het Querty toetsenbord zul je nog heel lang moeten leven.
+
+Ook zogenaamde debuggers, hulpprogramma's om met trial en error fouten te vinden, helpen je van de wal in de sloot.
+Als je een debugger nodig hebt om je code te snappen, dan heb je geen goed "mentaal model" van je code.
+Een paar goedgemikte afdrukopdrachten in je programma zijn effectiever.
+
+Verder werken we in deze cursus met een commando venster, ook wel command prompt, console of terminal genoemd.
+Een rechtstreeksere manier om met je computer je wil op te leggen bestaat er niet.
+De commando's die je in zo'n commando venster intypt, kun je uiteindelijk automatiseren door ze in een script op te nemen.
+
+Het is misschien handig als je iets meer weet over het commando venster op jouw computer:
+Hoe open je een command prompt, en hoe luiden precies de commando's.
+Lees er eens iets over op Internet of vraag het aan een bevriende computer enthousiast.
+
+In deze video werk ik met Windows, maar voor de Python programma's zelf maakt dat niets uit.
+Die zijn 't zelfde, op welke computer dan ook.
+Laten we maar eens in 't diepe springen.
+
+Werk gelijk met me mee, maak je browser window wat kleiner,
+zodat je tegelijkertijd andere vensters kunt openen en daarin werken.
+Zet de video tussendoor stop als het te snel gaat,
+en spoel een stukje terug als je iets hebt gemist.
+
+Programmeren leer je echt alleen door het te doen, als je alleen maar kijkt en luistert leer je niets.
+'t Mag natuurlijk best, maar houd jezelf niet voor de gek.
+De meeste computers bijten niet, tenzij ze daar speciaal voor gemaakt zijn,
+maar dan noemen we het een robot.
+
+======
+
+Ik gebruik Windows Explorer om een folder aan te maken voor deze les. [doen]
+Vervolgens open ik daar een venster, met een rechter klik op een lege plaats. [doen]
+In mijn geval is dat een zogenaamd Powershell venster maar ook dat maakt niet uit.
+
+In dat venster vraag ik welke bestanden aanwezig zijn, met het DIR commando. [doen]
+Als je op Linux of Apple werkt, kun je het LS command gebruiken, dat doet precies hetzelfde.
+Zoals je ziet zijn er nog geen bestanden, niet verassend want we hebben deze folder net gemaakt.
+
+Voorlopig hebben we ook nog geen bestanden nodig,
+want onze eerste kennismaking met Python vind plaats in de zogenaamde "Interactive Mode".
+Wij geven commando's aan de Python interpreter, en de computer reageert.
+
+De Python interpreter is een programma dat de taal Python begrijpt.
+Ik start hem nu op [doen].
+Het kan ook zijn dat je Python3.7 moet intypen, zo [laten zien en weer wissen]
+of Python37 [laten zien en weer wissen] of Python3 [laten zien en weer wissen].
+Het is belangrijk dat de Python interpreter zich meldt als Python 3.7.0 of een hogere versie.
+zoals je hier kunt zien op het scherm. [Aanwijzen met muiscursor]
+Als er een lager nummer staat, dan is Python niet goed geinstalleerd.
+
+Wat je dan kunt doen is OF remote werken, via de links op WizTech.nl,
+OF aan een vriend of kennis vragen, dit in orde te maken.
+Programmeren op zich is erg leuk om te doen, maar software installeren is meestal een bescheiden ramp.
+
+Wees niet ontmoedigd als het veel moeite kost voor alles goed geinstalleerd is, helaas is dat normaal.
+Maar als het installeren eenmaal gebeurd is ligt de wereld van de computerprogrammering voor je open,
+en begint de gein.
+Ik programmeer nu ruim 45 jaar computers, in alle soorten en maten, met zo'n beetje alle mogelijke programmeertalen,
+en voor allerlei toepassingen, maar het is nog net zo leuk als in 't begin.
+
+Als we de Python interpreter eenmaal hebben gestart, maakt het niet meer uit op welke computer we zitten.
+We hebben dan alleen nog maar met de taal Python te maken, en die is op alle computers hetzelfde.
+
+We gaan Python eens iets laten doen.
+Type met me mee: print (3 + 4), enter. [doen]
+7, zegt de computer.
+
+He, een rekenmachine, en geen slechte ook.
+Alle functies van een wetenschappelijke rekenmachine zitten erop, en nog veel meer.
+Omdat al die wiskundige functies misschien wat angstaanjagend zijn, laten we dat maar even zitten.
+Maar ook met een expressie zoals print (2 * 100.3 / 5 * 6 * (5 - 7.5)), enter [doen]
+weet hij wel raad.
+In feite mogen we dat print ook weglaten, kijk maar:
+3 + 4 enter [doen]
+
+Dat komt omdat we Python nu rechtstreeks commando's geven.
+Als we straks echter echt programma's gaan maken, bestanden met reeksen commandos's,
+dan moet dat PRINT er wel bijstaan, daarom doen we het nu ook maar alvast.
+Het doel is namelijk niet om van onze computer een veredelde rekenmachine te maken,
+maar om echt te kunnen programmeren.
+
+Eens iets anders:
+print ('Hello World') [doen]
+
+Deze regel is al tientallen jaren lang voor veel programmeurs de eerste regel code die ze ooit maken.
+Hij is verzonnen door Brian Kernighan en Dennis Ritchie, makers van de legendarische programmeertaal C.
+
+Je kunt je afvragen waarom er om de woorden 'Hello World' quootjes staan, en om 3 + 4 niet.
+Weet je wat, laten we om 3 + 4 ook eens quootjes zetten:
+print ('3 + 4') [doen]
+
+Hee, de Python interpreter weet opeens niet meer wat ie moet doen.
+In plaats van 3 en 4 op te tellen zet ie letterlijk het sommetje op het scherm.
+Wat is het verschil.
+
+Om dat te snappen moeten we het hebben over gegevenstypen.
+Als iets tussen quootjes staat, wordt het door Python opgeval als
+een willekeurig rijtje lettertekens, een string of characters,
+waar de computer verder niets mee kan.
+
+Voorbeeld: 3 + 4 [doen] wordt uitgerekend en lever 7,
+maar '3 + 4' [doen] is alleen maar een string (rijtje) van characters (lettertekens) en wordt letterlijk afgedrukt.
+
+Nog eentje.
+print (3 + 4) [doen] is een opdracht aan de Python interpreter
+en Python voert dit netjes uit en drukt 7 af.
+Maar 'print (3 + 4)' is alleen maar een rijtje lettertekens,
+waar Python niets mee kan, behalve het afdrukken.
+
+Dus alles wat we tussen quootjes zetten, wordt opgevat als een string,
+een betekenisloos rijtje lettertekens, character
+
+String betekent ketting, een ketting van letters.
+Denk maar aan "string of pearls", parelketting, parels op een rij aan een touwtje.
+
+We kunnen Python vragen wat het type van iets is, wat voor ding het is.
+Dit gebeurt met het woord type, en dan tussen haakjes datgene waarvan we het type willen weten.
+Gaan we eens proberen: type ('Hello World') [doen].
+De interpreter drukt af: <class 'str'>
+
+Het woord class en type verwijzen allebei naar hetzelfde concept, namelijk wat voor soort ding het is.
+We mogen zeggen: Fikkie is van het type Hond,
+of: Fikkie is van de klasse Hond.
+Dat betekent allebei hetzelfde.
+Dat er twee verschillende termen voor "soort" bestaan, namelijk class en type,
+is historisch gegroeid, en niet meer van belang, zeker niet in Python.
+
+En als er nu eens geen quotes staan? type (3) [doen]
+Er wordt afgedrukt <class 'int'>.
+Het 3 is een ding van het soort 'int', van de class, van het type, integer, dat betekent 'geheel getal'.
+
+Kijk maar, type (3.5) [doen] laat zien dat het soort, de class 'float' is,
+een floating point getal, een getal met een decimale punt erin.
+De point heet floating, omdat hij overal in een getal kan staan.
+In programmeertalen wordt consequent gewerkt met een decimale punt in plaats van een komma.
+
+Trouwens, als we straks echt programma's gaan maken,
+en we willen het type van iets afdrukken, dan moet er weer print bij,
+met tussen ronde haakjes datgene wat er geprint moet worden: print (type (3.5)) [doen].
+Zoals je ziet levert dat precies hetzelfe resultaat.
+
+Maar als we interactief werken, dus als we losse opdrachtenb intypen,
+dan mogen we dat 'print' weglaten, dat is minder typewerk.
+
+Wat is print eigenlijk trouwens zelf voor een ding?
+Eens kijken:
+type (print) [doen]
+
+We zien <class 'builtin_function_or_method'>.
+Een function of een method is een manier om iets te doen,
+in dit geval een manier om iets door een programma af te laten drukken.
+We komen daar later uitgebreid op terug.
+
+Voorlopig is het voldoende om te zien dat elk ding in een Python programma een type, een soort, een class heeft.
+Type, soort, class, het betekent allemaal hetzelfde: wat voor categorie ding is het.
+
+Trouwens het woord 'ding' klinkt ook niet erg professioneel.
+Programmeurs spreken van een 'object'.
+Alles waar je in een Python programma mee werkt is een object.
+Getallen zijn objecten waar je mee kunt rekenen,
+rijtjes letters (strings) zijn objecten die je aan elkaar kunt plakken om
+langere rijtjes letters te maken en die je af kunt drukken.
+
+Kijk maar: 'fiets' + 'pomp' [doen] wordt blijkbaar aan elkaar geplakt tot fietspomp.
+En dat is weer een string: type ('fiets' + 'pomp') [doen]: <class 'str'>
+Dit geldt ook als de strings uit cijfers bestaan.
+'3' + '4' [doen] wordt niet opgeteld, maar achter elkaar geplakt, want 't zijn geen getallen maar strings.
+De computer kan er niet mee rekenen.
+Als we de quotes weglaten zijn 't getallen: 3 + 4 [doen] wordt wel opgeteld en levert 7.
+
+Ook een functie, een method, een actie die de computer moet doen, is een object:
+type (print) [doen], namelijk van het type 'ingebouwde functie of methode'.
+
+=====
+
+Zoals je waarchijnlijk weet heeft een computer geheugen, hij kan dingen onthouden.
+Er zijn twee soorten geheugen: RAM geheugen en schijfgeheugen.
+
+Stel je bent een tekstdocument aan het maken.
+Als je aan het typen bent, staat je document in het RAM geheugen.
+RAM betekent Random Access Memory, willekeurig toegankelijk geheugen.
+
+Je kunt van hot naar haar springen in je tekst, blokken oppakken, verplaatsen, invoegen etcetera.
+Je kunt zonder noemenswaardige vertraging bewerkingen uitvoeren op tekst op willekeurige plekken in je document,
+bijvoorbeeld lettertype veranderen, andere regelafstand en zo verder.
+Die snelle, willekeurige toegang tot delen van je tekst is het gevolg van 't feit,
+dat je tekstverwerker dingen in RAM geheugen, willekeurig toegankelijk geheugen, bewaart.
+
+Er is alleen 1 nadeel: Als de stroom uitvalt ben je alles kwijt.
+Daarom berg je eens in de zoveel tijd je tekst op als een bestand met een naam.
+De tekst komt dan in het schijfgeheugen terecht.
+Die naam schijfgeheugen slaat op de harde schijf, die vroeger in elke computer zat.
+Op die schijf kunnen symbolen zoals letters worden opgeslagen als kleine, magnetische gebiedjes.
+
+Echter kunnen bestanden ook op andere media opgeslagen worden, bijvoorbeeld optisch of electrisch.
+De naam "schijfgeheugen" dekt eigenlijk de lading niet meer helemaal.
+Het is nauwkeuriger om te spreken van achtergrondgeheugen of bestands-systeem.
+
+Als we in een Python programma iets willen opslaan, gebeurt dat zonder speciale maatregelen
+altijd in het RAM geheugen.
+Ook het achtergrondgeheugen kan worden beschreven en gelezen, maar daar zijn speciale programmaopdrachten voor nodig.
+Daarom beginnen we met de meest gebruikte vorm van opslag in programma's: Opslag in het RAM geheugen.
+
+Opslaan van gegevens in het RAM geheugen, gebeurt door zogenaamde "variabelen" te gebruiken.
+Een variabele is een plek in het geheugen met een naam.
+Voor we aan de slag gaan: Programmeren doen we in deze cursus in het Engels.
+Natuurlijk kan je programma gewoon Nederlands spreken met de gebruikers ervan.
+Alleen: de code is in het Engels.
+Dat hoeft niet, maar het is wel verstandig.
+
+De programming community is een internationaal gezelschap met over het algemeen hulpvaardige mensen,
+die informatie uitwisselen via websites zoasl StackOverflow.
+Als je ergens niet uit komt kun je het daar altijd vragen, en meestal heb je binnen een paar minuten een goed antwoord.
+Wacht wel even met vragen stellen tot je Python een beetje in de vingers hebt,
+anders wordt je waarschijnlijk zonder veel omhaal naar de schoolboekjes verwerzen.
+
+Sites zoasl StackOverflow zijn ongelofelijk waardevol voor de professionele programmeur.
+Echter als je vragen stelt in de voertaal van ons postzegelgrote landje,
+is de kans op een fatsoenlijk antwoord een stuk kleiner.
+Vaardigheid in de Engelse taal is een absolute must voor een serieuze programmeur.
+Daarom wordt in deze cursus in het Engels geprogrammeerd.
+
+========
+
+We gaan aan de slag met variabelen.
+Eerst bergen we het aantal vingers per hand op in een variabele met de naam nrOfFingersPerHand.
+nrOfFingersPerHand = 5 [doen]
+
+Het gebruik van hoofdletters in het midden van een woord wordt wel Camel Case genoemd,
+omdat het woorden hobbelig maakt, zoals de hobbels van een kameel.
+
+Wees nauwkeurig in je namen en noem deze variabele geen fingers, fingersPerHand of, nog erger, n.
+Duidelijke namen zijn nodig om ook na jaren je eigen code nog gemakkelijk te kunnen snappen.
+
+Misschien vraag je je af wat er mis is met fingersPerHand.
+WAT daarmee mis is, is dat je in dit geval geen objecten opbergt van het type vinger, maar van het type getal.
+
+Veel Python programmeurs doen het net even anders namelijk:
+
+nr_of_fingers_per_hand = 5 [geen enter, doen, later weer wissen]
+
+Dit heet PotholeCase omdat de underscores (lage streepjes) midden in een woord doen denken aan
+gaten in de weg, potholes.
+
+In deze cursus is echter gekozen voor de schrijfwijze die, over alle programmeertalen gezien,
+door de meeste programmeurs wordt gebruikt.
+Let op, laat namen van variabelen beginnen altijd met een kleine letter,
+anders wek je verwarring met andere zaken in een computerprogramma.
+
+Eens kijken, we hadden iets in een variabele, een geheugenplek met een naam, opgeslagen.
+Kijken of de computer het nog weet.
+
+print (nrOfFingersPerHand) [doen]
+
+Ja, hoor, hij heeft 't onthouden.
+En als we er nu eens quotes omheen zetten?
+
+print ('nrOfFingersPerHand')
+
+Tja, dan vat ie nrOfFingersPerHand op als een string literal, iets dat ie letterlijk af moet drukken,
+en niet als de naam van een geheugenvakje.
+
+We maken nog wat meer variabelen:
+
+nrOfHandsPerPerson = 2 [doen]
+nrOfFingersPerPerson = nrOfFingersPerHand * nrOfHandsPerPerson [doen]
+
+Die laatste variabele, nrOfFingersPerPerson, bevat ook gewoon een integer, een geheel getal,
+dat wordt berekend door de inhoud van twee andere variabelen met elkaar te vermenigvuldigen.
+
+Laten we de inhoud van alledrie de gebruikte variabelen eens afdrukken:
+print (nrOfFingersPerHand, nrOfHandsPerPerson, nrOfFingersPerPerson)
+Klopt als een bus.
+
+Laten we eens kijken of Python nog weet wat de typen van deze variabelen zijn,
+bijvoorbeeld:
+print (type (nrOfHandsPerPerson)) [doen]
+Ja hoor, integer, geheel getal.
+
+Of:
+print (type (nrOfFingersPerPerson)) [doen]
+Ook een geheel getal, zoals te verwachten.
+
+======
+
+Laten we eens een string opbergen:
+firstWord = 'fiets' [doen]
+secondWord = 'pomp' [doen]
+compoundWord = firstWord + secondWord [doen]
+compound betekent "samengesteld"
+print (compoundWord) [doen]
+Inderdaad, de strings zijn aan elkaar geplakt.
+print (type (compoundWord)) doen.
+En het resultaat is weer een string, zoals te verwachten.
+
+Ik wil er graag even op wijzen, dat duidelijke namen voor variabelen van belang zijn voor ONS, 
+maar niet voor de computer.
+De volgende serie opdrachten doet precies hetzelfde:
+a = 'fiets' [doen]
+b = 'pomp' [doen]
+c = a + b [doen]
+print (c) [doen]
+print (type (c)) [doen]
+Alleen als je allemaal van dit soort korte, nietszeggende namen gebruikt,
+wordt je programma onleesbaar.
+
+'ns Kijken of de computer dit nog weet:
+print (nrOfFingersPerPerson) [doen]
+Ja hoor, hij weet 't nog.
+
+
+
+======
+
+Soms wil je in 1 variabele meerdere dingen onderbrengen
+bijvoorbeeld meerdere namen.
+Dat kan als volgt:
+names = ('Jan', 'Piet', 'Marie', 'Annet') [doen]
+We kunnen dan alle namen in 1 keer afdrukken:
+print (names) [doen]
+
+Ook kun je inviduele elementen van de lijst opvragen:
+aName = names [2] [doen]
+print (aName) [doen]
+of bijvoorbeeld
+print (names [0]) [doen]
+
+Het ding tussen vierkante haken heet de index.
+De index van het 1e element is 0, geen 1.
+Dit is even wennen maar het blijkt uiteindelijk heel handig te zijn.
+
+Laten we het type van variabele names eens opvragen:
+print (type (names)) [doen]
+Het type is "tuple", groepje.
+Een tuple is een groepje objected, in dit geval namen.
+
+En laten we eens de waarde en het type van het eerste element opvragen:
+print (type (names [0])) [doen]
+String, ja dat viel te verwachten.
+
+Zouden we ook namen  mogen veranderen? Bijvoorbeeld Marie in Sofie?
+Eens kijken:
+names [2] = 'Sofie'
+Nee, dat mag blijkbaar niet.
+Dat is jammer, tuples zijn onveranderbaar, immutable.
+
+We mogen niet iets aan een bestaand tuple veranderen.
+Maar we mogen het names tuple wel door een heel nieuw tuple vervangen.
+names = ('Jan', 'Piet', 'Sofie', 'Annet') [doen]
+print (names) [doen]
+
+Dit werkt wel maar het is erg onhandig, dat je dan alles er opnieuw in moet stoppen,
+ook als er aan de meeste namen niets verandert.
+Let wel, we veranderden niet 't oude tuple object.
+We maakten een heel nieuw names object, met alle namen hetzelfde, alleen Sofie in plaats van Marie.
+
+Zolang je er niets aan hoeft te veranderen zijn tuples heel snel, compact en efficient.
+Maar als je wel iets wilt veranderen heb je meer aan een lijst, een list.
+Daar mag je alles mee doen wat we zonet met een tuple deden,
+maar je mag ook elementen veranderen, toevoegen of eruit halen.
+
+Kijk maar.
+nameList = ['Jan', 'Piet', 'Marie', 'Annet'] [doen]
+Dus vierkante haken in plaats van ronde.
+print (nameList) [doen]
+Dat werkt gewoon.
+print (type (nameList))
+Ok, het is inderdaad een ding van de klasse lijst, list, in plaats van tuple.
+
+print (nameList [2]) [doen]
+Dat werkt ook.
+
+Und jetzt kommen die Kamele mit den groszen fueszen.
+nameList [2] = 'Sofie' [doen]
+print (nameList) [doen]
+Werkt!
+
+======
+
+Zoals je op het scherm kunt zien, is het enige verschil in notatie tussen een tuple en een lijst,
+dat een tuple een rijtje dingen tussen ronde haken is,
+en een list een rijtje dingen tussen vierkante haken.
+
+Toch, ondanks dat ze zo op elkaar lijken, gedraagt een list zich anders.
+Bij een list mag ik individuele elementen veranderen, bij een tuple niet.
+
+======
+
+Een hele ander soort samengestelde variabele, compound variable of agregate (al die woorden betekenen hetzelfde),
+is het "dictionary", afgekort tot "dict".
+
+Stel je wilt een aantal namen met bijbehorende telefoonnummers opslaan.
+Dat kan als volgt.
+
+phoneGuide = {
+    'Jan': '06 53 122 222',
+    'Piet': '06 53 717 554',
+    'Marie': '06 52 800 612',
+    'Annet': '06 52 118 990'
+}
+
+Ik had dit trouwens allemaal ook best op een regel mogen zetten, maar dat wordt wat onoverzichtelijk.
+
+Ik kan die telefoongids dan afdrukken:
+
+print (phoneGuide) [doen]
+
+Maar ik kan ook individuele elementen opvragen.
+Stel ik wil 't nummer van Marie afdrukken:
+
+print (phoneGuide ['Marie']) [doen]
+
+Stel ik wil 't nummer van Piet in een andere variabele stoppen:
+
+aName = phoneGuide ['Piet'] [doen]
+print (aName) [doen]
+Je ziet, dat werkt!
+
+Als we het type van het telefoonboek afdrukken, krijgen we
+print (type (phoneGuide)) [doen]
+Je ziet inderdaad dat dit een dictionary is, afgekort tot dict.
+
+We kunnen ook dingen toevoegen aan een dict, bijvoorbeeld:
+phoneGuide ['Robin'] = '06 52 123 321' [doen]
+print (phoneGuide) [doen]
+Je ziet, Robin, met telefoonnummer, is toegevoegd.
+
+We kunnen ook dingen uit een dictionary verwijderen.
+del phoneGuide ['Piet'] [doen]
+print (phoneGuide) [doen]
+Piet is met de noorderzon vertrokken, met medeneming van z'n telefoonnummer.
+
+Vergeet je trouwens niet met me mee te werken?
+Spoel eventueel een stukje terug en probeer dingen alsnog uit op je eigen computer.
+Dan leer je 't echt veel beter.
+Onze geest neemt dingen makkelijker op als we er actief mee bezig zijn.
+
+De namen zoals Marie en Piet worden trouwens wel de keys, sleutels van dit dictionary genoemd.
+En de telefoonnummers worden wel de values, waarden genoemd.
+
+Keys en/of values mogen ook best bijvoorbeeld gehele getallen zijn, of zelfs tuples.
+Maar keys moeten wel immutable zijn.
+Een lijst als key kan dus niet, een tuple wel.
+
+Kijk maar:
+
+nonsenseDict = {[1, 2]: 'fluitketel'} [doen]
+Een list als key mag blijkbaar niet.
+
+Een hash is een vast nummertje dat berekend wordt uit de key, in dit geval uit een lijst dus.
+Maar omdat een lijst kan veranderen (mutable is) kun je er nooit een VAST, onveranderlijk nummer uit berekenen.
+
+nonsenseDict = {(1, 2): 'fluitketel'} [doen]
+Een tuple als key mag blijkbaar wel.
+
+Dictionaries zijn handig om van alles en nog wat snel op te kunnen zoeken als je de key, de sleutel, weet.
+
+======
+
+Naast het tuple, de list en het dictionairy is er nog een belangrijke klasse van samengestelde variabelen,
+die ik hier wil behandelen, namelijk de zogenaamde "verzameling" of, in het Engels, set.
+
+Een set is een samengestelde variabele waar elk element maar 1 x in kan voorkomen.
+Bovendien staan elementen in een set in een willekeurige volgorde,
+hoewel dat in de praktijk best de volgorde kan zijn waarin ze erin werden gestopt.
+ 
+Laten we eens kijken hoe dat werkt:
+Eerst maken we een lege verzameling:
+mySet = Set () [doen]
+print (mySet) [doen]
+print (type (mySet)) [doen]
+
+We zullen eens wat dingen in de verzameling stoppen:
+mySet = {'Marie', 'Sofie', 1, 2, 3} [doen]
+print (mySet) [doen]
+
+We zien dat een niet-lege verzameling wordt afgedrukt met curly braces (accolades), net als een dictionary.
+Echter in een dictionary zitten steeds paren key : value, bijvoorbeeld 'jan' : en dan z'n telefoonnummer,
+terwijl in sets geen paren maar gewoon losse elementen voorkomen.
+
+Als we een lege verzameling willen maken, kan Python 't verschil met een dictionary niet zien,
+daarom gebruiken we daarvoor een speciale notatie, met een zogenaamde constructor functie:
+myEmtpySet = set ()
+Zo'n functie maakt iets van het type waarnaar hij heet, in dit geval een set.
+Omdat er niets tussen de haakjes van de constructor staat is de set leeg.
+
+We voegen nog eens iets toe aan onze niet-lege set mySet:
+mySet.add ('Sofie', 'Robin', 1, 2, 4) [doen]
+print (mySet) [doen]
+
+We zien dat Sofie nog steeds maar 1 x voorkomt, net als 1 en 2,
+hoewel we deze elementen er meerdere keren in hebben gestopt.
+Blijkbaar worden dubbele elementen automatisch verwijderd.
+
+======
+
+Stel je hebt een lijst met dubbele elementen erin, bijvoorbeeld:
+myList = ['aap', 'aap', 1, 2, 3, 1, 2, 3, 'noot', 'mies', 'noot', 'noot', 1, 1, 1] [doen]
+print (myList) [doen]
+
+Als ik dan de dubbelen wil verwijderen kan ik dat zo doen:
+mySet = set (myList) [doen]
+Met andere woorden we construeren een set mySet, op basis van myList.
+
+Vervolgens kijken we naar 't resultaat:
+print (mySet) [doen]
+We zien dat de dubbele elementen verdwenen zijn.
+Alleen hebben we nu een set in plaats van een list, kijk maar.
+print (type (mySet))
+
+Als we toch weer een list willen hebben, kunnen we die op basis van mySet als volgt construeren:
+myCleanedList = list (mySet) [doen]
+print (myCleanedList) [doen]
+
+Het kan ook in 1 stap:
+print (mySet) [doen]
+myCleanedList = list (set (mySet)) [doen]
+print (myCleanedList) [doen]
+
+Of, nog korter:
+print (list (set (mySet))) [doen]
+
+list () en set () heten constructor functies of kortweg constructors.
+De set constructor functie pakt wat er tussen z'n haakjes staat en construeert op basis daarvan set,
+een verzameling zonder dubbele elementen, dus.
+
+De list constructor functie pakt op zijn beurt wat er tussen zijn haakjes staat maakt daar weer een list
+(in goed Nederlands een lijst) van.
+En de print functie ten slotte drukt wat er tussen z'n haakjes staat af, net als voorheen.
+
+Constructor functies heten blijkbaar naar de klasse van dingen die ze maken, in dit geval set en list.
+Er bestaan ook int, float en string constructors, maar daarover later meer.
+
+======
+
+Een korte samenvatting tot besluit:
+
+We hebben het gehad over variabelen, dat zijn vakjes in het geheugen met een naam, waarin je objecten kunt opbergen.
+Die objecten hebben een bepaald type, een bepaalde class, bijvoorbeeld string (rijtje letters),
+int (geheel getal) of float (getal met een decimale punt erin).
+
+Er zijn ook samengestelde variabelen (compound variables of agregates). Die kunnen meerdere objecten bevatten.
+Bij een tuple en een list kunnen die objecten worden geselecteerd met behulp van een index,
+een geheel getal tussen vierkante haken.
+
+Bij een dictionary, kortweg dict, daarentegen kunnen de objecten die erin zitten worden geselecteer
+met behulp van een key tussen vierkante haken.
+Keys mogen een strings zijn, maar ook een integers (geheel getallen) of een tuples.
+
+Een set, tenslotte, is een soort list, maar dan zonder dubbele elementen en zonder vaste volgorde.
+Met behulp van constructor functies kun je lists in sets omzetten en daarna als je wilt weer in lists.
+Zo kun je dubbele elementen verwijderen.
+
+Nog even een preekje tot besluit: Probeer de voorbeelden zelf uit.
+Ik wil je graag helpen om te leren programmeren, en je leert het door het te doen.
+De computer is geduldig. Bekijk deze les indien nodig opnieuw, zet 'm steeds stop en probeer dingen uit.
+Succes en tot de volgen de les. Dat rijmt.
+
+
+
+
+
