@@ -486,16 +486,10 @@ Naast het tuple, de list en het dictionairy is er nog een belangrijke klasse van
 die ik hier wil behandelen, namelijk de zogenaamde "verzameling" of, in het Engels, set.
 
 Een set is een samengestelde variabele waar elk element maar 1 x in kan voorkomen.
-Bovendien staan elementen in een set in een willekeurige volgorde,
-hoewel dat in de praktijk best de volgorde kan zijn waarin ze erin werden gestopt.
+Over het algemeen staan elementen in een set in een willekeurige volgorde,
+hoewel dat bij nieuwere Python versies de volgorde kan zijn waarin ze erin werden gestopt.
  
-Laten we eens kijken hoe dat werkt:
-Eerst maken we een lege verzameling:
-mySet = Set () [doen]
-print (mySet) [doen]
-print (type (mySet)) [doen]
-
-We zullen eens wat dingen in de verzameling stoppen:
+We maken een verzameling als volgt:
 mySet = {'Marie', 'Sofie', 1, 2, 3} [doen]
 print (mySet) [doen]
 
