@@ -1,0 +1,38 @@
+(only for command-line examples between prog 5 and 6)
+
+Er zijn verschillende manieren om een lijst te vullen.
+We werkten nog eens even vanaf de command line om dit te laten zien.
+We hebben dus nu geen programmabestand, maar typen de statements weer gewoon in, net als in de eerste les.
+Eerst starten we Python, zonder bestandsnaam erachter. [doen]
+Een manier om een lijst te maken die we al gezien hebben in les 1 is gewoon de elementen intypen, bijvoorbeeld:
+    [1, 2, 'aap', 'noot', 2.25, -5.5, False, True] [doen]
+
+Een andere manier is door gebruik van de range functie.
+De range functie produceert een lijst.
+Als je bijvoorbeeld zegt:
+    aList = range (10)) [doen]
+    print (aList) [doen]
+krijg je zoals je ziet een lijst van 0 t/m 9.
+Hij begint dus bij 0 en houdt eentje voor 't einde op.
+
+Je kunt 'm ook ergens anders laten beginnen:
+    print (range (1, 11) [doen]
+    
+En je kunt 'm steeds ook met een willekeurig getal ophogen:
+    print (range (10, 100, 3) [doen]
+
+Als je bijvoorbeeld een lijst van kwadraten wilt, kun je gebruik maken van zgn. list comprehensions:
+    squares = [number * number for number in range (1, 11)] [doen]
+    print (squares) [doen]
+
+Zo kun je ook een lijst van lijsten maken:
+    print ([[] for listIndex in range (3)]) [doen]
+Deze lijst bevat lege lijsten, zoals je ziet.
+
+Die lijsten kunnen op zich weer elementen bevatten.
+Stel ik wil een lijst maken van 5 lijsten, die elk 3 tuples bevatten bevatten, dan doe ik:
+    listOfListOfTuples = [[(listIndex, entryIndex) for entryIndex in range (3)] for listIndex in range (5)) [doen]
+    print (listOfListOfTuples) [doen]
+
+Of een lijst van 5 lijsten met elk 3 nullen:
+    print ([[0 for entryIndex in range (3]) for listIndex in range (5)]]
