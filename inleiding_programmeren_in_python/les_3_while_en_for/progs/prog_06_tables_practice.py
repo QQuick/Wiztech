@@ -9,8 +9,8 @@ Test specification:
 - Temporarily set both the nr of tables and the nr of lines per table to 3
 - In the second round, answer all questions correctly, except 2 x 2 and 1 x 3
 - Keep on answering correctly until only the questions 2 x 2 and 1 x 3 remain
-- Answer those correctly, but answer 2 x 3 wrongly
-- Keep answering 2 x 3 correctly (should be for 3 times) until the program terminates
+- Answer 2 x 2 correctly, but answer 1 x 3 wrongly
+- Keep answering 1 x 3 correctly (should be for 3 times) until the program terminates
 - Restore both the nr of tables and the nr of lines to 10
 
 Design:
@@ -35,11 +35,11 @@ while True:
             if scoreboard [tableIndex][lineIndex] < requiredScore:
                 answer = int (input (f'Hoeveel is {lineNr} x {tableNr}? '))
                 questionAsked = True
-                if answer == (lineNr) * (tableNr):
+                if answer == lineNr * tableNr:
                     scoreboard [tableIndex][lineIndex] += 1
                 else:
-                    print (f'Niet goed, {lineIndex + 1} x {tableIndex + 1} = {(lineIndex + 1) * (tableIndex + 1)}!')
+                    print (f'Niet goed, {lineNr} x {tableNr} = {lineNr * tableNr}!')
                     scoreboard [tableIndex][lineIndex] = 0
-    print ()
+        print ()
     if not questionAsked:
         break;

@@ -1,0 +1,4 @@
+Een eenvoudige webserver
+Numpy, scipy en matplotlib? Bijv. beeldtransformaties.
+Tensorflow
+etc. (praktisch kleine voorbeelden)

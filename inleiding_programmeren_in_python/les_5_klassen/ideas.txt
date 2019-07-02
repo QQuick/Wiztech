@@ -1,0 +1,6 @@
+Stateful variant van graphics, gebaseerd op turtle graphics.
+Pong o.i.d, op die manier geprogrammeerd.
+Bal "weet" z'n snelheid.
+Overerving?
+Polymorphism?
+Class diagrams?

@@ -1,0 +1,5 @@
+OOA vs OOD
+Domein model en ontwerp (library) classes.
+
+Is a - has a
+"Nooit" erven van een library class.

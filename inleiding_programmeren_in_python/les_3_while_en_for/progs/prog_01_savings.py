@@ -1,7 +1,7 @@
 granniesEuros = 100;
 
-honestBillBankBalance = granniesEuros;
-trickyDickBankBalance = granniesEuros;
+honestBillBankBalance = granniesEuros
+trickyDickBankBalance = granniesEuros
 
 year = 1
 
