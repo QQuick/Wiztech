@@ -15,6 +15,9 @@ class Attribute:    # Attribute in the gaming sense of the word, rather than of 
         self.game.attributes.append (self)  # Game knows all its attributes
         self.install ()                     # Put in place graphical representation of attribute
         self.reset ()                       # Reset attribute to start position
+        
+    def install (self):
+        pass
                     
     def reset (self):       # Restore starting positions or score, then commit to Pyglet
         self.commit ()      # Nothing to restore for the Attribute base class

@@ -4,20 +4,22 @@ import curses as cs
 import curses.ascii as ca
 import time as tm
  
-orthoWidth = 1000
+orthoWidth = 1500
 orthoHeight = 750
 fieldHeight = 650
 
 a, z, k, m = 'a', 'z', 'k', 'm'
-enter, escape, space = cs.KEY_ENTER, ca.ESC, ' '
+enter, escape, space, resize = cs.KEY_ENTER, ca.ESC, ' ', cs.KEY_RESIZE
 pixelChar = '*'
 
 class Attribute:    # Attribute in the gaming sense of the word, rather than of an object
     def __init__ (self, game):
         self.game = game                    # Attribute knows game it's part of
         self.game.attributes.append (self)  # Game knows all its attributes
-        self.install ()                     # Put in place graphical representation of attribute
         self.reset ()                       # Reset attribute to start position
+        
+    def install (self):
+        pass
                     
     def reset (self):       # Restore starting positions or score, then commit to curses
         self.commit ()      # Nothing to restore for the Attribute base class
@@ -62,7 +64,7 @@ class Paddle (Sprite):
     margin = 30 # Distance of paddles from walls
     width = 10
     height = 100
-    speed = 400 # / s
+    speed = 800 # / s
     
     def __init__ (self, game, index):
         self.index = index  # Paddle knows its player index, 0 == left, 1 == right
@@ -110,8 +112,7 @@ class Paddle (Sprite):
             speedUp = 1 + 0.5 * (1 - abs (self.game.ball.y - self.y) / (self.height // 2)) ** 2
             self.game.ball.vX *= speedUp            # Speed will increase more if paddle near centre
             self.game.ball.vY *= speedUp
-            
-        
+                    
 class Ball (Sprite):
     side = 8
     speed = 300 # / s
@@ -149,14 +150,7 @@ class Ball (Sprite):
 
 class Scoreboard (Attribute):
     nameShift = 75
-    scoreShift = 25
-            
-    def install (self): # Graphical representation of scoreboard are four labels and a separator line
-        self.game.draw (1 * orthoWidth // 4, fieldHeight + self.nameShift, 'Speler AZ')                     # Player name
-        self.game.draw (3 * orthoWidth // 4, fieldHeight + self.nameShift, 'Speler KM')
- 
-        for x in range (0, orthoWidth, self.game.charHeightInOrtho):                                        # Line
-            self.game.draw (x, fieldHeight, pixelChar)
+    scoreShift = 45
         
     def increment (self, playerIndex):
         self.scores [playerIndex] += 1
@@ -165,10 +159,16 @@ class Scoreboard (Attribute):
         self.scores = [0, 0]
         Attribute.reset (self)                  # Only does a commit here
         
-    def commit (self):                          # Committing labels is adapting their texts
+    def commit (self):                          # With curses, the whole scoreboard is simply drawn each time 
+        self.game.draw (1 * orthoWidth // 4, fieldHeight + self.nameShift, 'Speler AZ')                     # Player name
+        self.game.draw (3 * orthoWidth // 4, fieldHeight + self.nameShift, 'Speler KM')
+ 
         self.game.draw (1 * orthoWidth // 4, fieldHeight + self.scoreShift, '{}'.format (self.scores [0]))  # Player score
         self.game.draw (3 * orthoWidth // 4, fieldHeight + self.scoreShift, '{}'.format (self.scores [1]))
  
+        for x in range (0, orthoWidth, self.game.charWidthInOrtho):                                         # Line
+            self.game.draw (x, fieldHeight, pixelChar)
+    
 class Game:
     def __init__ (self):
         self.serviceIndex = rd.choice ((0, 1))  # Index of player that has initial service
@@ -180,6 +180,8 @@ class Game:
         def run (screen):                       # Install update callback to be called 50 times per s
             self.screen = screen
             self.screen.nodelay (True)
+            cs.curs_set (False)
+            
             self.resize ()                      # Elementary timestep of simulation
             self.paddles = [Paddle (self, index) for index in range (2)]    # Pass game as parameter self
             self.ball = Ball (self)
@@ -194,7 +196,7 @@ class Game:
                 try:
                     self.key = self.screen.get_wch ()
                 except:
-                    pass 
+                    self.key = ''
                     
                 self.screen.clear ()
                 self.update (time - oldTime)   
@@ -213,7 +215,7 @@ class Game:
             elif self.key == enter:
                 self.scoreboard.reset ()                    #       Reset score
             elif self.key == escape:
-                self.exit ()                                #       End game                
+                self.exit ()                                #       End game
         else:                                               # Else, so if in active state
             for attribute in self.attributes:               #   Compute predicted values
                 attribute.predict ()
@@ -221,8 +223,8 @@ class Game:
             for attribute in self.attributes:               #   Correct values for bouncing and scoring
                 attribute.interact ()
                 
-            for attribute in self.attributes:               #   Commit them to pyglet for display
-                attribute.commit ()
+        for attribute in self.attributes:               #   Commit them to curses for display
+            attribute.commit ()
             
     def scored (self, playerIndex):             # Player has scored
         self.scoreboard.increment (playerIndex) # Increment player's points
@@ -231,14 +233,13 @@ class Game:
         for paddle in self.paddles:             # Put paddles in rest position
             paddle.reset ()
 
-        self.ball.reset ()                      # Put ball in rest position
+        self.ball.reset ()                      # Put ball in rest position 
         self.pause = True                       # Wait for next round
         
     def draw (self, x, y, text):
-        self.screen.addstr (str (tm.time ()))
         try:
             self.screen.addstr (
-                int (y * self.heightInChars / orthoHeight),
+                int (self.heightInChars - y * self.heightInChars / orthoHeight),
                 int (x * self.widthInChars / orthoWidth),
                 text
             )

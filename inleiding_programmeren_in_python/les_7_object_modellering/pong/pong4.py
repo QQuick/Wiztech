@@ -4,6 +4,9 @@ class Attribute:    # Attribute in the gaming sense of the word, rather than of 
         self.game.attributes.append (self)  # Insert each attribute into a list held by the game
 		
 	# ============ Standard interface starts here
+    
+    def install (self):
+        pass
 		
     def reset (self):
         pass    
