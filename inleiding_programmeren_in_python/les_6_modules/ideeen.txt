@@ -1,1 +1,0 @@
-Stateful grafische library, gebaseerd op turtle graphics.

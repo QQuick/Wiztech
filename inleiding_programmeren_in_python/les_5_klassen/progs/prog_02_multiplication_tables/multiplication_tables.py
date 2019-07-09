@@ -2,7 +2,7 @@ import random as rd
 
 test = False
 
-if test
+if test:
     tableNrs = range (2, 5)
     questionNrs = range (2, 5)
     requiredNrOfSuccessiveRightAnswers = 2
