@@ -1,0 +1,5 @@
+operator overloading
+exceptions
+comprehensions
+exceptions
+(matrixbewerkingen incl. inversie)

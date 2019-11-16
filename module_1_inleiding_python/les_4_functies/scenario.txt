@@ -1,0 +1,25 @@
+*** Eerst vertellen over functies in de wiskunde.
+'n Functie heeft 'n unieke uitkomst voor elke combi van param waarden.
+Voorbeelden average laten zien, code regel voor regel laten groeien, runnen uitleggen.
+
+*** Een functie kan ook een activiteit uitvoeren zonder een waarde terug te geven.
+Programma splitsen in deelfuncties (implementeren een deel van de functionaliteit).
+Een functie heeft normaal gesproken geen state, kan niets onthouden.
+Er zijn manieren om 'm stateful te maken (globals, in sommige talen statics) maar dat doen we niet.
+Als dat nodig is gebruiken we klassen en objecten.
+
+Turtle library demo'en, interactief.
+Dan klein programmaatje.
+En als ik nu liever lijn, driehoek, rechthoek, cirkel als primitieven wil.
+Code regel voor regel opbouwen.
+Beginnen met gebruik in toren.
+Uiteindelijk hele programma laten zien.
+
+***Functies in Python speciale mogelijkheden: keyword arguments.
+Voorbeeld keyword arguments zonder en met default params.
+***Kwargs (arbitrary args) voorbeeld.
+
+***Tafels met functional decomposition
+Stateless, dus vraag kan niet onthouden hoe vaak hij al goed beantwoord is.
+Globale variabelen of statics ongewenst.
+Top down ontwerp (opbouwen)

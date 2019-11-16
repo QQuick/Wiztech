@@ -1,4 +1,0 @@
-1. Hoewel eerst wordt aangegeven dat een tuple niet kan worden veranderd (immutable),
-   wordt later gezegd dat je in een tuple en in een list elementen kunt toevoegen.
-   Dat is niet zo, dat kan alleen bij een list maar niet bij een tuple.
-   
