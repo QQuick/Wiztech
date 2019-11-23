@@ -92,6 +92,10 @@ Daarna werken we de 2 [aanwijzen] weg, door -2 maal de tweede rij bij de eerste 
 
 Rechts staat dan de inverse [omcirkelen]. Als we die met een willekeurige righthandside vermenigvuldigen, vinden we de oplossingsvector x, y, z voor die righthand side, net als we x en y vonden voor twee vergelijkingen. Stel bijvoorbeeld dat de oorspronkelijke righthandside de vector 10, 20, -30 was [aanwijzen en uitleggen]. Dan is de oplossing [aanwijzen en uitleggen].
 
+Door een heleboel rekenwerk met letters in plaats van cijfers, om weer algemeen te zijn, blijkt: [* * = (1 0 0, 0 1 0, 0 0 1), uitleg]. En ook blijkt: de inverse van de inverse is de weer de matrix zelf, dus: M ^ -1 ^ -1 = M.
+
+[Slide 10]
+
 
 
 
