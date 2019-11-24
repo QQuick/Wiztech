@@ -127,15 +127,6 @@ De vierdimensionale of 22-dimensionale werkelijkheid heeft geen ruimtelijke, vis
 
 [Slide 15] We kunnen de paramatervoorstelling van een lijn ook kortweg zo noteren: x = s + lambda d [uitleg]. Stel lambda = 1, dan krijgen we dit [*], voor lambda = 2 [*] komen we hier terecht. [markeren]. Dan bijvoorbeeld lambda = 3 [*], lambda = 4 [*], lambda = -1 [*], lambda = -2 [*]. Dit punt [omcirkelen] hoort bij lambda = 0.
 
+Ook een vlak kunnen we definieren met behulp van parameters. S is de steunvector. [markeren]. door bij die steunvector lambda1  x d1 op te tellen, kunnen we ons langs deze lijn in het vlak bewegen. Door bij een vector naar deze lijn dan weer lambda2 x d2 op te tellen kunnen we elk punt van dit vlak bereiken.
 
-
-
-
-
-
-
-
-
-
-
-
+De parametervoorstelling van vlakken en lijnen blijkt heel handig te zijn bij het berekenen van hoe afbeeldingen van 3 dimensionale objecten op een computer-beeldscherm eruit zien. Dat komt in een latere cursus aan de orde. Maar laten we allereerst eens gaan kijken hoe we de computer aan het werk kunnen zetten om vergelijkingen op te lossen met matrices en vectoren. Dit zal uiteindelijk resulteren in het vermogen electronische schakelingen door te rekenen met 1 druk op de knop. Met zelfgeschreven software, wel te verstaan.
