@@ -1,0 +1,862 @@
+[Slide 1, Getallen]
+
+Welkom bij deze les over getallen, onderdeel van de Wiztech lessenserie.
+De Wiztech lessenserie gaat over de combinatie van wiskunde en techniek
+met een beetje aandacht voor wetenschap en veel aandacht voor het maken van computer-programma's.
+
+Mijn naam is Jacques de Hooge.
+
+Ons vertrekpunt is de vraag: "Wat zijn getallen nou eigenlijk".
+Meer specifiek: "Als het heelal er niet zou zijn, was het getal 3 er dan ook niet".
+
+Die vraag is moeilijker te beantwoorden dan je misschien denkt.
+Om te beginnen is er maar 1 getal 3, hoe groot het heelal ook is, net zoals jijzelf ook maar 1 keer bestaat.
+Maar hoewel ik vermoed dat ik er niet zou zijn als het heelal er niet was,
+ben ik van het getal 3 een stuk minder zeker.
+
+De bekende wiskundige Roger Penrose is van mening dat alle wiskundige concepten, inclusief getallen,
+al bestonden voordat de tastbare werkelijkheid er was.
+Nou is het begrip "voor" een lastig begrip, omdat er zonder heelal ook geen tijd is.
+
+Wat Penrose eigenlijk bedoelt, is dat hij gelooft in de zogenaamde grot-mythe van de griekse filosoof Plato.
+In een donkere grot brandt een vuur.
+In deze grot bevinden zich voorwerpen, waarvan de schaduwen op de muur zichtbaar zijn,
+steeds in beweging door het spel van de vlammen.
+Het resulterende schimmenspel is wat wij de werkelijkheid noemen.
+Maar elke schim is eigenlijk de afspiegeling van iets, dat Plato "de idee" noemt: het voorwerp zelf.
+Het vuur is niet eeuwig, maar de ideeenwereld wel.
+
+
+[Slide 2, Natuurkunde en Wiskunde]
+
+Wiskunde, zegt Penrose, is niets anders dan de ideeenwereld van Plato.
+Ook zonder heelal was 3 gewoon 3. 
+Alleen als we een heelal hebben, met daarin bijvoorbeeld 3 appels op een rijtje, of 3 kikkervisjes, of 3 sterrenstelsels, wordt de idee 3 zichbaar.
+
+De visie van Penrose houdt in dat de wiskundige feiten de werkelijkheid niet nodig hebben, maar omgekeerd wel:
+zonder wiskundige feiten geen werkelijkheid.
+Dit is minder raar dan het lijkt.
+De hele natuurkunde, en daarmee ook de biologie, is gebaseerd op kansen,
+Voorbeelden zijn de quantumfysica en de evolutietheorie.
+Kansen liggen op het terrein van de wiskunde.
+Zonder kansen geen natuurwetten.
+Zonder natuurwetten chaos.
+
+Maar er is nog iets, namelijk het vuur, dat in zekere zin de schaduwen schept.
+Omdat dit geen cursus religie is, ga ik daar niet verder op in.
+Dat zou ik ook niet echt kunnen, trouwens, want ik weet net zo min als wie dan ook hoe de werkelijkheid in elkaar zit.
+Iemand heeft eens tegen mij gezegt: "Jacques, jij omvat de werkelijheid niet, de werkelijkheid omvat jou."
+Ik denk dat dat klopt.
+
+
+[Slide 3, Spel]
+
+Een hele andere visie op wiskunde wordt gegeven door de volgende omschrijving:
+"Wiskunde is de manipulatie van betekenisloze symbolen volgens vaste regels" [omcirkelen]
+Eerlijk gezegd: een betere definitie van wiskunde ben ik nog nooit tegengekomen.
+Hij is diepzinnig, praktisch en nuchter tegelijk.
+
+In die opvatting is wiskunde een spel, waarvan we de regels zelf maken.
+Er is maar 1 "moeder van alle regels": De regels mogen niet met elkaar in strijd zijn.
+Het resulterende spel hoeft niets met de werkelijkheid van doen te hebben.
+We mogen best afspreken dat 1 en 1 3 is, als dat maar niet in strijd is met andere regels.
+[wij bepalen de regels onderstrepen]
+Dat is 't trouwens wel...
+
+Als het spel zo in elkaar zit dat het op de werkelijheid lijkt,
+dan noemen we het "een wiskundig model" van de werkelijkheid.
+Zo zijn alle wetmatigheden die samen de natuurkunde vormen, een model van de fysieke werkelijkheid.
+Soms blijken zulke modellen toch niet helemaal te kloppen.
+
+Albert Einstein gooide het zorgvuldig geconstrueerde model van de mechanica van Isaac Newton omver
+en maakte een spel dat nog beter met de waargenomen werkelijkheid klopte.
+Ook zijn spel bleek echter z'n beperkingen te hebben.
+Hij miskende de fundamentele rol van kansen in het heelal en liep daarmee,
+geniaal of niet, tegen zijn eigen grenzen aan.
+
+"God dobbelt niet...", zei hij, en verklaarde daarmee in feite transistors, computerchips etc. voor onmogelijk,
+want die zijn allemaal gebaseerd op de door Einstein verfoeide quantumfysica.
+Een mens kan zich vergissen.
+
+Wiskundige modellen benaderen de werkelijkheid, maar we hebben niet voor alles een passend model.
+Een bekende blinde vlek van onze modellen is het fenomeen "bewustzijn".
+Gevoed door de kunstmatige intelligentie hype zijn er wetenschappers die claimen te doorgronden hoe bewustzijn tot stand komt.
+Volgens mij wijst die claim juist op diepgaand onbegrip en hebben we te maken met een verschijnsel dat niet terug te voeren is op andere verschijnselen.
+Consensus is er in ieder geval niet, getuige schrijfsels van filosofen als Daniel Denett, David Chalmers en Alfred North Whitehead.
+Whitehead is mijn favoriet, al snap ik eerlijk gezegd nog niet de helft van wat hij schrijft.
+
+Het is trouwens nog helemaal niet zo makkelijk een wiskundespel te construeren waarvan de regels elkaar,
+of zichzelf, niet tegenspreken.
+Stel je eens voor dat iemand je vraagt een catalogus samen te stellen van alle catalogi die zichzelf niet vermelden.
+Moet je die catalogus er dan in opnemen?
+Als je dat doet, vermeldt hij zichzelf wel, en hoort hij er dus niet in thuis.
+Als je dat niet doet, tja..., dan hoort ie er wel in.
+Het is dus nooit goed, zie daar een intern tegenstrijdige definitie.
+
+Dit lijkt een speelgoedprobleem,
+maar ik kan je vertellen dat dit probleem onder wiskundigen heel wat discussie heeft veroorzaakt.
+De moderne wiskunde, inclusief getallenleer, is gebaseerd op verzamelingen:
+de verzameling van alle gehele getallen, de verzameling van alle even getallen etc.,
+maar ook verzamelingen van verzamelingen.
+Hoe weet je nou zeker dat je niet per ongeluk indirect een verzameling definieert
+van alle verzamelingen die zichzelf niet bevatten?
+
+De verzameling van alle verzamelingen, die zichzelf niet bevatten...
+Misschien een goed idee om 't filmpje even stil te zetten en iets gaan drinken, of gewoon een hap frisse lucht nemen...
+Of even de afwas doen?
+
+Met een intern tegenstrijdige definitie ben je, net als bij de catalogi, in de aap gelogeerd.
+De "wis" in wiskunde staat voor "gewis", dat betekent "zeker".
+In de wiskunde is de constatering "het klopt meestal wel zo'n beetje" is niet goed genoeg.
+Vandaar ook de "bewijsdrift" van wiskundigen.
+Dat is geen uit de hand gelopen hobby, maar bittere noodzaak.
+
+Vergeet niet dat wiskunde de basis vormt voor wetenschap en techniek,
+en daar zijn we met z'n allen steeds afhankelijker van, of we dat nu leuk vinden of niet.
+Als de wiskunde niet klopt, stort het hele bouwwerk als een kaartenhuis in elkaar.
+Software is extra gevoelig voor dit soort slordigheden, zoals iedereen weet, die z'n computer wel eens uit frustratie uit het raam wilde smijten.
+Is mijn diverse malen overkomen, maar ik heb het tot nu toe nooit echt gedaan...
+
+Het is mogelijk om te bewijzen dat er wiskundige waarheden zijn, die uit de basis spelregels voortvloeien, en die nooit kunnen worden bewezen.
+Als je ooit zin hebt om ergens je tanden in te zetten, zoek dan eens naar het bewijs van deze stelling.
+Hij heet de stelling van Goedel, en het bewijs staat op Internet, is nog geen beeldscherm lang, en is zonder specialistische voorkennis te volgen.
+Maar je moet wel zorgen dat je voldoende geslapen hebt.
+
+Voorlopig nemen we een praktische insteek: wiskunde ten dienste van wetenschap en techniek.
+We gaan er vanuit dat wiskundigen hun werk goed gedaan hebben, en dat het spel geen tegenstrijdige regels heeft.
+We spelen het wiskundespel volgens de regels, maar schromen niet om soms onze intuitie te gebruiken
+en in plaats van kleine stapjes een gedachtensprong te maken, geleid door ons boerenverstand.
+Voor alle duidelijkheid: boerenverstand is het mooiste verstand wat er is.
+
+Als we bezig zijn met wiskunde, wetenschap en techniek staan we in goed vertrouwen op de schouders van reuzen
+zoals Bertrand Russell, Isaac Newton en Albert Einstein.
+Met name wiskunde is naar mijn mening het meest fascinerende bouwwerk dat de mensheid ooit gebouwd heeft.
+
+Als je werkelijk wil snappen hoe dingen in elkaar zitten,
+en niet alleen maar vol ontzag naar mensen in witte jassen wil luisteren,
+die je het gevoel geven het toch NET NIET HELEMAAL te snappen,
+stap met je voeten in de modder en ga het avontuur aan dat wiskunde heet.
+Laat je niet afschrikken omdat je het op school niet begreep of omdat je leraar een hekel aan wiskunde of misschien aan mensen had.
+Het begin lijkt misschien saai, maar er komt een moment dat je door hebt wat je aan het doen bent en wat je ermee kunt.
+En dan wordt het opeens leuk. Heel leuk.
+
+[Slide 4, + en x]
+
+We beginnen ons wiskunde modderbad met het fenomeen "optellen".
+Als je twee getallen, bijvoorbeeld 3 en 4, [aanwijzen] bij elkaar optelt, dan heten dat "de termen" van de optelling.
+Het resultaat heet "de som". [aanwijzen]
+Let wel, zowel het woord "termen" als het woord "som" worden hier niet in hun alledaagse betekenis gebruikt.
+Als de termen 3 en 4 zijn, is de som 7.
+Maar waarom eigenlijk.
+
+[Appels erbij]
+
+De overeenkomst tussen het woord tellen en het woord getallen is niet toevallig.
+Uiteindelijk vormt tellen de basis voor al het gereken.
+Als ik een groepje heb van 3 appels, 1, 2, 3 [tellen met streepjes] en dan nog een groepje van 4 appels, 1, 2, 3, 4 [tellen met streepjes],
+dan heb ik in het totaal 1, 2, 3, 4, 5, 6, 7 appels [tellen met streepjes].
+Optellen is dus eigenlijk gewoon doortellen vanaf waar je gebleven bent.
+1 2 3 [aanwijzen](hier ben ik gebleven na het eerste groepje) en dan doortellen bij het tweede groepje (dus niet weer op 1 beginnen) 4, 5, 6, 7 [aanwijzen].
+Blijkbaar is 3 plus 4 7, daar komen we achter door te tellen.
+
+Misschien ben je 't vergeten, maar als kind heb je dit allemaal moeten leren, en nu denk je er misschien niet eens meer over na.
+Toch is 't goed om je te realiseren waar dingen vandaan komen.
+
+[Vermenigvuldiging erbij]
+
+We kijken vervolgens naar vermenigvuldigen.
+Dingen die je met elkaar vermenigvuldigt heten "factoren" [aanwijzen] en wat er uitkomt heet "product" [aanwijzen].
+Ook hier worden de woorden weer anders gebruikt dan in hun alledaagse betekenis.
+Het is belangrijk om dit soort vaktermen te leren kennen, omdat je op die manier met anderen over wiskundige onderwerpen kunt praten.
+Nog belangrijker is dat de juiste woorden je ook helpen om over wiskundige onderwerpen te redeneren.
+Want redeneren doen we vaak met woorden, al is 't vaak niet hardop.
+Het is lastig na te denken over dingen waarvoor je niet de juiste woorden weet.
+Trouwens, als ik ergens echt diep over nadenk, helpt het me vaak om juist wel hardop te denken.
+
+[Appels erbij]
+
+Ook vermenigvuldigen is weer gebaseerd op tellen, kijk maar.
+3 rijen [streepjes] van elk 4 appels [streepjes], we leggen ze even achter elkaar en gaan dan tellen:
+1, 2, 3, 4     5, 6, 7, 8,    9, 10, 11, 12 [streepjes]
+Vermenigvuldigen is dus eigenlijk gewoon herhaald optellen.
+Als we 3 met 4 vermenigvuldigen, maken we 3 groepjes van 4, [aanwijzen] en tellen die bij elkaar op.
+
+[Slide 5, Comm. eig.]
+
+Voor optellen en vermenigvuldigen gelden een aantal eigenschappen.
+Als je wiskunde ziet als een spel dat we zelf hebben gemaakt, kun je ze ook spelregels noemen.
+Spelregel 1 is de "commutatieve eigenschap", die zegt dat 3 + 4 hetzelfde getal oplevert als 4 + 3.
+
+Je mag de termen van een optelling dus verwisselen [wisselpijltjes], zonder dat de som, dus het resultaat, verandert.
+Dat is hier in beide gevallen 7. [erachter schrijven]
+Als we er vanuitgaan dat de wiskunde een model is voor de werkelijkheid van de appels,
+kunnen we weer gaan tellen:
+
+[Appels erbij]
+
+1 2 3     4 5 6 7  of     1 2 3 4    5 6 7
+
+Hee, allebei 7 [erachter schrijven]
+Tja, ls je het totaal aantal appels wil berekenen maakt het natuurlijk niet uit in welke volgorde je de groepjes legt.
+De commutatieve eigenschap spreekt dus eigenlijk vanzelf, als je naar de fysieke werkelijkheid kijkt en je boerenverstand gebruikt, en dat mag.
+Bedenk echter dat de waarheden van de wiskunde de fysieke werkelijkheid niet nodig hebben.
+
+Je kunt het feit dat je bij een optelling de termen mag verwisselen inderdaad opvatten
+als een afgesproken spelregel die geen appels of wat dan ook nodig heeft om geldig te zijn.
+
+Het blijkt dan, dat optelling met deze spelregel dan een goed wiskundig model vormt van het verwisselen van groepjes appels.
+Dat had niet persee gehoeven, maar 't is wel zo praktisch.
+
+Of je kunt de commutatieve eigenschap zien als "de commutatieve idee".
+Want als het vuur van de oerknal er niet was, was 3 + 4 nog steeds het zelfde als 4 + 3, er waren alleen geen appels, peren of ander fruit.
+
+[Vermenigvuldiging erbij]
+
+Ook voor vermenigvuldiging is er een commutatieve eigenschap of commutatieve spelregel.
+En ook deze spelregel past goed bij de fysieke werkelijkheid.
+
+[Appels erbij]
+
+We weten uit ervaring dat iemand die een kistje met 1 2 3 [streepjes] rijtjes van 1 2 3 4 [streepjes ]appels koopt,
+niet beter of slechter uit is dan iemand die een kistje met 1 2 3 4 [streepjes] rijtjes van 1 2 3 [streepjes] appels koopt.
+Sterker nog, die aankopen zijn niet van elkaar te onderscheiden,
+het is gewoon een kwestie van het fruitkistje op z'n kant houden [rotatiepijltje bij linker kistje].
+Zie daar de commutatieve eigenschap van de vermenigvuldiging:
+de factoren mogen worden verwisseld, maar het product blijft hetzelfde.
+
+De commutatieve eigenschap wordt ook wel de verwissel eigenschap genoemd, omdat de getallen worden verwisseld.
+Een commuter, in het Engels, is iemand die elke dag heen en weer rijdt tussen woonplaats en werk.
+Hij wisselt 1 keer per dag de plaats van vertrek en de plaats van bestemming om.
+Van A naar B, van B naar A en zo verder.
+Ook sommige electromotoren hebben een commuter.
+Die wisselt steeds plus en min om.
+Etymologie, de oorsprong van, en relatie tussen, woorden is belangrijk.
+Het helpt je om beter te begrijpen en te onthouden wat de betekenis van dingen is.
+
+Commutatieve eigenschap.
+Verwisseleigenschap.
+Geldt bij optellen en vermenigvuldigen.
+
+[Slide 6, Ass. Eig.]
+
+Een andere spelregel die zowel voor optellen als vermenigvuldigen geldt, is de associatieve eigenschap.
+Laten we eens kijken hoe dat zit bij optelling.
+
+Associeren is groepjes maken.
+Een associatie is een groep.
+Denk aan het woord sociaal.
+Een mens is een sociaal dier, hij leeft in groepen.
+Misschien denk je bij associatie aan asociaal, maar dat schrijf je anders.
+Het heeft maar 1 s in plaats van 2 en betekend juist: "niet sociaal".
+Lekker verwarrend, maar goed, associeren is dus groepjes maken.
+
+Groepjes maken in een berekening doen we met haakjes.
+Je mag eerst 2 bij 3 optellen [aanwijzen], dat is 5 [erboven schrijven met lijnen],
+en dan nog 4 erbij doen, dan heb je 9 [erboven schrijven met lijnen].
+
+Je mag ook eerst de 3 en de 4 optellen, dat is 7 [erboven schrijven met lijnen],
+en dan nog 2 erbij, dan heb je ook 9 [erboven schrijven met lijnen].
+
+Welke groepjes je maakt, maakt dus niet uit: De associatieve eigenschap van de optelling.
+
+Als je goed hebt opgelet, zie je dat ik stiekem ook gebruik maak van de commutatieve eigenschap.
+Immers, ik zeg 3 + 4 [aanwijzen], en dan nog 2 [aanwijzen] erbij,
+en niet: 2 [aanwijzen] en dan nog 3 + 4 [aanwijzen] erbij.
+Dus ik verwissel stilletjes de volgorde, want dat maakt niet uit voor het resultaat, volgens de commutatieve eigenschap, de verwissel eigenschap.
+
+De associatieve eigenschap zou ik ook de groepeer eigenschap kunnen noemen.
+Ik mag in een optelling de termen zo groeperen als ik wil, het resultaat (de som, noemden we dat bij optelling) blijft het zelfde.
+
+[Appels erbij]
+
+Ook de associatieve eigenschap klopt mooi met de werkelijkheid van appels, peren, knollen en citroenen.
+Uiteraard maakt het niet uit welke appels je bij elkaar legt en in welke volgorde je de groepjes appels legt.
+Het blijven evenveel appels.
+
+1 2,    3 4 5 [streepjes] en dan een nieuw groepje  6 7 8 9 [streepjes] is hetzelfde als
+1 2 [streepjes] en dan een nieuw groepje 3 4 5,   6 7 8 9 [streepjes] 
+
+Misschien vraag je je af waarom we zoveel aandacht besteden aan zulke vanzelfsprekende dingen.
+We zullen echter in de vervolglessen wiskundige concepten tegenkomen waarvoor sommige spelregels niet gelden,
+en die toch een goed model van de werkelijkheid vormen.
+Een voorbeeld zijn matrices en vectoren.
+Dat zijn geen losse getallen, maar hele blokken met getallen, die veel in computerberekeningen worden gebruikt.
+Nog een stukje etymologie, woordbetekenis: "to compute" betekent "berekenen".
+Een computer is vooral een rekenmachine.
+Hij rekent zich een breuk, ook als je een filmpje zit te kijken of zit te chatten.
+
+[Vermenigvuldiging erbij]
+
+Ook voor vermenigvuldiging geldt de groepeer eigenschap, de associatieve eigenschap.
+Ook daar mag je haakjes zetten waar je wilt.
+
+2 x 3 = 6 [erboven schrijven met lijnen] x 4 = 24 [erboven schrijven met lijnen]
+is hetzelfde als
+3 x 4 = 12 [erboven schrijven met lijnen] en dan x 2 = 24 [erboven schrijven met lijnen]
+
+[Appels erbij]
+
+Als ik van onder tegen het eerste kistje appels aankijk [pijltje van onder tekenen], zie ik precies hetzelfde als wanneer ik
+bij het tweede kistje appels recht het scherm in kijk [perspe], namelijk 2 lagen van elk 3 bij 4 is 12 appels, totaal 24 appels.
+
+De witte vlakken geven de manier van groeperen aan.
+2 x 3 appels in een wit kartonnetje, en dan twee 4 van die kartonnetjes, leveren blijkbaar evenveel appels als 2 witte kartonnetjes met elke 3 x 4 appels.
+De associatieve eigenschap van de vermenigvuldiging doet recht aan dit feit.
+(2 x 3) x 4 [aanwijzen] is 2 x (3 x 4) [aanwijzen].
+
+Conclusie: willekeurige groepjes maken mag, zowel bij optellen als bij vermenigvuldigen.
+Maar het mag niet als je in 1 berekening zowel optelling als vermenigvuldiging hebt.
+Let op.
+
+[Slide 7, Distr. Eig.]
+
+Hoe zit het, als je in 1 expressie zowel optelling als vermenigvuldiging hebt.
+2 x (3 + 4) is 2 x 7 = 14 [groene cirkel om 3 + 4, 2 x 7 = 14 erboven schrijven in groen]
+(2 x 3) + 4 is 6 + 4 = 10 [rode cirkel om 2 x 3, 6 + 4 erboven schrijven in rood]
+Dat is iets heel anders.
+Overigens, als ik de haakjes weglaat is het alsof ze om de 3 en de 4 staan [aanwijzen], dus zoals de rode cirkel aangeeft.
+Altijd eerst alle vermenigvuldigingen uitvoeren, dan de optellingen, tenzij er haakjes om een optelling staan, dan gaat hij voor.
+In dit geval staan er haakjes dus de optelling moet eerst, zoals de groene cirkel [aanwijzen] aangeeft.
+
+Wat wel geldt, is de zogenaamde "distributieve" eigenschap, de verdeel-eigenschap.
+Denk aan bijvoorbeeld de distributieriem in een ouderwetse verbrandingsmotor.
+Die verdeeld de kracht van de motor over de dynamo en de waterpomp.
+Distributieve eigenschap, verdeeleigenschap.
+
+Die werkt zo:
+2 x (3 + 4) [pelikaanpijlen erboven] = 2 x 7 [erboven schrijven] = 14 [erboven schrijven]
+is
+2 x 3 + 2 x 4 [losse pelikaanpijlen erboven] [6 boven 2 x 3 schrijven] [+     8 boven 2 x 4 schrijven] [14 erboven schrijven] 
+
+We kunnen dit weer domweg opvatten als een spelregel.
+Echter omdat de regels in de wiskunde zo gekozen zijn dat ze met de werkelijkheid van appels, kikkervisjes en stoeptegels kloppen,
+kunnen we ook hier weer een plaatje van tekenen.
+
+[Appels erbij]
+
+2 groepjes van elk 3 + 4 appels [streepjes achter 2 linker witte vlakken]
+leveren evenveel appels als een groepje van 2 x 3 appels [streepjes] en dan nog een groepje van 2 x 4 appels [streepjes].
+
+De andere kant op heet de distributieve eigenchap trouwens "buiten haakjes halen":
+2 x 3 + 2 x 4 [2-en aanwijzen] = 2 x (3 + 4) [2 en 3 + 4 aanwijzen], de 2 is buiten de haakjes gehaald.
+
+Tot nu toe werken we trouwens steeds met getalvoorbeelden.
+Als ik laat zien dat 2 x (3 + 4) [aanwijzen] het zelfde getal voorstelt als 2 x 3 + 2 x 4 [aanwijzen], namelijk 14,
+dan ga ik er stilzwijgend vanuit dat iets dergelijks ook geldt voor 7 x (10 + 15).
+
+Helemaal vanzelfsprekend is dat niet.
+Uit het feit dat bijvoorbeeld 2 + 2 gelijk is an 2 x 2, namelijk in beide gevallen 4,
+mag je niet constateren dat 3 + 3 ook gelijk is aan 3 x 3, want 3 + 3 is 6, maar 3 x 3 is 9.
+
+Het lijkt erop dat we op zoek moeten naar een manier om expliciet duidelijk te maken,
+dat bepaalde regels voor ALLE getallen gelden en andere niet.
+
+Die manier bestaat, we komen dan bij iets dat in de wiskunde een "variabele" wordt genoemd.
+
+[Slide 8, Variabelen]
+
+Variabelen zijn letters dien onbekende getallen voorstellen. ["letters" en "onbekende getallen" dun geel ondertrepen]
+
+[Spelregels met getallen erbij]
+
+Hier staan weer onze 3 spelregels voor optellen en vermenigvuldigen, uitgeschreven als getalvoorbeelden.
+- De commutatieve eigenschap voor optellen: 3 + 4 = 4 + 3 [aanwijzen]
+  en voor vermenigvuldigen: 3 x 4 = 4 x 3 [aanwijzen]
+- De associatieve eigenschap voor optellen: (2 + 3) + 4 = 2 + (3 + 4) [aanwijzen]
+  en voor vermenigvuldigen: (2 x 3) x 4 = 2 x (3 x 4) [aanwijzen]
+- De distributieve eigenchap voor een combinatie van optellen en vermenigvuldigen: 2 x (3 + 4) = 2 x 3 + 2 x 4 [aanwijzen].
+
+We kunnen deze spelregels ook opschrijven met letters, variabelen dus...
+
+[Met variabelen erbij]
+
+We vervangen elk getal door een letter, gelijke getallen krijgen gelijke letters, verschillende getallen krijgen verschillende letters.
+Het ziet er dan vervolgens allemaal heel abstract uit, en misschien ook een beetje eng,
+maar als je in gedachten alle letters weer door getallen vervangt, zijn 't natuurlijk gewoon dezelfde expressies.
+'t Enige is dat je nu expliciet hebt duidelijk gemaakt dat die getallen willekeurige getallen mogen zijn.
+Immers, de informatie WELKE getallen er stonden, is verloren gegaan.
+Je kunt a vervangen door 3 [aanwijzen], maar ook door -3 1/2.
+
+Daarmee is het duidelijk dat a + b = b + a wel waar is, maar a + a = a x a niet,
+omdat je dan de a bijvoorbeeld door 3 zou moeten kunnen vervangen,
+en 3 + 3 is nu eenmaal 6 en 3 x 3 is negen.
+2 + 2 is toevallig wel 2 x 2, maar het is geen algemene regel, die voor elk willekeurig getal a geldt.
+
+Als we dan toch met letters in plaats van cijfers werken, om duidelijk te maken dat de regels algemeen geldig zijn,
+dan is er nog een versimpeling mogelijk, namelijk het weglaten van het maal teken.
+
+[Met maal-teken weglaten erbij]
+
+Bij cijfers kan dat niet: 2 x 3 is iets anders dan 23 [opschrijven met rood].
+Maar a x b kun je zonder verwarring schrijven als a b omdat je weet dat elke letter precies 1 getal voorstelt.
+Dus als je twee letters achter elkaar ziet staan, dan weet je dat dat twee verschillende getallen zijn, a en b, bijvoorbeeld [aanwijzen]
+
+[Rechthoek om alle formules in het blok maal-teken weglaten]
+
+Dit zijn dan de uiteindelijke formules die de commutatieve eigenschap [aanwijzen regel 1],
+de associatieve eigenschap [aanwijzen regel 2],
+en de distributieve eigenschap [aanwijzen regel 3]
+vastleggen.
+Het is belangrijk dat je deze formules kent, zowel voor optellen als vermenigvuldigen.
+Leer ze uit je hooft, hang ze boven je bed of wat dan ook.
+Het zijn echt basisgereedschappen bij het rekenen met formules.
+De formules uit dit onderste blok dus [aanwijzen]
+
+[Slide 9, Afleiding van aanvullende spelregel]
+
+Uit de bestaande spelregels voor optellen en vermenigvuldigen zijn nieuwe af te leiden.
+
+[1e deel van blok erbij]
+
+Bijvoorbeeld:
+We hebben de distributieve eigenschap met de gemeenschappelijke factor a links [1e regel aanwijzen]
+en de commutatieve eigenschap [2e regel aanwijzen]
+
+De commutatieve eigenschap heeft tot gevolg dat we bij de distributieve eigenschap deze factoren [wisselpijltjes bij a en (b + c)]
+en deze factoren [wisselpijltjes bij ab en ac] mogen omwisselen.
+Als we dit doen, krijgen we een "nieuwe" commutatieve eigenschap, met de gemeenschappelijke factor a rechts. [aanwijzen]
+
+De originele [aanwijzen] wordt wel de links distributieve eigenschap genoemd, omdat de gemeenschappelijke factor links staat.
+De nieuw afgeleide [aanwijzen] wordt wel de rechts distributieve eigenschap genoemd, omdat de gemeenschappelijke factor rechts staat.
+Omdat ze dankzij de commutatieve eigenschap in feite gelijkwaardig zijn, noemen we ze samen kortweg "de distributieve eigenschap".
+Daarbij mag de gemeenschappelijke factor dus links [aanwijzen] of rechts [aanwijzen] staan.
+
+[2e deel van blok erbij]
+
+Omdat a, b en c willekeurige getallen voorstellen, mogen we ook best andere letters gebruiken.
+Daarmee kunnen we de zaak weer in alfabetische volgorde zetten, (a + b) x c is a x c + b x c [aanwijzen].
+
+Omdat deze rechts distributieve eigenschap volgt uit de links distributieve eigenschap, de we al hadden,
+en de commutatieve eigenschap, die we ook al hadden, hoeven we hem niet apart te vermelden.
+Het is geen basisregel, hij volgt gewoon uit twee andere regels.
+
+Basis spelregels worden ook wel axioma's genoemd, en afgeleide spelregels stellingen.
+Stellingen kunnen bewezen worden uit axioma's, zoals we net hebben gedaan met de rechts distributieve eigenschap.
+
+Als je vertrouwd raakt met bepaalde takken van wiskunde, zoals het rekenen dat we hier doen,
+weet je vaak niet eens meer wat nu basisregels waren en wat afgeleide regels.
+Uiteindelijk worden de rekenregels vaak zo vanzelfsprekend dat je er helemaal niet meer over na hoeft te denken.
+Maar ooit hebben we ze bedacht (of ontdekt), afhankelijk van of je wiskunde als een spel of als een verzameling Platoonse ideeen ziet.
+
+In feite komen die beide visies trouwens op 't zelfde neer.
+Zowel de spelregels als de ideeen van de wiskunde zijn immers onderworpen aan de regels van de logica.
+En dat zijn eigenlijk de regels die we bij ons eigen analytisch denken hanteren.
+Wiskunde is dus in feite de weerspiegeling van onze eigen manier van analytisch denken.
+
+Er bestaan ook andere manieren van denken, of misschien moet ik zeggen: gewaar worden.
+Daarmee is het mogelijk waarheden te ervaren die buiten de logica liggen.
+Ons logisch redeneervermogen mag dan een krachtig middel zijn,
+die andere waarheden hebben meer met doel en zin te maken, en zijn daarmee zeker zo belangrijk.
+
+Kopje thee? Stukje chocola?
+
+[Slide 10, Neutrale elementen]
+
+We gaan twee nieuwe wiskundige beesten leren kennen, namelijk het neutrale element van de optelling en het neutrale element van de vermenigvuldiging.
+
+[1e deel van 1e blok erbij]
+
+Voor 't neutrale element van de optelling, het symbool daarvoor is 0, geldt dat je 't ergens bij kunt optellen zonder dat dat iets verandert.
+Dus a + 0 is weer gewoon a. [aanwijzen].
+
+[Dus ook erbij]
+
+Als we de commutatieve eigenschap voor de optelling er weer in betrekken, en de a en de 0 omwisselen (dat mag voor elke a en b, dus ook voor a en 0)
+dan krijgen we 0 + a = 0. [aanwijzen]
+
+Er is ook een neutraal element van de vermenigvuldiging.
+
+[1e deel van 2e blok erbij]
+
+Het symbool daarvoor is 1.
+Als je een willekeurig getal a hiermee vermenigvuldigt blijft 't gewoon a. [aanwijzen]
+Ook hier kun je met behulp van de commutatieve eigenschap [aanwijzen] weer een afgeleide regel vinden,
+
+[Dus ook erbij]
+
+dit maal als je voor b 1 invult, namelijk 1 x a = a. [aanwijzen]
+
+[Slide 11, inversen]
+
+Het bestaan van het neutrale element van de optelling, 0, maakt 't mogelijk een ander wiskundig concept (zeg maar ding, of begrip) te definieren, namelijk de "additieve inverse".
+"Additief" komt van additie, optelling. Denk aan additieven, stoffen die je ergens aan toe voegt, bijvoorbeeld kleur- of smaakstoffen.
+Inverse betekent omgekeerde, denk bijvoorbeeld aan smogvorming als er in de atmosfeer op honderden meters hoogte een inversielaag aanwezig is, waar het temperatuurverloop omgekeerd is.
+
+De additieve inverse van een getal a [aanwijzen] wordt aangeduid met -a [aanwijzen]
+en is gedefinieerd als het getal waarvoor geldt dat, als je 't bij a optelt, de som gelijk wordt aan 0 [aanwijzen].
+Zoals we op de vorige slide zagen, is 0 het neutrale element van de optelling.
+De naam "inverse", "omgekeerde" is niet zo gek. Eerst gaan we a omhoog en dan, omgekeerd, weer a naar beneden, waardoor we weer precies op 0 uitkomen.
+
+[2e helft blok 1 erbij]
+
+Door in de commutatieve eigenschap b te gebruiken als aanduiding voor het getal -a, blijkt dat ik a en -a mag verwisselen [pijltjes]
+Omdat a dus ook het getal is dat ik bij -a moet optellen om 0 te krijgen, is a ook de additieve inverse van -a.
+Oftewel a en -a zijn additieve inversen van elkaar.
+
+We mogen de additieve inverse in plaats van -a ook schrijven als -1 x a. Dit betekent, per definitie, precies hetzelfde.
+
+De zinsnede "per definitie" verdient wel wat uitleg.
+"Per definitie" wordt in het populaire taalgebruik vaak misbruikt als rechtvaardiging van iets dat de iemand "vanzelfsprekend" vindt.
+Maar "per definitie" betekent letterlijk gewoon: omdat we het nou eenmaal zo hebben afgesproken.
+De uitspraak dat bijvoorbeeld bepaalde politieke denkbeelden PER DEFINITIE slecht zijn, is dus per definitie van de uitdrukking PER DEFINITIE vokomen betekenisloos,
+tenzij we afspreken, dat iets SLECHT is als we AFSPREKEN dat 't slecht is, en daar lijkt het trouwens wel eens op.
+
+[Blok 2 erbij]
+
+Op dezelfde manier als bij de additieve inverse, kunnen we een multiplicatieve inverse definieren.
+De multiplicatie inverse is het getal waarmee je a [onderstrepen] moet vermenigvuldigen
+om 1 [onderstrepen], het neutrale element van de vermenigvuldiging, te krijgen.
+We duiden de multiplicatieve inverse van a aan met 1/a [onderstrepen], ook wel geschreven als a^-1 [onderstrepen].
+Let op, of je nu 1/a of a^-1 schrijft, 't zijn per definitie allebei aanduidingen voor 't zelfde getal, de multiplicatieve inverse van a.
+
+[2e helft blok 2 erbij]
+
+Vanwege de commutatieve eigenschap mag ik beide factoren weer verwisselen [pijltjes erbij] en geldt ook 1/a x a = 1.
+
+Omdat a blijkbaar ook het getal is dat ik met 1/a moet vermenigvuldigen om 1 te krijgen,
+is a ook de multiplicatieve inverse van 1/a.
+Dus 1/a is de multiplicatieve inverse van a en a is de multiplicatieve inverse van 1/a.
+Oftewel a en 1/a zijn multiplicatieve inversen van elkaar.
+
+[Slide 12: -1 x -1 = 1]
+
+We komen bij een nieuwe spelregel: -1 x -1 = 1.
+Laten we is kijken wat de gevolgen daarvan zijn.
+
+[Blok 1 erbij, alleen "gevolgen"]
+
+[Blok 1 1e formule erbij (na korte tijd)]
+
+Als ik de additieve inversen van a en b met elkaar vermenigvuldig, dus -a x -b [onderstrepen]
+dan mag ik die factoren -a en -b ook noteren als -1 x a en -1 x b. [aanwijzen]
+Vervolgens pas ik de commutieve eigenschap toe, oftewel ik ga factoren verwisselen [pijltjes, resultaat aanwijzen].
+Met mijn nieuwe spelregel mag ik -1 x -1 vervangen door 1 [aanwijzen].
+En omdat 1 het neutrale element van de vermenigvuldiging is, is 't resultaat gelijk aan a x b [onderstrepen],
+want x 1 verandert niks aan 't resultaat.
+
+Kortweg: -a x -b [aanwijzen] = a x b [aanwijzen].
+Deze afgeleide regel staat bekend als "min maal min is plus",
+en nu weet je dus waarom die geldt, namelijk vanwege de basisafspraak dat -1 x -1 gelijk is aan 1, in combinatie met de commutatieve eigenschap.
+Dan rolt "min maal min is plus" er vanzelf uit.
+
+Hier hoef je echt niet altijd diep over na te denken, maar 't is maar dat je weet wat wiskunde is:
+manipulatie van betekenisloze symbolen volgens vaste regels.
+Hoe zo betekenisloos? a en b zijn toch getallen.
+Zeker, maar wat is nou eigenlijk een getal, als we nu eens geen appels, sterrenstelsels of yoghurtpakken hadden om te tellen?
+Een betekenisloos symbool, dat we mogen manipuleren volgens vaste regels, of niet soms...
+
+Je mag het met me oneens zijn hoor, een onderzoekende, kritische geest is het begin van alle kennis...
+Wat ik je vertel is alleen maar een vertrekpunt voor je eigen zoektocht.
+
+[Blok 1, 2e formule erbij]
+
+Nog eentje, -a x b [onderstrepen]
+= (-1 x a) x b [aanwijzen] (ander notatie voor additieve inverse -a)
+= -1 x (a x b) [aanwijzen] (associatieve eigenschap, andere groepjes maken dus, door de haakjes te verplaatsen)
+= -ab [onderstrepen], kortere notatie voor additieve inverse, let wel a x b [aanwijzen] of, korter genoteerd a b [aanwijzen] is gewoon 1 getal.
+
+[Blok1, 3e formule erbij]
+
+En, in combinatie met de commutatieve eigenschap, de verwisseleigenschap:
+a x -b [onderstrepen]
+= a x (-1 x b) [aanwijzen] (andere notatie voor additieve inverse -a)
+= -1 x (a x b) [aanwijzen] (verwisselen [pijltje] en andere groepjes maken, met andere woorden commutatieve eigenschap en associatieve eigenschap)
+= -ab [onderstrepen] (andere notatie voor additieve inverse en x teken weglaten)
+
+[Slide 13: afgeleide bewerkingen - en :]
+
+De additieve en multiplicatieve inversen stellen ons in staat 2 nieuwe bewerkingen te definieren, aftrekken en delen.
+Allereerst aftrekken.
+
+[Blok 1 1e regel erbij]
+
+a - b [aanwijzen] is per definitie a + -b [aanwijzen]
+De "delta is" met [aanwijzen] met de griekese hoofdletter delta [erbij schrijven] betekent: is "per definitie gelijk aan"
+
+[2e regel erbij]
+
+c heet het verschil van a en b en a en -b (dus niet b) heten de termen, omdat a - b gedefinieerd is als de som (optelling) van a en -b.
+
+[Thermometer erbij]
+
+Aftrekken of het werken met negatieve getallen kun je je handig voorstellen met een thermometer.
+Als het 30 graden boven nul is en trekt daar 50 graden vanaf (of telt er -50 graden bij, want dat is per definitie hetzelfde, a - b is immers per definitie a + -b),
+dan is de resulterende temperatuur 20 graden onder nul. -20 graden dus.
+30 - 50 is -20. Of 30 + -50 = -20.
+
+[Blok 2 1e regel erbij]
+
+Ook voor vermenigvuldigen valt een afgeleide bewerking te definieren die precies het omgekeerde doet, namelijk delen.
+a : b [aanwijzen] (wat je trouwens bij afspraak ook mag schrijven als a / b [aanwijzen] of als a / b onder elkaar [aanwijzen])
+is per definitie hetzelfde als als a x 1/b [aanwijzen], wat je, zoals behandeld op een eerdere sheet, ook mag schrijven als a b^-1.
+Let wel, die "tot de min eerste" geldt alleen voor b.
+Eerst machtsverheffen [omcircel a^-1] (zo heet dat) en dan pas vermenigvuldigen [aanwijzen] is de regel.
+Delen door iets is vermenigvuldigen met de inverse, dus a : b [weer onderstrepen] = a x 1/b.
+Wat in grijs is afgedrukt [aanwijzen] zijn alleen maar andere notaties voor wat in zwart is afgedrukt.
+
+[2e regel erbij]
+
+Bij delen hebben we wat meer nieuwe termen.
+Datgene wat je deelt heet het deeltal [aanwijzen]
+Dat waar je door deelt heet deler [aanwijzen]
+De uitkomst heet quotient [aanwijzen]
+
+[Taart en kinderen erbij]
+
+Stel ik heb 2 taarten, dan is het deeltal, a dus, 2.
+Stel ik verdeel die 2 taarten onder 20 kinderen, dan is de deler, b dus, 20.
+Ieder kind krijgt dan het quotient, namelijk 1/10 taart, wat bij zulke grote taarten en kleine kinderen best wel veel is.
+2 : 20 = 1/10, of ook wel 10^-1, dat betekent gewoon hetzelfde bij afspraak, niks achter zoeken,
+het is gewoon een afgesproken schrijfwijze, nu nog een beetje raar, maar later blijkt ie nuttig te zijn.
+
+[Slide 14: Beperkingen van - en :]
+
+De bewerkingen aftrekken en delen blijken minder handelbaar te  zijn dan optellen en vermenigvuldiging.
+
+[1e blok erbij]
+
+Zo is aftrekken niet associatief.
+(3 - 2) -1 = 1 - 1 = 0 [Stapsgewijs aanwijzen]
+maar
+3 - (2 - 1) = 3 - 1 - 2 [Stapsgewijs aanwijzen]
+Het resultaat hangt blijkbaar af van hoe je de haakjes plaatst.
+Dit blijkt bij veel berekingen onhandig te zijn, omdat je dingen niet zo makkelijk kunt herrangschikken.
+
+Gelukkig kun je
+(3 - 2) - 1 [aanwijzen]
+ook schrijven als
+(3 + -2) + -1 =  1 + -1 = 0 [stapsgewijs aanwijzen] net als de eerste aftrekking [aanwijzen]
+Immers ergens iets vanaf trekken is gedefineerd als de additieve inverse erbij tellen.
+En dan mag je de haakjes plaatsen waar je wilt, want voor optelling geldt wel de associatieve eigenschap:
+3 + (-2 + -1) = 3 + -3 = ook 0 [stapsgewijze aanwijzen]
+We zijn dus niet zo dol op aftrekken en schrijven dat soms liever als optelling van de additieve inverse.
+
+Een zeker zo belangrijk voordeel van optellen boven aftrekken blijkt als we
+in latere modules van deze lessenserie computerprogramma's gaan maken die berekeningen voor ons doen.
+Consequent werken met optelling in plaats van aftrekking leidt op veel plaatsen tot code die eenvoudig,
+regelmatig en kort is.
+
+En als we nou eens 3 - (2 - 1) bedoelen?
+Nou, dat is 3 + -(2 - 1) [aanwijzen], dat betekent 3 + -1 x (2 -1) [aanwijzen] en dat is 3 + -1 x 2 + -1 x -1 [aanwijzen]
+volgens de distributieve eigenschap
+
+= 3 + -2 + 1 = 2 [eronder schrijven], ook gewoon een optelling dus.
+Weg met die verwarrende haakjes!
+Gewoon alles schrijven als optelling en haakjes verdwijnen als sneeuw voor de zon.
+Eenvoud is het kenmerk van 't ware.
+
+[2e blok erbij]
+
+Aftrekken is trouwens ook niet commutatief.
+3 - 2 = 1 [aanwijzen]
+maar 2 - 3 = -1 [aanwijzen]
+
+Wanneer we de eerste aftrekking omzetten in een optelling,
+geldt de commutatieve eigenschap wel:
+3 + -2 = 1 [aanwijzen]
+-2 + 3 is ook 1 [aanwijzen]
+
+En 2 - 3 dan?
+Dat is 2 + -3 = -1 [erbij schrijven] net als -3 + 2 [erbij schrijvenj]
+
+Ook hier is optellen van de additieve inverse in plaats van aftrekken vaak veel handiger.
+
+[3e blok erbij]
+
+Ook delen is niet associatief
+(8 : 4) : 2 = 4 : 2 = 2 [stapsgewijs aanwijzen]
+maar
+8 : (4 : 2) = 8 : 2 = 4 [stapsgewijs aanwijzen], een heel andere uitkomst dus.
+
+Als we een deling volgens de definitie van wat delen eigenlijk is,
+schrijven als vermenigvuldiging met de multiplicatieve inverse,
+geldt de associatieve eigenschap wel:
+
+(8 x 1/4) x 1/2 = 2 x 1/2 = 1 [aanwijzen]
+8 x (1/4 * 1/2) = 8 x 1/8 = 1 [aanwijzen]
+
+En als we inderdaad 8 : (4 : 2) bedoelen,
+kunnen we dat ook schrijven als een vermenigvuldiging, namelijk 8 x 1/4 x 2, [erbij schrijven]
+immers, als je deelt door iets wat 2 x zo klein is, hou je 2 x zo veel over.
+Immers, delen is VERdelen.
+Een taart verdelen onder 2 x zo weinig kinderen, is 2 x zoveel taart per kind.
+
+[4e blok erbij]
+
+Delen is trouwens ook niet commutatief.
+8 taarten verdelen onder 4 kinderen = 2 taarten per kind.
+
+maar
+
+4 taarten verdelen onder 8 kinderen = 1/2 taart per kind.
+4 taarten, 8 kinderen, 1/2 taart per kind, logisch toch?
+
+Ook hier kunnen we, als we willen dat de zaak commutatief is, weer vermenigvuldiging gebruiken.
+We kunnen namelijk 8 : 4 ook schrijven als 8 x 1/4 = 2. [aanwijzen]
+En 1/4 x 8 is ook 2. [aanwijzen]
+
+En als we 4 : 8 bedoelen?
+Dan schrijven 4 x 1/8, dat is wel commutatief en dus hetzelfde als 1/8 x 4. [erbij schrijven]
+
+Dat bijvoorbeeld 8 : 4 hetzelfde is als 8 x 1/4 en als 1/4 x 8 komt een beetje uit de lucht vallen.
+1/4 x 8 betekent gewoon 1/4 van 8 dus dat is 2.
+De rekenregels voor breuken komen verderop in deze les aan de orde,
+Maar eerste kijken we eens naar de regels voor het delen.
+
+[Slide 15: Regels voor het delen]
+
+[1e deelplaatje]
+
+Als ik 2 taarten [aanwijzen] verdeel onder 20 kinderen [aanwijzen]
+
+[2e deelplaatje]
+
+krijgt ieder kind evenveel als wanneer ik 2 x 2 taarten [aanwijzen] verdeel onder 20 x 2 [aanwijzen] kinderen.
+
+[Formule erbij]
+
+Ik mag deler en deeltal, dus teller en noemer van een breuk [aanwijzen], beiden met hetzelfde getal vermenigvuldigen [2 aanwijzen],
+'t resultaat blijft hetzelfde, in dit geval 2/20 [aanwijzen] ofwel 1/10 [aanwijzen]
+
+[1e deelplaatje optellen erbij]
+
+Maarrr...
+Ik mag bij teller en noemer NIET zo maar hetzelfde getal optellen, want dat geeft een heel ander resultaat.
+Stel we hebben 2 taarten [aanwijzen] voor 20 kinderen [aanwijzen]
+En we voegen in aan het deeltal, dus de teller, 1 taart toe [aanwijzen],
+en aan de deler, dus de noemer, 1 kind [aanwijzen]
+
+Dan is 't gezonder, en waarschijnlijk ook prettiger,
+dat dat nieuwe meisje die nieuwe taart niet helemaal in d'r eentje opeet.
+Maar als je 'm eerlijk verdeelt, krijgt iedereen dus meer taart.
+Kijk maar...
+
+[Formule erbij]
+
+(2 + 1) / (20 + 1) = 3 taarten voor 21 kinderen [aanwijzen]
+= 1 taart per 7 kinderen [aanwijzen], teller en noemer vermenigvuldigd met 1/3 [trailing factor 1/3 bij teller en noemer schrijven].
+in plaats van 1 taart per 10 kinderen.
+Dat is flinke vooruitgang, ware het niet dat 1/10 taart voor zulke kleine kinderen natuurlijk ook al veel te veel was.
+Ik moet er zelf niet aan denken, maar goed, ik ben niet zo'n taartliefhebber.
+
+Conclusie: Je mag bij teller en noemer van een breuk dus niet zo maar het zelfde getal optellen, want dan verandert 't resultaat,
+in dit geval wordt 't 1/7 [aanwijzen] in plaats van 1/10 [aanwijzen].
+
+Maar je mag teller en noemer dus wel met het zelfde getal vermenigvuldigen,
+want 2 x 2 / (20 x 2) [aanwijzen] is 't zelfde als 2 x 20 [aanwijzen].
+Immers: 2 x zoveel taart, maar ook 2 x zoveel monden.
+
+[Side 16: Rekenen met breuken]
+
+En zo komen we intuitief een heel eind met de spelregels voor het delen, door te kijken naar de werkelijkheid van taarten en kinderen,
+subsidiepotten en kunstinstellingen, erfenissen en hebberige nabestaanden,
+en er vanuit te gaan dat de regels van het wiskundespel zo gekozen zijn dat ze een goed model voor die werkelijkheid van het delen,
+of liever gezegd het verdelen vormen.
+
+Toch is 't de moeite waard ook hier wat formele regels af te leiden, vooral voor het werken met breuken.
+
+[Blok 1 erbij]
+
+Allereerst blijkt, dat als je twee breuken met elkaar vermenigvuldigt,
+bijvoorbeeld a/b x c/d [aanwijzen], het resultaat gelijk is aan ac/(bd) [aanwijzen], "teller maal teller, noemer maal noemer" dus
+(oftewel je mag de breukstreep bij vermenigvuldiging van breuken als 't ware doortrekken [aanwijzen])
+Kijk maar.
+
+a/b x c/d = a x 1/b x c x 1/d [aanwijzen], dat is gewoon de definitie van delen,
+delen door b is gedefinieerd als vermenigvuldigen met 1/b [aanwijzen], de multiplicatieve inverse van b.
+
+En delen door d is gedefinieerd als vermenigvuldigen met 1/d [aanwijzen], de multiplicatieve inverse van d.
+Vervolgens passen we de commutatieve eigencshap toe [pijltjes erbij].
+En 1/b kun je ook noteren als 1 : b [aanwijzen],
+en vermenigvuldigen met multiplicatieve inverse 1/b [aanwijzen] is per definitie van delen delen door d [aanwijzen].
+
+Eerst iets b x zo klein maken [aanwijzen] en dan het resultaat nog eens d x zo klein [aanwijzen],
+komt er op neer dat je b x d keer zo klein maakt [aanwijzen].
+De 1 [aanwijzen] mag je weglaten, want dat is het neutrale element van de vermenigvuldiging, die verandert niks,
+Blijft over a c / (b d) [aanwijzen].
+Dus a / b * c /d [aanwijzen] = ac / (bd) [aanwijzen]/.
+
+[Blok 2 erbij]
+
+Maar wat gebeurt er eigenlijk niet vermenigvuldigen met een breuk, maar delen door een breuk: a/b : c/d [aanwijzen]
+Deling door een bepaald getal [c/d omcirkelen] is gedefinieerd als vermenigvuldiging met 1 gedeeld door dat getal [c/d omcirkelen]
+
+Vervolgens vermenigvuldigen we hier [twee d's omcirkelen] teller en noemer met hetzelfde getal.
+Bij de kinderen en de taarten zagen we al dat dat niets aan de uitkomst verandert.
+
+Per definitie van delen mogen we gedeeld door d [aanwijzen] vervangen door maal 1/d [aanwijzen].
+Door toepassing van de commutatieve eigenschap [wisselpijltjes erbij] komen de d en de 1/d bij elkaar te staan. [aanwijzen]
+Het zijn elkaars multiplicatieve inversen, dus met elkaar vermenigvuldigd, al weer per definitie, 1. [aanwijzen]
+1 is het neutrale element van de vermenigvuldiging, dus die mogen we weglaten omdat hij toch niks verandert.
+
+Blijft over  a/c x b/d [aanwijzen], dus delen door een breuk c/d [aanwijzen]
+is blijkbaar vermenigvuldigen met het omgekeerde d/c [aanwijzen]
+We mogen delen door c/d blijkbaar vervangen door vermenigvuldiging met d/c.
+Leer dit uit je hoofd: delen door een breuk [aanwijzen] is vermenigvuldigen met het omgekeerde [aanwijzen]
+
+wat volgens bovenstaande regel trouwens gelijk is aan a d / (bc) [pijl naar boven]
+Welliswsaar zijn de rol van c en d hier verwisseld, maar dat maakt niks uit,
+omdat het maar gewoon letters zijn die willekeurige getallen voorstellen.
+
+Of ik nu beweer dat a/b : c/d = a d / (b c) of dat ik beweer dat a/b : d/c = ac / (bd) [eronder schrijven],
+de strekking is 't zelfde, ik had ook w, x, y en z kunnen gebruiken in plaats van a, b, c en d.
+Manipulatie van betekenisloze symbolen volgens vaste regels, weet je nog.
+Misschien denk je van: JA, maar 't betekenen toch getallen?
+Maar wat zijn getallen precies als je geen appels of sterrenstelsels hebt?
+
+Met onze neocortex, hersenschors, kunnen we symbolen manipuleren.
+Dat noemen we redeneren of ook wel redelijk nadenken.
+Het woord rede komt hier van "spraak", denk aan "redevoering".
+Redeneren, zoals we dat in de wiskunde doen, is een afgeleide functie van onze taalvermogen.
+Logisch denken is dus eigenlijk een soort in jezelf praten, en dan is het handig als dingen een naam hebben.
+Welke naam dat precies is, dat doet er niet toe.
+
+Ik moet even denken aan Pipi Langkous, die een groen torretje vindt.
+Ze noemt het een Spoenk, tja, waarom niet.
+
+Jaren geleden vertelde een verslaggever voor televisie dat de veroorzaker van veteranenziekte,
+dat is een nare infectieziekte veroorzaakt door bedorven water, was ontdekt.
+Het bleek, surprise, surprise, de Legionella bacterie te zijn.
+Deze ontdekking was nogal voorspelbaar: Een legionair is immers gewoon een soldaat...
+
+Iets benoemen is iets anders dan het begrijpen.
+Het woord "getal" betekent zonder appels, peren en hobbelpaarden niets,
+tenzij iemand er betekenis aan geeft, door het bijvoorbeeld door middel van spelregels te definieren.
+Zonder heelal, met daarin de nodige bewuste wezens om deze klus te klaren, is dat erg lastig.
+
+[Blok 3 erbij]
+
+Iets minder lastig is het om breuken op te tellen.
+Ik nodig je uit om de stappen te volgen:
+
+In de expressie a/b + c/d mag ik in beide termen [omcirkelen] teller en noemer met het zelfde getal vermenigvuldigen.
+Denk weer aan de taarten en de kinderen.
+Voor de eerste term vermenigvuldig ik teller en noemer allebei met d [beide d's omcirkelen].
+Voor de tweede term vermenigvuldig ik teller en noemer allebi met b [beide b's omcirkelen], dit maal ervoor,
+wegens de commutatieve eigenschap, de "verwisseleigenschap", commuter, weet je nog, maakt dat niet uit.
+
+We krijgen dan, volgens de eerste regel van deze slide [aanwijzen]:
+ad/(bd) + bc/(bd) [aanwijzen]
+
+We schrijven /(bd) weer volgens de definitie van deling als vermenigvuldiging met het omgekeerde 1/(bd).
+Het zelfde doen we met /(bd) in de tweede term: x 1/(bd).
+De factor 1/(bd) is gewoon een getal, dus de distributieve eigenschap geldt,
+of liever gezegd, in omgekeerde volgorde: buiten haakjes halen [haakjes aanwijzen, pijltjes naar 1/(bd) tekenen].
+
+Volgens de definitie van deling mogen de vermenigvuldiging met 1/(bd) [aanwijzen]
+dan weer vervangen door deling door b d [aanwijzen].
+
+Zo, hehe, dat was een hele kluif. Beetje saai ook misschien.
+Maar dit fundament is nodig om het superpraktische bouwwerk dat in deze lessenserie volgt, te dragen.
+Programmeren, electronische schakelingen ontwerpen, natuurkunde, allemaal maken ze gebruik van deze basis.
+
+Ik maak het nog wat saaier.
+Ken je de tafels van 1 t/m 10 niet uit je hoofd?
+Het is de moeite waard om ze alsnog te leren.
+
+Ik weet ook wel dat een rekenmachine betere kan rekenen dan de meeste mensen, inclusief mijzelf,
+maar wat hoofdrekenen je oplevert is kwantitatief inzicht, gevoel voor hoeveelheden.
+En dat helpt je enorm om je thuis te voelen in de wereld van wetenschap en techniek.
+Echt waar!
+Dank je voor de aandacht.
+
