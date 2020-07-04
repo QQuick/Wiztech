@@ -4,13 +4,14 @@ namespace cg = consoleGraphics;
 
 int main () {
     auto canvas = cg::Canvas ();
+        
+    cg::Circle (canvas, 16);
+    cg::Circle (canvas, 8, -14, -14);
     
-    auto largeCircle = cg::Circle (canvas, 10, 7, 9);
-    auto smallCircle = cg::Circle (canvas, 5);
-    
-    auto largeSquare = cg::Square (canvas, 16, 14, 16);
-    auto smallSquare = cg::Square (canvas, 8);
-    
+    cg::Square (canvas, 32);
+    cg::Square (canvas, 16, 14, 14);
+
     canvas.render ();
+        
     return 0;
 }

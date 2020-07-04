@@ -13,19 +13,23 @@ Circle::Circle (Canvas &canvas, int radius, int xCenter, int yCenter):
     canvas.circles.push_back (*this);
 }
 
+Circle::Circle (Circle const &circle):
+    canvas (circle.canvas), radius (circle.radius), xCenter (circle.xCenter), yCenter (circle.yCenter)    
+{}
+
 void Circle::render () {
     canvas.setCenter (xCenter, yCenter);
     
     for (int free = -radius; free <= radius; free++) {
         auto dependent = sqrt (radius * radius - free * free);
-                    
+        
         // Make x contiguous
         canvas.drawRelative (free, dependent);
         canvas.drawRelative (free, -dependent);
         
         // Make y contiguous
         canvas.drawRelative (dependent, free);
-        canvas.drawRelative (dependent, -free);
+        canvas.drawRelative (-dependent, free);
     }
 }
 
@@ -36,6 +40,10 @@ Square::Square (Canvas &canvas, int side, int xCenter, int yCenter):
 {
     canvas.squares.push_back (*this);
 }
+
+Square::Square (Square const &square):
+    canvas (square.canvas), side (square.side), xCenter (square.xCenter), yCenter (square.yCenter)
+{}
 
 void Square::render () {
     canvas.setCenter (xCenter, yCenter);
@@ -57,7 +65,9 @@ void Square::render () {
 
 Canvas::Canvas (int width, int height):
     width (width),
-    height (height)
+    height (height),
+    xOrigin (width / 2),
+    yOrigin (height / 2)
 {
     circles = st::vector <Circle> ();
     squares = st::vector <Square> ();
@@ -71,28 +81,20 @@ Canvas::Canvas (int width, int height):
 }
 
 void Canvas::render () {
-    for (auto circle: circles) {
-        circle.render ();
+    for (auto &circle: circles) {
+        circle.render ();;
     }
     
-    for (auto square: squares) {
+    for (auto &square: squares) {
         square.render ();
     }
     
-    for (auto row: rows) {
-        for (auto entry: row) {
-           st::cout << entry;
+    for (auto &row: rows) {
+        for (auto &entry: row) {
+           st::cout << " " << entry;
         }
         st::cout << '\n';
     }
-}
-
-void Canvas::add (Circle circle) {
-    circles.push_back (circle);
-}
-    
-void Canvas::add (Square square) {
-    squares.push_back (square);
 }
 
 void Canvas::setCenter (int xCenter, int yCenter) {
@@ -101,7 +103,7 @@ void Canvas::setCenter (int xCenter, int yCenter) {
 }
 
 void Canvas::drawRelative (float x, float y) {
-    rows [int (xCenter + x)][int (yCenter + y)];
+    rows [yCenter + yOrigin - y][xCenter + xOrigin + x - 1] = '*';
 }
 
 }

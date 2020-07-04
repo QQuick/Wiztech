@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <functional>
+
 namespace st = std;
 
 namespace consoleGraphics {
@@ -12,6 +14,8 @@ class Circle {
     
     public:
         Circle (Canvas &canvas, int radius, int xCenter = 0, int yCenter = 0);
+        Circle (Circle const &circle);
+//        Circle (Circle &&circle);
         
     protected:
         Canvas &canvas;
@@ -27,7 +31,9 @@ class Square {
     friend class Canvas;
     
     public:
-        Square (Canvas &canvas, int side, int x = 40, int y = 60);
+        Square (Canvas &canvas, int side, int x = 0, int y = 0);
+        Square (Square const &square);
+//        Square (Square &&square);
         
     private:
         Canvas &canvas;
@@ -44,20 +50,20 @@ class Canvas {
     friend class Square;
     
     public:
-        Canvas (int width = 0, int height = 0);
+        Canvas (int width = 64, int height = 48);
         void render ();
         
     protected:
         int width;
         int height;
+        float xOrigin;
+        float yOrigin;
         st::vector <Circle> circles;
         st::vector <Square> squares;
         st::vector <st::vector <char> > rows;
         int xCenter;
         int yCenter;
         
-        void add (Circle circle);
-        void add (Square square);
         void setCenter (int xCenter, int yCenter);
         void drawRelative (float x, float y);
 };
