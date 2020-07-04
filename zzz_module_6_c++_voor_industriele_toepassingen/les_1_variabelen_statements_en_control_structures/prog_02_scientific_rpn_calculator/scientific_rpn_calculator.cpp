@@ -6,7 +6,7 @@ namespace st = std;
 
 int main() {
     auto stack = st::stack <long double>();
-    auto input = st::string ();
+    auto input = st::string (); // Explitly use constructor if you want variable of type string!
     
     do {
         st::cout << "? ";
@@ -88,4 +88,6 @@ int main() {
             st::cout << "! " << stack.top () << '\n';
         }
     } while (input != "quit");
+    
+    return 0;
 } 

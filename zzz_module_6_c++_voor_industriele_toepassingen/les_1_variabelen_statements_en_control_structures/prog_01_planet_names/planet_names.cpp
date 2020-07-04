@@ -16,7 +16,19 @@ int main() {
         "neptunus"
     });
     
+    st::cout << '\n';
+    
     for (auto planetName: planetNames) {
         st::cout << planetName << '\n';
     }
+
+    st::cout << '\n';
+        
+    for (int planetIndex = 0; planetIndex < planetNames.size (); planetIndex++) {
+        st::cout << planetIndex + 1 << ' ' << planetNames [planetIndex] << '\n';
+    }
+    
+    st::cout << '\n';
+    
+    return 0;
 }

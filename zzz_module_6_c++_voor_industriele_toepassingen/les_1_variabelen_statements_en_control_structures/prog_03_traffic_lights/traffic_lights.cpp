@@ -55,6 +55,7 @@ int main () {
     // ====== Filler for printing traffic light state
     
     auto filler = st::string (8, ' ');
+    auto off = st::string (6, '.');
         
     // ====== Main control loop
     
@@ -150,13 +151,14 @@ int main () {
         if (currentTime % 1000 == 0) {  // Each second
             st::cout <<
                 currentTime / 1000 << filler <<
-                (yellowBlinkLightIsOn ? 'B' : '.') << filler <<
-                (greenPhaseLightIsOn ? 'G' : '.') << filler <<
-                (yellowPhaseLightIsOn ? 'Y' : '.') << filler <<
-                (redPhaseLightIsOn ? 'R' : '.') << '\n';
+                (yellowBlinkLightIsOn ? "Aan   " : off) << filler <<
+                (greenPhaseLightIsOn ? "Groen " : off) << filler <<
+                (yellowPhaseLightIsOn ? "Oranje" : off) << filler <<
+                (redPhaseLightIsOn ? "Rood  " : off) << '\n';
         }
         
         st::this_thread::sleep_for (0.2ms);
     }
+    
     return 0;
 }
