@@ -1,3 +1,7 @@
+# ====== File extensions anywhere
+*.exe
+*.out
+
 # ======= Directories anywhere
 shots/
 shots_orig/
