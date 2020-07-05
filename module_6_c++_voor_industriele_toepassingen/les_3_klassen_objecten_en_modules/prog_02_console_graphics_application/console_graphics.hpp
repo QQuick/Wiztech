@@ -15,7 +15,6 @@ class Circle {
     public:
         Circle (Canvas &canvas, int radius, int xCenter = 0, int yCenter = 0);
         Circle (Circle const &circle);
-//        Circle (Circle &&circle);
         
     protected:
         Canvas &canvas;
@@ -33,8 +32,7 @@ class Square {
     public:
         Square (Canvas &canvas, int side, int x = 0, int y = 0);
         Square (Square const &square);
-//        Square (Square &&square);
-        
+
     private:
         Canvas &canvas;
         int side;
