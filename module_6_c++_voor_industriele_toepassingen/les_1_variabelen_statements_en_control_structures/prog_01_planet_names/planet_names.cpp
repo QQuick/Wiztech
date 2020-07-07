@@ -24,7 +24,7 @@ int main() {
 
     st::cout << '\n';
         
-    for (int planetIndex = 0; planetIndex < planetNames.size (); planetIndex++) {
+    for (auto planetIndex = 0; planetIndex < planetNames.size (); planetIndex++) {
         st::cout << planetIndex + 1 << ' ' << planetNames [planetIndex] << '\n';
     }
     
