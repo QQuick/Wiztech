@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 namespace st = std;
 
@@ -10,7 +12,7 @@ class String {
         String (String &aString);
         String (String &&aString);
         String &operator = (String &aString);
-        String &&operator = (String &&aString);
+        String &operator = (String &&aString);
         ~String ();
         int size ();
 
@@ -18,7 +20,7 @@ class String {
         char *content;
         int aSize;
         
-        friend String &&operator + (String &string0, String &string1);
+        friend String operator + (String &string0, String &string1);
         friend st::istream &operator >> (st::istream &inputStream, String &aString);
         friend st::ostream &operator << (st::ostream &outputStream, String &aString);
 };
