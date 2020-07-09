@@ -1,3 +1,4 @@
+#include <iostream>
 
 template <class T>
 Matrix <T> ::Matrix (int nrOfRows, int nrOfColumns):
@@ -13,12 +14,18 @@ Matrix <T> ::Matrix (int nrOfRows, st::vector <T> const &entries):
     entries (entries)
 {}
 
+/*
+// Uncomment to check copy elision
+
 template <class T>
 Matrix <T> ::Matrix (Matrix <T> const &matrix):
     nrOfRows (matrix.nrOfRows),
     nrOfColumns (matrix.nrOfColumns),
     entries (matrix.entries)
-{}
+{
+    st::cout << "Copy made" << '\n';
+}
+*/
 
 template <class T>
 T &Matrix <T>::access (int rowIndex, int columnIndex) {
@@ -35,6 +42,11 @@ void Matrix <T> ::print (st::ostream &outputStream) {
         outputStream << '\n';
     }
     outputStream << '\n';
+}
+
+template <class T>
+int Matrix <T>::getEntriesSize () {
+    return sizeof (T) * entries.capacity ();
 }
 
 template <class U>
@@ -59,8 +71,8 @@ Matrix <U> multiply (Matrix <U> &matrix0, Matrix <U> &matrix1) {
     return result;
 }
 
-template <class U>
-Matrix <U> multiply (U scalar, Matrix <U> &matrix) {
+template <class U, class V>
+Matrix <U> multiply (V scalar, Matrix <U> &matrix) {
     auto result = Matrix <U> (matrix);
     for (auto entryIndex = 0; entryIndex < result.entries.size (); entryIndex++) {
         result.entries [entryIndex] *= scalar;
@@ -68,7 +80,7 @@ Matrix <U> multiply (U scalar, Matrix <U> &matrix) {
     return result;
 }
 
-template <class U>
-Matrix <U> multiply (Matrix <U> &matrix, U scalar) {
+template <class U, class V>
+Matrix <U> multiply (Matrix <U> &matrix, V scalar) {
     return multiply (scalar, matrix);
 }
