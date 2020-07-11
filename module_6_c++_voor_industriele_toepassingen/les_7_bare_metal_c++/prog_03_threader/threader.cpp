@@ -1,12 +1,19 @@
+#include <iostream>
+namespace st = std;
+
 #include "threader.hpp"
 
 namespace threader {
     
 // ====== Scheduler methods
 
-Scheduler::Scheduler (int nrOfThreads) {
+Scheduler::Scheduler (int nrOfThreads):
+    nrOfThreads (nrOfThreads),
+    threadIndex (0)
+{
+    batches.reserve (nrOfThreads);
     for (auto threadIndex = 0; threadIndex < nrOfThreads; threadIndex++) {
-        batches.emplace_back (threadIndex);
+        batches.emplace_back ();
     }
 }
 
@@ -15,20 +22,31 @@ void Scheduler::add (Task &task) {
     threadIndex %= nrOfThreads;
 }
 
-// ====== Batch methods    
-    
-Batch::Batch (int threadIndex):
-    threadIndex (threadIndex),
-    aThread (new st::thread (&Batch::run, this))
-{}
-    
-Batch::~Batch () {
-    aThread->join ();
-    delete aThread;
+void Scheduler::fork () {
+    for (auto &batch: batches) {
+        batch.fork ();
+    }
 }
 
+void Scheduler::join () {
+    for (auto &batch: batches) {
+        batch.join ();
+    }
+}
+
+// ====== Batch methods    
+    
 void Batch::add (Task &task) {
     tasks.push_back (&task);
+}
+
+void Batch::fork () {
+    aThread = new st::thread (&Batch::run, this);
+}
+
+void Batch::join () {
+    aThread->join ();
+    delete aThread;
 }
 
 void Batch::run () {
@@ -36,5 +54,5 @@ void Batch::run () {
         task->run ();
     }
 }
-
+    
 }

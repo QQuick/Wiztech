@@ -1,5 +1,8 @@
 #include <vector>
+#include <list>
 #include <thread>
+#include <chrono>
+
 namespace st = std;
 
 namespace threader {
@@ -15,24 +18,23 @@ class Scheduler {
     public:
         Scheduler (int nrOfThreads);
         void add (Task &task);
+        void fork ();
+        void join ();
         
     protected:
         st::vector <Batch> batches;
         int nrOfThreads;
-        int threadIndex = 0;
+        int threadIndex;
 };
 
 class Batch {
-    public:
-        Batch (int threadIndex);
-        ~Batch ();
-    
     protected:
         st::thread *aThread;
-        st::vector <Task *> tasks;
-        int threadIndex;
+        st::list <Task *> tasks;
 
         void add (Task &task);
+        void fork ();
+        void join ();
         void run ();
         
     friend class Scheduler;
