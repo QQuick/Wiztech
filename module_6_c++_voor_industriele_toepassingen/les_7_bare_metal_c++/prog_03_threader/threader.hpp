@@ -5,7 +5,6 @@
 #include <list>
 #include <thread>
 #include <chrono>
-
 namespace st = std;
 
 namespace threader {
