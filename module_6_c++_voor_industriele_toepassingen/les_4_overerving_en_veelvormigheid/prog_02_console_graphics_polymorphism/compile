@@ -1,0 +1,1 @@
+g++ console_graphics_polymorphism_application.cpp console_graphics_polymorphism.cpp -o console_graphics_polymorphism_application.exe

@@ -1,8 +1,9 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #pragma once
 
 #include <vector>
-#include <functional>
-
 namespace st = std;
 
 namespace consoleGraphics {
@@ -14,7 +15,6 @@ class Circle {
     
     public:
         Circle (Canvas &canvas, int radius, int xCenter = 0, int yCenter = 0);
-        Circle (Circle const &circle);
         
     protected:
         Canvas &canvas;
@@ -31,7 +31,6 @@ class Square {
     
     public:
         Square (Canvas &canvas, int side, int x = 0, int y = 0);
-        Square (Square const &square);
 
     private:
         Canvas &canvas;

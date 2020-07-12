@@ -1,8 +1,1 @@
-g++ \
-    -fmax-errors=7 \
-    -std=c++2a \
-    -pthread \
-    -Wl,--no-as-needed \
-    \
-    threader_application.cpp \
-    threader.cpp 
+g++ -std=c++2a -pthread threader_application.cpp threader.cpp -o threader_application.exe

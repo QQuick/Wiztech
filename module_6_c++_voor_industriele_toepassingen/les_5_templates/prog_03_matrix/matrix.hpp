@@ -1,7 +1,11 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #pragma once
 
-#include <vector>
+#include <iostream>
 #include <iomanip>
+#include <vector>
 namespace st = std;
 
 namespace matrix {

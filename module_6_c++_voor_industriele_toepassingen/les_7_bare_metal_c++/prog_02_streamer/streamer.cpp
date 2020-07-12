@@ -1,3 +1,6 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #include <iostream>
 #include <fstream>
 #include <sstream>

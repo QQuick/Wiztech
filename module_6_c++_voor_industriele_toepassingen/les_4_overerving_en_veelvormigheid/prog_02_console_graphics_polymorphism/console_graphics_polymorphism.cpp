@@ -1,5 +1,9 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #include <iostream>
 #include <cmath>
+namespace st = std;
 
 #include "console_graphics_polymorphism.hpp"
 
@@ -12,7 +16,7 @@ Shape::Shape (Canvas &canvas, int xCenter, int yCenter):
     xCenter (xCenter),
     yCenter (yCenter)
 {
-    // canvas.shapes.push_back (this); // Will store temporary address, causing hidden bug
+    // canvas.shapes.push_back (this);  // Will store temporary address, causing hidden bug
 }
 
 Shape::Shape (Shape const &shape):

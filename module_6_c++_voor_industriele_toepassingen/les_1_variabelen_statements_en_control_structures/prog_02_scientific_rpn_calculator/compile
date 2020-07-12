@@ -1,0 +1,1 @@
+g++ scientific_rpn_calculator.cpp -o scientific_rpn_calculator.exe

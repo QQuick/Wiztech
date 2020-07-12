@@ -1,4 +1,5 @@
-#include <iostream>
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
 
 // ====== Members
 
@@ -17,12 +18,12 @@ Matrix <T> ::Matrix (int nrOfRows, st::vector <T> const &entries):
 {}
 
 template <class T>
-T &Matrix <T>::operator () (int rowIndex, int columnIndex) {
+T &Matrix <T> ::operator () (int rowIndex, int columnIndex) {
     return entries [rowIndex * nrOfColumns + columnIndex];
 }
 
 template <class T>
-int Matrix <T>::getEntriesSize () {
+int Matrix <T> ::getEntriesSize () {
     return sizeof (T) * entries.capacity ();
 }
 

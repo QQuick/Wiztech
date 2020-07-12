@@ -1,0 +1,1 @@
+g++ planet_names.cpp -o planet_names.exe

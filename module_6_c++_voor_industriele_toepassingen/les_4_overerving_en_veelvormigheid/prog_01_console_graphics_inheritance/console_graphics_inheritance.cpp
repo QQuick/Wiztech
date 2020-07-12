@@ -1,5 +1,9 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #include <iostream>
 #include <cmath>
+namespace st = std;
 
 #include "console_graphics_inheritance.hpp"
 
@@ -26,11 +30,6 @@ Circle::Circle (Canvas &canvas, int radius, int xCenter, int yCenter):
     canvas.circles.push_back (*this);
 }
 
-Circle::Circle (Circle const &circle):
-    Shape (circle.canvas, circle.xCenter, circle.yCenter),
-    radius (circle.radius)   
-{}
-
 void Circle::render () {
     Shape::render ();
     
@@ -55,11 +54,6 @@ Square::Square (Canvas &canvas, int side, int xCenter, int yCenter):
 {
     canvas.squares.push_back (*this);
 }
-
-Square::Square (Square const &square):
-    Shape (square.canvas, square.xCenter, square.yCenter),
-    side (square.side)
-{}
 
 void Square::render () {
     Shape::render ();

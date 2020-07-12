@@ -1,8 +1,10 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #include <iostream>
 namespace st = std;
 
 #include "matrix.hpp"
-
 namespace mt = matrix;
 
 int main () {

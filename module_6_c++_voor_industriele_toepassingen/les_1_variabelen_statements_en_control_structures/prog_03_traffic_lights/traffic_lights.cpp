@@ -1,3 +1,6 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 /*
 This program features 2 statemachines.
 One has 2 states, the other 3.

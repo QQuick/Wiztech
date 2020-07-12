@@ -1,3 +1,6 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -31,10 +34,12 @@ void TableTask::run () {
     
     for (auto multiplier = 1; multiplier <= 10; multiplier++) {
         consoleMutex.lock ();
+        
         st::cout <<
             st::setw (2) << multiplier << " x " <<
             st::setw (2) << baseNumber << " = " <<
             st::setw (2) << multiplier * baseNumber << '\n';
+            
         consoleMutex.unlock ();
         st::this_thread::sleep_for ((rand () / randMaxFloat) * 20ms);
     }

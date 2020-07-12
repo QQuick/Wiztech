@@ -1,9 +1,10 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
 #pragma once
 
 #include <list>
 #include <vector>
-#include <functional>
-
 namespace st = std;
 
 namespace consoleGraphics {

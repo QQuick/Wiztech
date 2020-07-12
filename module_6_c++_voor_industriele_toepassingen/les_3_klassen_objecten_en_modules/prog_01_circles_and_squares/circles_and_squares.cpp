@@ -1,116 +1,174 @@
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+namespace st = std;
+
+class Canvas;
+
+class Circle {
+    friend class Canvas;
+    
+    public:
+        Circle (Canvas &canvas, int radius, int xCenter = 0, int yCenter = 0);
+        
+    protected:
+        Canvas &canvas;
+        int radius;
+        int xCenter;
+        int yCenter;
+
+        void render ();
+};
+
+
+class Square {
+    friend class Canvas;
+    
+    public:
+        Square (Canvas &canvas, int side, int x = 0, int y = 0);
+
+    private:
+        Canvas &canvas;
+        int side;
+        int xCenter;
+        int yCenter;
+        
+        void render ();
+};
+
+
 class Canvas {
     friend class Circle;
     friend class Square;
     
-public:
-    Canvas (int width = 0, height = 0):
-        width (width),
-        height (height)
-    {
-        circles = st::vector <Circle>
-        squares = st::vector <Square>
+    public:
+        Canvas (int width = 64, int height = 48);
+        void render ();
         
-        for (rowIndex = 0; rowIndex < height; rowIndex++) {
-            rows.emplace_back ();
-            for (columnIndex = 0; columnIndex < width; columnIndex++) {
-                rows [rowIndex] .push_back ('.');
-            }
-        }
-    }
-
-protected:
-    void add (Circle circle) {
-        circles.push_back (circle);
+    protected:
+        int width;
+        int height;
+        float xOrigin;
+        float yOrigin;
+        st::vector <Circle> circles;
+        st::vector <Square> squares;
+        st::vector <st::vector <char> > rows;
+        int xCenter;
+        int yCenter;
         
-    void add (Square square);
-        squares.push_back (square);
-        
-    void render () {
-        for (auto circle: circles) {
-            circle.render ();
-        }
-        
-        for (auto square: squares) {
-            square.render ();
-        }
-    }
-    
-    void setCenter (int xCenter, int yCenter) {
-        this->xCenter = xCenter;
-        this->yCenter = yCenter;
-    }
-    
-    void drawRelative (x, y) {
-        buffer [int (xCenter + x)][int (yCenter + y)];
-    }
+        void setCenter (int xCenter, int yCenter);
+        void drawRelative (float x, float y);
 };
 
-class Circle {
-    friend class Canvas;
-public:
-    Circle (Canvas &canvas, int radius, int xCenter = 0, int yCenter = 0):
-        canvas (canvas), radius (radius), xCenter (xCenter), yCenter (yCenter)
-    {}
+// ====== Circle definitions
     
-protected:
-    auto &canvas = Canvas ();
-    auto radius = 0;
-    auto xCenter = 0;
-    auto yCenter = 0;
+Circle::Circle (Canvas &canvas, int radius, int xCenter, int yCenter):
+    canvas (canvas), radius (radius), xCenter (xCenter), yCenter (yCenter)
+{
+    canvas.circles.push_back (*this);
+}
+
+void Circle::render () {
+    canvas.setCenter (xCenter, yCenter);
     
-    void render () {
-        canvas.setCenter (xCenter, yCenter);
+    for (int free = -radius; free <= radius; free++) {
+        auto dependent = sqrt (radius * radius - free * free);
         
-        for (int i = -radius); i <= radius; i++) {
-            j = sqrt (radius * radius - i * i);
-                        
-            // Make x contiguous
-            canvas.drawRelative (i, j);
-            canvas.drawRelative (i, -j);
-            
-            // Make y contiguous
-            canvas.drawRelative (j, i);
-            canvas.drawRelative (j, -i);
+        // Make x contiguous
+        canvas.drawRelative (free, dependent);
+        canvas.drawRelative (free, -dependent);
+        
+        // Make y contiguous
+        canvas.drawRelative (dependent, free);
+        canvas.drawRelative (-dependent, free);
+    }
+}
+
+// ====== Square definitions
+
+Square::Square (Canvas &canvas, int side, int xCenter, int yCenter):
+    canvas (canvas), side (side), xCenter (xCenter), yCenter (yCenter)
+{
+    canvas.squares.push_back (*this);
+}
+
+void Square::render () {
+    canvas.setCenter (xCenter, yCenter);
+    auto dependent = side / 2;
+    
+    for (int free = -dependent; free <= dependent; free++) {
+        
+        // Make x contiguous
+        canvas.drawRelative (free, dependent);
+        canvas.drawRelative (free, -dependent);
+        
+        // Make y contiguous
+        canvas.drawRelative (dependent, free);
+        canvas.drawRelative (-dependent, free);
+    }        
+}
+
+// ====== Canvas definitions
+
+Canvas::Canvas (int width, int height):
+    width (width),
+    height (height),
+    xOrigin (width / 2),
+    yOrigin (height / 2)
+{
+    circles = st::vector <Circle> ();
+    squares = st::vector <Square> ();
+    
+    for (auto rowIndex = 0; rowIndex < height; rowIndex++) {
+        rows.emplace_back ();
+        for (auto columnIndex = 0; columnIndex < width; columnIndex++) {
+            rows [rowIndex] .push_back ('.');
         }
     }
-};
+}
 
-class Square {
-    friend class Canvas;
-public:
-    Square (Canvas &canvas, int side, int x = 0, int y = 0):
-        canvas (canvas), side (side), x (x), y (y))
-    {}
-    
-private:
-    auto &canvas = Canvas ();
-    auto side = 0;
-    auto xCenter = 0;
-    auto yCenter = 0;
-    
-    void render () {
-        canvas.setCenter (xCenter, yCenter);
-
-        for (int i = -radius; i <= radius; i++) {
-            // Make x contiguous
-            canvas.drawRelative (i, radius);
-            canvas.drawRelative (i, -radius);
-            
-            // Make y contiguous
-            canvas.drawRelative (radius, i);
-            canvas.drawRelative (-radius, i);
-        }        
+void Canvas::render () {
+    for (auto &circle: circles) {
+        circle.render ();;
     }
-};
+    
+    for (auto &square: squares) {
+        square.render ();
+    }
+    
+    for (auto &row: rows) {
+        for (auto &entry: row) {
+           st::cout << " " << entry;
+        }
+        st::cout << '\n';
+    }
+}
+
+void Canvas::setCenter (int xCenter, int yCenter) {
+    this->xCenter = xCenter;
+    this->yCenter = yCenter;
+}
+
+void Canvas::drawRelative (float x, float y) {
+    rows [yCenter + yOrigin - y][xCenter + xOrigin + x - 1] = '*';
+}
+
+// ====== Main entrypoint
 
 int main () {
     auto canvas = Canvas ();
+        
+    Circle (canvas, 16);
+    Circle (canvas, 8, -14, -14);
     
-    auto largeCircle = Circle (canvas, 10, 7, 9);
-    auto smallCircle = Circle (canvas, 5);
-    
-    auto largeSquare = Square (canvas, 16, 14, 16);
-    auto smallSquare = Square (canvas, 8);
-    
+    Square (canvas, 32);
+    Square (canvas, 16, 14, 14);
+
+    canvas.render ();
+        
     return 0;
 }

@@ -1,4 +1,7 @@
-#include <iostream>
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
+
+// ====== Members
 
 template <class T>
 Matrix <T> ::Matrix (int nrOfRows, int nrOfColumns):
@@ -28,8 +31,13 @@ Matrix <T> ::Matrix (Matrix <T> const &matrix):
 */
 
 template <class T>
-T &Matrix <T>::access (int rowIndex, int columnIndex) {
+T &Matrix <T> ::access (int rowIndex, int columnIndex) {
     return entries [rowIndex * nrOfColumns + columnIndex];
+}
+
+template <class T>
+int Matrix <T>::getEntriesSize () {
+    return sizeof (T) * entries.capacity ();
 }
 
 template <class T>
@@ -44,10 +52,7 @@ void Matrix <T> ::print (st::ostream &outputStream) {
     outputStream << '\n';
 }
 
-template <class T>
-int Matrix <T>::getEntriesSize () {
-    return sizeof (T) * entries.capacity ();
-}
+// ====== Friends
 
 template <class U>
 Matrix <U> add (Matrix <U> &matrix0, Matrix <U> &matrix1) {

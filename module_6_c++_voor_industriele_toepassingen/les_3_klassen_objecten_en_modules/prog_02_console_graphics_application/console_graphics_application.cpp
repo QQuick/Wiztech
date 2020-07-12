@@ -1,5 +1,7 @@
-#include "console_graphics.hpp"
+// Copyright: GEATEC engineering, 2020
+// License: Apache 2
 
+#include "console_graphics.hpp"
 namespace cg = consoleGraphics;
 
 int main () {
