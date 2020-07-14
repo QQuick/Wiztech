@@ -74,7 +74,7 @@ String operator + (String &string0, String &string1) {
 }
 
 st::istream &operator >> (st::istream &inputStream, String &aString) {
-    int const bufferSize = 1024;
+    auto const bufferSize = 1024;
     auto buffer = String (bufferSize);
     inputStream.getline (buffer.content, bufferSize);
     aString = buffer;

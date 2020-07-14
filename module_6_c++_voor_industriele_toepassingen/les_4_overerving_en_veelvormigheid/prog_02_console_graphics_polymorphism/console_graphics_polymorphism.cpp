@@ -30,7 +30,7 @@ Shape::Shape (Shape const &shape):
 void Shape::render (int maxFree) {
     canvas.setCenter (xCenter, yCenter);
     
-    for (int free = -maxFree; free <= maxFree; free++) {
+    for (auto free = -maxFree; free <= maxFree; free++) {
         auto dependent = getDependent (free);
         
         // Make x contiguous

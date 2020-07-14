@@ -33,7 +33,7 @@ Circle::Circle (Canvas &canvas, int radius, int xCenter, int yCenter):
 void Circle::render () {
     Shape::render ();
     
-    for (int free = -radius; free <= radius; free++) {
+    for (auto free = -radius; free <= radius; free++) {
         auto dependent = sqrt (radius * radius - free * free);
         
         // Make x contiguous
@@ -59,7 +59,7 @@ void Square::render () {
     Shape::render ();
     auto dependent = side / 2;
     
-    for (int free = -dependent; free <= dependent; free++) {
+    for (auto free = -dependent; free <= dependent; free++) {
         
         // Make x contiguous
         canvas.drawRelative (free, dependent);

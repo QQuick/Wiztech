@@ -4,7 +4,6 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-
 namespace st = std;
 
 float root (float number, float power = 2) {

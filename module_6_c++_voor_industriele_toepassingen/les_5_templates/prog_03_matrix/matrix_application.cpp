@@ -8,8 +8,8 @@ namespace st = std;
 namespace mt = matrix;
 
 int main () {
-    int const nrOfRows = 3;
-    int const nrOfColumns = nrOfRows;
+    auto const nrOfRows = 3;
+    auto const nrOfColumns = nrOfRows;
         
     mt::Matrix <long double> matrix0 (nrOfRows, st::vector <long double> ({
         0, 1, 2,
