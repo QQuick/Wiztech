@@ -1,0 +1,15 @@
+Welkom bij les 1 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Zorg dat je een recente versie van C++ hebt geinstalleerd op je computer,
+zet de video regelmatig stop en werk met me mee.
+Alleen dan leer je ook echt programmeren in C++.
+
+Bepaal zelf hoeveel nieuwe informatie je op een dag aankunt,
+en bekijk een les eventueel in delen.
+
+Over C++ valt veel te zeggen, maar dat ga ik niet doen.
+We gaan gewoon aan de slag.
+Als je toch een goed gesprek wilt:
+"Met Veel Apen Mag Je 'Snachts Uren Napraten.

@@ -69,19 +69,19 @@ int main() {
                 stack.pop ();
                 
                 if (input == "+") {
-                    stack.push (operand0 + operand1);
+                    stack.push (operand1 + operand0);
                 }
                 else if (input == "-") {
-                    stack.push (operand0 - operand1);
+                    stack.push (operand1 - operand0);
                 }
                 else if (input == "*") {
-                    stack.push (operand0 * operand1);
+                    stack.push (operand1 * operand0);
                 }
                 else if (input == "/") {
-                    stack.push (operand0 / operand1);
+                    stack.push (operand1 / operand0);
                 }
                 else if (input == "pow") {
-                    stack.push (st::pow (operand0, operand1));
+                    stack.push (st::pow (operand1, operand0));
                 }
                 else {  // Restore stack
                     stack.push (operand1);

@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 
 namespace st = std;
 
@@ -22,6 +21,7 @@ int main () {
     auto grades = st::vector <float> ();
     
     st::cout << "Geef cijfers (negatief is stoppen)" << '\n';
+    
     while (true) {
         st::cout << "Cijfer nr. " << grades.size () + 1 << ": "; 
         st::cin >> grade;

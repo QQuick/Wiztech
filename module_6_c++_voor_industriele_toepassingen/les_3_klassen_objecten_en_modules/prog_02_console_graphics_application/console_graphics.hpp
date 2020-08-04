@@ -25,7 +25,6 @@ class Circle {
         void render ();
 };
 
-
 class Square {
     friend class Canvas;
     
@@ -40,7 +39,6 @@ class Square {
         
         void render ();
 };
-
 
 class Canvas {
     friend class Circle;

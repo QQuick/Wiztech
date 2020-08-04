@@ -78,7 +78,7 @@ Canvas::Canvas (int width, int height):
 
 void Canvas::render () {
     for (auto &circle: circles) {
-        circle.render ();;
+        circle.render ();
     }
     
     for (auto &square: squares) {

@@ -24,7 +24,6 @@ class Circle {
         void render ();
 };
 
-
 class Square {
     friend class Canvas;
     
@@ -39,7 +38,6 @@ class Square {
         
         void render ();
 };
-
 
 class Canvas {
     friend class Circle;
@@ -133,7 +131,7 @@ Canvas::Canvas (int width, int height):
 
 void Canvas::render () {
     for (auto &circle: circles) {
-        circle.render ();;
+        circle.render ();
     }
     
     for (auto &square: squares) {
@@ -154,7 +152,7 @@ void Canvas::setCenter (int xCenter, int yCenter) {
 }
 
 void Canvas::drawRelative (float x, float y) {
-    rows [yCenter + yOrigin - y][xCenter + xOrigin + x - 1] = '*';
+    rows [yOrigin - yCenter - y][xOrigin + xCenter + x - 1] = '*';
 }
 
 // ====== Main entrypoint
@@ -163,10 +161,10 @@ int main () {
     auto canvas = Canvas ();
         
     Circle (canvas, 16);
-    Circle (canvas, 8, -14, -14);
+    Circle (canvas, 8, -14, 14);
     
     Square (canvas, 32);
-    Square (canvas, 16, 14, 14);
+    Square (canvas, 16, 14, -14);
 
     canvas.render ();
         
