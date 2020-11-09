@@ -1,0 +1,7 @@
+Welkom bij les 3 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+C++ kent een aantal standaard gegevenstypen zoals integer en float, en bewerkingen daarop zoals optellen en vermenigvuldigen. Wat C++ onderscheidt van C is dat het in C++ mogelijk is zelf nieuwe gegevenstypen toe te voegen, inclusief daarop gedefinieerde bewerkingen. Zulke nieuwe gegevenstypen heten classes, variabelen van dat type heten objecten en de op die variabelen gedefinieerde bewerkingen heten methods. Als voorbeeld gaan we aan de slag met grafische objecten, die met behulp van losse characters worden getekend in een console window.
+
+Probeer de code uit en vooral: speel ermee. Breng kleine veranderingen aan en kijk wat het effect is. Programmeren leer je echt alleen door het te doen. In het begin zullen de foutmeldingen je om de oren vliegen. Neem de tijd, zoek dingen op en houd vol. Een belangrijke tip: Los steeds alleen de eerste fout op die de compiler meldt, en compileer daarna opnieuw. Verder fouten zijn vaak een bij-effect van die eerste fout en verdwijnen als sneeuw voor de zon zodra je die hebt opgelost.

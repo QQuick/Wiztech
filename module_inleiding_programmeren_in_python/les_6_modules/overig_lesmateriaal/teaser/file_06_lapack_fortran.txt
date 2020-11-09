@@ -1,0 +1,7 @@
+From the documentation of NumPy in the year 2020:
+
+To build any extension modules for Python,
+you’ll need a C compiler.
+
+Various NumPy modules use FORTRAN 77 libraries,
+so you’ll also need a FORTRAN 77 compiler installed.

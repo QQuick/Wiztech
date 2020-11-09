@@ -1,1 +1,0 @@
-g++ console_graphics_application.cpp console_graphics.cpp -o console_graphics_application.exe

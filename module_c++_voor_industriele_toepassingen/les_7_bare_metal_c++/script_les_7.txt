@@ -1,0 +1,55 @@
+Welkom bij les 7 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Tot nu toe hebben we sterk geleund op de Standaard Template Library,
+bijvoorbeeld bij het gebruik van de string klasse.
+
+Maar als je C++ programma's maakt voor minimalistische embedded controllers,
+wil je dat misschien vermijden, om geheugen te sparen.
+
+Laten we eens kijken hoe je zelf een string klasse maakt,
+waarbij je ook zelf het zogenaamde dynamische geheugen beheert
+en bovendien voorkomt dat er nodeloze kopieen worden gemaakt.
+
+En als we dan toch de werking van libraries aan een onderzoek onderwerpen,
+laten we ook eens kijken hoe file-I/O in C++ op het laagste niveau werkt.
+
+Tenslotte, als klap op de vuurpijl: multi-threading!
+De meeste nieuwere computers hebben meerdere processor-cores.
+Dit maakt een verveelvoudiging van performance mogelijk.
+Als je tenminste met threads uit de voeten kunt.
+C++ maakt dat "a piece of cake".
+
+Kortom: In deze les benaderen we het bare metal van computer en besturingssysteem.
+
+Ladies and gentlemen, we're currently approaching some turbulence.
+Please return to your seats, fasten your seatbelts and await further instructions.
+
+Uitleiding:
+===========
+
+Met de aandacht in deze les voor de low-level faciliteiten in C++
+hebben we genoeg terrein verkend voor een eerste kennismaking.
+
+Verder is het een kwestie van gebruiken en blijven leren.
+C++ is een bewegend doel, de taal ondergaat voortdurend uitbreidingen.
+
+Soms zijn daar zaken bij waar de originele bedenker,
+Bjarne Stroustrup, even bij fronst.
+Hou 't een beetje simpel, jongens,
+is de strekking van veel van zijn commentaar.
+
+C++ gebruiken komt neer op het maken van verstandige keuzen.
+De gereedschappen die je in de afgelopen lessen hebt leren kennen,
+vertegenwoordigen zo'n verstandige keus.
+
+Begin eens met deze gereedschaps-set te gebruiken voor een serieuze toepassing.
+En kijk daarna verder wat je nodig hebt.
+Laat je niet overweldigen door de complexiteit van de C++ documentatie.
+C++ is geen taal om veredelde reclamefolders in te programmeren voor het web.
+
+Het is de taal die vliegtuigen in de lucht houdt,
+neural nets hun mysterieuze maar effectieve werk laat doen,
+en niet te vergeten, jou van een dik belegde boterham kan voorzien.
+Veel succes en, niet te vergeten, veel plezier!

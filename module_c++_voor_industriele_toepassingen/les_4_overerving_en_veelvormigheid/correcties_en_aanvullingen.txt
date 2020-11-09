@@ -1,0 +1,3 @@
+In het `console_graphics_polymorphism` voorbeeld kunnen de namen `free` en `maxFree` voor verwarring zorgen.
+Dit zijn gewoon namen van variabelen in het programma, net als `dependent`.
+Ze komen van 'vrije' en 'afhankelijke' variabele (vaak resp. x en y) in de wiskunde, en hebben dus niks met `malloc` en `free` uit de taal C te maken.

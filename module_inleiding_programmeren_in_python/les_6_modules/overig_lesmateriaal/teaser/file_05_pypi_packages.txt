@@ -1,0 +1,17 @@
+SciPy
+Numpy
+
+TensorFlow
+Pandas
+
+AstroPy
+Hdf5
+
+SimPyLC
+PyOpenGL
+
+Transcrypt
+Django
+
+BeautifulSoup
+Requests

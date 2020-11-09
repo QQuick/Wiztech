@@ -1,1 +1,0 @@
-g++ roots.cpp -o roots.exe

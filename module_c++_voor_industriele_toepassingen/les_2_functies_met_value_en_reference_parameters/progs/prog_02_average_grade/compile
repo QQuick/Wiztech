@@ -1,0 +1,1 @@
+g++ average_grade.cpp -o average_grade.exe

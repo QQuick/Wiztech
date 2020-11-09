@@ -1,0 +1,57 @@
+Intro
+=====
+
+Welkom bij les 3 uit de cursus "Inleiding programmeren in Python",
+onderdeel van de WizTech lessenserie.
+De les gaat over herhalings-lussen in je programma.
+Mijn naam is Jacques de Hooge.
+
+Allereerst hebben we programma's bekeken die in rechte lijn van begin tot eind werden uitgevoerd.
+Dit werd "Linear Flow of Control" genoemd.
+
+Daarna maakten we kennis met de if .. elif .. else statement,
+die het mogelijk maakte bepaalde programmafragmenten naar keuze wel of niet te doorlopen.
+Zulke programmafragmenten werden blokken genoemd.
+
+In deze les maken we kennis met een aantal manieren om blokken herhaalde malen uit te voeren.
+Allereerst behandelen we de zogenaamde "while" statement of "zolang" opdracht.
+
+etc...
+
+Command-line examples between prog 5 and 6
+==========================================
+
+Er zijn verschillende manieren om een lijst te vullen.
+We werkten nog eens even vanaf de command line om dit te laten zien.
+We hebben dus nu geen programmabestand, maar typen de statements weer gewoon in, net als in de eerste les.
+Eerst starten we Python, zonder bestandsnaam erachter. [doen]
+Een manier om een lijst te maken die we al gezien hebben in les 1 is gewoon de elementen intypen, bijvoorbeeld:
+    [1, 2, 'aap', 'noot', 2.25, -5.5, False, True] [doen]
+
+Een andere manier is door gebruik van de range functie.
+De range functie produceert een lijst.
+Als je bijvoorbeeld zegt:
+    aList = range (10)) [doen]
+    print (aList) [doen]
+krijg je zoals je ziet een lijst van 0 t/m 9.
+Hij begint dus bij 0 en houdt eentje voor 't einde op.
+
+Je kunt 'm ook ergens anders laten beginnen:
+    print (range (1, 11) [doen]
+    
+En je kunt 'm steeds ook met een willekeurig getal ophogen:
+    print (range (10, 100, 3) [doen]
+
+Als je bijvoorbeeld een lijst van kwadraten wilt, kun je gebruik maken van zgn. list comprehensions:
+    squares = [number * number for number in range (1, 11)] [doen]
+    print (squares) [doen]
+    
+Zo kun je ook een lijst van lijsten maken.
+Stel we hebben een scorebord met 7 regels van elk 5 getallen.
+Elk getal moet aanvankelijk 0 zijn.
+Hoe kunnen we dat dan doen.
+Zo:
+    scoreboard = [[0 for numberIndex in range (5)] for lineIndex in range (7)]
+    
+Getallen veranderen naar 20 en 15 [doen]
+

@@ -1,0 +1,1 @@
+g++ -std=c++2a -pthread threader_application.cpp threader.cpp -o threader_application.exe

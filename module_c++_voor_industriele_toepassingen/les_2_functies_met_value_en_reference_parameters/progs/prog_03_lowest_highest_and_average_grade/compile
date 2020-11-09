@@ -1,0 +1,1 @@
+g++ lowest_highest_and_average_grade.cpp -o lowest_highest_and_average_grade.exe

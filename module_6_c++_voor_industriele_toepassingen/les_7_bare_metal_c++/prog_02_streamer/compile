@@ -1,1 +1,0 @@
-g++ streamer.cpp -o streamer.exe

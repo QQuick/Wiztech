@@ -1,0 +1,46 @@
+Welkom bij les 5 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Alle gegevens in C++ hebben een datatype, dat bij compilatie naar machinecode vastligt.
+Omdat het type, afgezien van polymorphism, niet runtime hoeft te worden geevalueerd,
+is de executiesnelheid van C++ code vergelijkbaar met die van handgeschreven machinetaal.
+
+Een ander aspect van deze compile time typing is betrouwbaarheid.
+Als bijvoorbeeld bij toekenning van een waarde aan een variable het gegevenstype niet klopt,
+zal de compiler dat onmiddelijk melden.
+
+Dit in tegenstelling tot talen die niet van te voren worden gecompileerd,
+maar tijdens executie worden geinterpreteerd, zoals Python en JavaScript.
+Bij dergelijke talen kan het heel goed zijn dat een programma 999 maal goed draait,
+en de 1000e keer in de fout gaat, omdat dan eindelijk een tak van een if-statement wordt doorlopen
+waarin dingen worden gedaan met variabelen die voor dat type variabele niet mogelijk zijn,
+bijvoorbeeld twee strings met elkaar vermenigvuldigen.
+
+Zowel Python als JavaScript hebben daarom toch een vorm van typechecking geintroduceerd.
+Omdat dit acheraf gebeurt, is vooral JavaScript qua performance nog steeds sterk in het nadeel
+Bij Python is dit minder het geval, omdat libraries voor deze taal vaak in C of C++ geschreven zijn.
+
+Een nadeel van compile time typing wordt zichtbaar als met verschillende gegevenstypen
+overeenkomstige bewerkingen moeten worden uitgevoerd.
+
+Zo kunnen wiskundige berekeningen worden gecodeerd voor double precision floating point getallen,
+indien nauwkeurigheid gewenst is, maar ook voor 16 bit integers als geheugen moet worden bespaard.
+Zonder speciale voorzieningen moet de zulke code voor elk gegevenstype opnieuw worden geschreven.
+
+De doorgewinterde C programmeur denkt misschien onmiddelijk aan de macro preprocessor,
+die in staat is, voorafgaand aan de compilatie symbolen door andere symbolen te vervangen, bijvoorbeeld double door int.
+Door toepassing van zogenaamde type definities kan dit selectief gebeuren, en daarmee is het probleem in principe opgelost.
+Dit leidt echter tot ingewikkelde en behoorlijk onveilige code en heeft veel beperkingen.
+Gebruik van de macro preprocessor kan trouwens, in tegenstelling tot het heersende vooroordeel, zeker nut hebben.
+Maar in dit geval is er in C++ een veel betere manier.
+En dan heb ik het over templates, in sommige talen "generic typing" genoemd.
+
+Het template mechanisme is zo krachtig, dat het aanleiding was voor de geboorte van een zeer uitgebreide library
+die standaard bij C++ hoort, de Standard Template Library oftewel STL.
+Ter geruststelling: Je hebt hem al gebruikt vanaf les 1, want gegevensstructuren zoals vector en list komen uit die STL.
+
+Deze les heeft ten doel je van gebruiker van template libraries te upgraden naar ontwerper en maker ervan.
+Daarmee heb je een middel in handen om super-snelle en toch flexibele code libraries te ontwikkelen
+die jijzelf, maar ook anderen kunnen gebruiken.
+Welkom in de wereld van de hard-core programmer.

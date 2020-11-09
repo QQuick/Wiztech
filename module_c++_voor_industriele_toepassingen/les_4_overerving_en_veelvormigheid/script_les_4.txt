@@ -1,0 +1,42 @@
+Welkom bij les 4 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Het onderbrengen van functies in klassen, dus het gebruik van "methods", is op zich ordelijk en overzichtelijk.
+Een nadeel is dat het voor code-duplicatie kan zorgen.
+
+Immers, waar moet je functionaliteit onderbrengen die in meerder klassen wordt gebruikt?
+Het antwoord is: in een gemeenschappelijke basisklasse, met behulp van overerving.
+
+Omdat de objecten van alle klassen die van zo'n basisklasse afstammen, in ieder geval de functies van die basisklasse gemeenschappelijk hebben,
+kunnen ze wat betreft die functies zorgeloos door elkaar worden gebruikt.
+
+Dit zogenaamde polymorphism (letterlijk: veelvormigheid) gaat zelfs nog een stapje verder.
+Elk vogeltje zingt zoals het gebekt is, dus verschillend.
+Een raaf krast en een nachtegaal fluit, bij beiden heet die functie "zingen".
+
+Een meer technisch voorbeeld: het renderen (op het scherm weergeven) van een cirkel is iets anders dan het renderen van een vierkant.
+Toch kunnen verwijzingen naar cirkels en vierkanten zorgeloos in dezelfde vector worden opgeborgen,
+en kunnen alle elementen uit zo'n gemengde, dus polymorfe, vector op de zelfde manier worden aangesproken:
+element, render jezelf.
+En het element, dus de cirkel of het vierkant, weet zelf wel hoe het zich moet renderen.
+
+Met polymorphism zijn we aangeland bij de kern van de object orientatie.
+Het moment dat je polymorphism op een goede manier gaat toepassen in een applicatie,
+is het moment waarop alles op z'n plaats valt.
+
+Als je een paar maanden ervaring met object orientatie hebt, leer je dat moment feilloos herkennen.
+Je applicatie wordt vaak opeens kleiner in plaats van groter, begrijpelijker en beter uitbreidbaar.
+Je mag je zelf feliciteren, je bent niet meer aan het code breien, maar aan het ontwerpen.
+
+Voorwaarde voor het bereiken van dit punt is dat je bereid bent zeer kritisch naar je eigen, al werkende code te kijken.
+Kan het beter? Zit er verborgen regelmaat en structuur in je probleem waar je van kunt profiteren?
+In het begin kost dit moeite.
+Uiteindelijk wordt het een tweede natuur.
+Maar je blijft wat dit betreft altijd leren, dat kan ik je uit eigen ervaring vertellen.
+
+Houdt bij het bekijken van de voorbeelden in de gaten dat dit noodzakelijkerwijs speelgoedproblemen zijn.
+Echte software is tientallen of zelfs honderden malen groter en complexer.
+Bij zulke real-world applicaties betekent polymorphism het verschil tussen orde en chaos.
+Klinkt allemaal ingewikkeld en vaag?
+We gaan weer gewoon aan de slag, dan zie je vanzelf hoe het zit.

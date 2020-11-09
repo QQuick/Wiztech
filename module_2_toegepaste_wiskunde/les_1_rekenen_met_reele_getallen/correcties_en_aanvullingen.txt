@@ -1,3 +1,0 @@
-1. In de gesproken toelichting bij diverse slides worden herhaalde malen de woorden DELER en DEELTAL verwisseld.
-   Bij een breuk a/b is a het deeltal en b de deler, zoals correct genoteerd op de slide met titel "Afgeleide bewerkingen: - en :"
-   

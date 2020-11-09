@@ -1,0 +1,1 @@
+g++ console_graphics_inheritance_application.cpp console_graphics_inheritance.cpp -o console_graphics_inheritance_application.exe

@@ -1,0 +1,43 @@
+Welkom bij les 6 van de cursus C++ voor industriele toepassingen,
+onderdeel van de Wiztech lessenserie.
+Mijn naam is Jacques de Hooge.
+
+Een van de voornaamste doelstellingen bij het ontwerpen van de taal C++ was uitbreidbaarheid.
+Het idee was een relatief kleine, maar flexibele taalkern te definieren,
+zonder I/O faciliteiten en ingewikkelde datastructuren.
+Deze zouden dan later worden toegevoegd in de vorm van libraries.
+
+Daarmee moest het mogelijk worden, C++ programma's te ontdoen van alle overbodige franje.
+Zo hebben embedded control applicaties helemaal geen klassieke, file based I/O nodig,
+De gegenereerde machinecode wordt door het weglaten van zulke faciliteiten compact en snel,
+indien de compiler tenminst niet allerlei overbodige rommel genereert, want ook dat komt voor.
+
+Om de taal met behulp van libraries naadloos te kunnen uitbreiden,
+was het nodig ook operatoren zoals *, +, =, > en < van een nieuwe betekenis te kunnen voorzien.
+
+Deze uitbreidbaarheid had de nodige haken en ogen.
+Pas met de komst van move semantics en copy elision, werd het mogelijk libraries zoals de Standard Template Library te optimaliseren tot het niveau van handgeschreven assembler (machinetaal).
+
+Move semantics en copy elision zijn beiden gericht op het vermijden van het nodeloze kopieren van data.
+Voor het eerst werd het mogelijk operator overloading toe te passen zonder enig performance-verlies,
+met name bij het doorgeven van de return value (het resultaat) van bijvoorbeeld een matrix vermenigvuldiging of optelling.
+Een nieuwe generatie bliksemsnelle en toch elegante numerieke libraries, bruikbaar vanuit uiteenlopende talen is het gevolg.
+
+In deze les zul je zien hoe de introductie van operator overloading in ons matrix-programma leidt tot een natuurlijke notatie zonder enige opoffering van performance.
+Let op!
+
+
+Uitleiding:
+===========
+
+Je hebt gezien hoe je er met geringe wijzigingen voor kunt zorgen, dat onze matrix-klasse een naadloos onderdeel van C++ lijkt te zijn.
+Geoverloade operatoren kunnen op een natuurlijke wijze worden gebruikt zonder dat enige efficiency wordt ingeleverd.
+Het is in het algemeen mogelijk C++ op deze manier uit te breiden met faciliteiten voor elk willekeurig toepassingsgebied.
+Of het nu om databases, besturingen of userinterfaces gaat: C++ is upto the job.
+Dat wil trouwens niet zeggen dat het slim is ook werkelijk alles in C++ te programmeren.
+To someone with a hammer, anything looks like a nail.
+
+C++ is koning van de runtime performance.
+En Python is koningin van de development speed.
+De meeste applicaties die ik maak bestaan uit een combinatie van die twee.
+Samen vormen ze een gelukkige paar, Jin en Jang, dat het mogelijk maakt in korte tijd efficiente en toch onderhoudbare applicaties te ontwikkelen.

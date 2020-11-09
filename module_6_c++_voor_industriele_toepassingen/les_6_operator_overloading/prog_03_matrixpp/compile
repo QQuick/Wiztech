@@ -1,1 +1,0 @@
-g++ matrixpp_application.cpp -o matrixpp_application.exe

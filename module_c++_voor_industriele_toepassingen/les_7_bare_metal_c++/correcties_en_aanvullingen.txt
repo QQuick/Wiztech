@@ -1,0 +1,3 @@
+In het 'heaper' voorbeeld in de video zet method `st::istream &operator >> (st::istream &inputStream, String &aString)` niet de waarde van attribute `aString.aSize`.
+Daarom werkt method `aString.size ()` niet.
+Dit is in de voorbeeld-programma's gecorrigeerd door toevoeging van de regel `buffer.aSize = strlen (buffer.content);`.
