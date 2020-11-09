@@ -1,6 +1,7 @@
 # ====== File extensions anywhere
 *.exe
 *.out
+*.pyc
 
 # ======= Directories anywhere
 shots/
