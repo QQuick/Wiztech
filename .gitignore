@@ -2,6 +2,7 @@
 *.exe
 *.out
 *.pyc
+*.mp4
 
 # ======= Directories anywhere
 shots/
