@@ -35,7 +35,7 @@ class DataRecorder:
         
         if self.create:
             self.ringbuffer.fill (0)
-            self.ringbuffer [dd.ringbufferSize][0] = -0.9
+            self.ringbuffer [dd.ringbufferSize][0] = -1
             
         return self
         
