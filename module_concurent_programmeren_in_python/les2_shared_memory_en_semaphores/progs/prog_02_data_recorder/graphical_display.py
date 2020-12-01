@@ -4,7 +4,6 @@ import data_recorder as dr
 import data_definition as dd
 
 with dr.DataRecorder () as dataRecorder:
-    count = 0
     while True:
         record = dataRecorder.readRecords (1)[0]
         potentialString = ''.join ([
@@ -17,9 +16,6 @@ with dr.DataRecorder () as dataRecorder:
             for current in range (-dd.maxCurrent, dd.maxCurrent + 1)
         ])
                 
-        print (f'{record [dd.timestampIndex] : 7.2f}          {potentialString}          {currentString} {count}')
+        print (f'{record [dd.timestampIndex] : 7.2f}          {potentialString}          {currentString}')
+
         tm.sleep (0.3)
-        
-        count += 1
-        if count > 100:
-            break

@@ -1,4 +1,4 @@
-import multiprocessing.shared_memory as sm
+import multiprocessing.shared_memory as sm 
 import numpy as np
 
 import data_definition as dd
@@ -33,13 +33,17 @@ class DataRecorder:
             buffer = self.ringbufferMemory.buf
         )
         
+        if self.create:
+            self.ringbuffer.fill (0)
+            self.ringbuffer [dd.ringbufferSize][0] = -0.9
+            
         return self
         
     def __exit__ (self, *args):
-        self.ringbufferMemory.close()
+        self.ringbufferMemory.close ()
         
         if self.create:
-            self.ringbufferMemory.unlink()
+            self.ringbufferMemory.unlink ()
         
     def printRecord (self, measurement):
         print ('\t'.join ([
@@ -48,17 +52,19 @@ class DataRecorder:
         ]))
 
     def writeRecord (self, record):        
-        self.ringbuffer [int (self.ringbuffer [dd.ringbufferSize][0])] = record
         self.ringbuffer [dd.ringbufferSize][0] = (self.ringbuffer [dd.ringbufferSize][0] + 1) % dd.ringbufferSize
+        self.ringbuffer [round (self.ringbuffer [dd.ringbufferSize][0])] = record
             
     def readRecords (self, readbufferSize):
         if readbufferSize <= dd.ringbufferSize:
-            readbuffer = self.ringbuffer [  # Deliberately lag behind one sample to avoid reading halfwritten values
-                int (self.ringbuffer [dd.ringbufferSize][0]) - readbufferSize:
-                int (self.ringbuffer [dd.ringbufferSize][0])
-            ]
+            newestIndex = round (self.ringbuffer [dd.ringbufferSize][0]) + 1
+            eldestIndex = (newestIndex - readbufferSize) % dd.ringbufferSize
             
-            return readbuffer
+            return (
+                    list (self.ringbuffer [eldestIndex : newestIndex])
+                if eldestIndex < newestIndex else
+                    list (self.ringbuffer [eldestIndex : -1]) + list (self.ringbuffer [ : newestIndex])
+            )
         else:
             raise ReadbufferTooLargeError (readbufferSize)
 
