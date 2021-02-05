@@ -1,0 +1,40 @@
+n1v1
+Een dictionairy met als keys de namen en als values de windows is handig.
+Dan kan een window worden geactiveerd door een naam te selecteren.
+
+n1v2
+Een lijst met daarin 20 lijsten van elk 30 getallen.
+Index in buitenste lijst is rij-index.
+Index in binnenste lijst is kolom-index.
+
+n1v3
+Snel en compact is hier een tuple aTuple met daarin tuples die er zo uitzien:
+aTuple [index] == (sin (index/1000), cos (index / 1000), tan (index / 1000))
+
+n1v4
+Niet alle 1.000.000.000.000 getallen passen waarschijnlijk in het geheugen.
+Sla alleen de non-zero getallen op in een dict met tuples (rowIndex, columnIndex) als keys.
+Als een een bepaalde key (rowIndex, columnIndex) niet bestaat, is het bijbehorende getal nul.
+
+n2v1
+(3.14,) De komma is nodig, want type ((3.14)), zonder komma,
+is float, geen tuple. Probeer maar uit!
+
+n2v2
+dict () of {} is een leeg dict en set () is een lege set.
+
+n2v3
+Doorsnede: a & b
+Vereniging: a | b
+Symmetric difference: a ^ b
+
+n3v1
+tuple comprehension: tuple (i * i for i in range (10))
+list comprehension: [i * i for i in range [0]]
+dict comprehension: {i: i * i for i in range [10]}
+set comprehension: {i * i for i in range [10]}
+
+n3v2
+Kleiner voorbeeld:
+matrix = [[[(layerIndex, rowIndex, columnIndex) for columnIndex in range (4)] for rowIndex in range (3)] for layerIndex in range (2)]
+print (matrix [1][2][3])

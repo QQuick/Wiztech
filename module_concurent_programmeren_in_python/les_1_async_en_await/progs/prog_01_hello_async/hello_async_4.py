@@ -13,7 +13,6 @@ async def main ():
     task2 = ai.create_task (sayAfter (2, 'Wereld'))
     print (tm.strftime ('%X'), 'Tasks started')
     
-
     await task1     # Will wait 1 s
     await task2     # Will wait 1 s additionally
     

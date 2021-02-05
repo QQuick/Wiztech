@@ -1,0 +1,180 @@
+//______________________________________________________________________________
+//
+//
+//     L O W   L E V E L   C O N T R O L   S A S C   A N T W E R P E N
+//
+//     Simulation including crane behaviour
+//
+//______________________________________________________________________________
+
+UNIT Blinking_timebasis
+
+IF blinkTimer > blinkTime THEN
+   blinkTimer.res;
+   IF blinkOn THEN
+      blinkOn.unl;
+   ELSE
+      blinkOn.lat;
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Switching_between_manual_and_semi_automatic
+
+IF semiAutoSwitch THEN
+   semiAutoMode.act;
+   IF not manualSegment THEN
+      autoMode.act;
+   ENDIF
+ENDIF
+
+IF semiAutoMode 
+      and
+      (autoMode or blinkOn) THEN
+   semiAutoLamp.act;
+ENDIF
+
+
+//______________________________________________________________________________
+
+UNIT Pedal
+
+IF pedal THEN
+   pedalDown.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Twistlocks
+
+IF lockButton THEN
+   twistLocked.lat;
+ELSIF unlockButton THEN
+   twistLocked.unl;
+ENDIF
+
+IF twistLocked THEN
+   lockedLamp.act;
+ELSE
+   unlockedLamp.act;
+ENDIF
+
+IF false THEN
+   lockButton.one;
+   unlockButton.one;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Sequence_blocking
+
+IF emergButton THEN
+   suspend.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Crane_movements
+
+move (
+   xController,
+   xCommand,
+   xTarget,
+   xActual,
+   xStopTimer,
+   xStopTime,
+   xCompleted,
+   xMargin,
+   xDistance,
+   xDriveFactor,
+   xMinBuffer,
+   xMinLimit,
+   xMinPreLimit,
+   xMaxPreLimit,
+   xMaxLimit,
+   xMaxBuffer,
+   percentVXPreLim,
+   percentVX,
+   vXMax,
+   vXRequested,
+   aXMax,
+   vXActual
+);
+
+move (
+   yController,
+   yCommand,
+   yTarget,
+   yActual,
+   yStopTimer,
+   yStopTime,
+   yCompleted,
+   yMargin,
+   yDistance,
+   yDriveFactor,
+   yMinBuffer,
+   yMinLimit,
+   yMinPreLimit,
+   yMaxPreLimit,
+   yMaxLimit,
+   yMaxBuffer,
+   percentVYPreLim,
+   percentVY,
+   vYMax,
+   vYRequested,
+   aYMax,
+   vYActual
+);
+
+move (
+   zController,
+   zCommand,
+   zTarget,
+   zActual,
+   zStopTimer,
+   zStopTime,
+   zCompleted,
+   zMargin,
+   zDistance,
+   zDriveFactor,
+   zMinBuffer,
+   zMinLimit,
+   zMinPreLimit,
+   zMaxPreLimit,
+   zMaxLimit,
+   zMaxBuffer,
+   percentVZPreLim,
+   percentVZ,
+   vZMax,
+   vZRequested,
+   aZMax,
+   vZActual
+);
+
+//______________________________________________________________________________
+
+UNIT Slip_returnal
+
+commandSlip = commandTicket;
+
+//______________________________________________________________________________
+
+UNIT Sweeptime_measurement
+
+sweepTime = sweepTimer;
+sweepTimer.res;
+IF sweepTime > maxSweepTime THEN
+   maxSweepTime = sweepTime;
+ELSIF sweepTime < minSweepTime and sweepTime != 0 THEN
+   minSweepTime = sweepTime;
+ENDIF
+
+//______________________________________________________________________________
+//
+//
+//                               E I N D E
+//
+//______________________________________________________________________________
+
+

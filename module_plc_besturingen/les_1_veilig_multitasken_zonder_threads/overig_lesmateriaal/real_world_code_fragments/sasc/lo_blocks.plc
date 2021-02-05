@@ -1,0 +1,108 @@
+PROC move (
+   INTEGER READ  controller,
+   INPUT   READ  command,
+   INTEGER READ  sTarget,
+   INTEGER WRITE sActual,
+   TIMER   WRITE stopTimer,
+   REAL    READ  stopTime,
+   MARKER  WRITE completed,
+   INTEGER READ  margin,
+   INTEGER WRITE distance,
+   REAL    READ  driveFactor,
+   INTEGER READ  sMinBuffer,
+   INTEGER READ  sMinLimit,
+   INTEGER READ  sMinPreLimit,
+   INTEGER READ  sMaxPreLimit,
+   INTEGER READ  sMaxLimit,
+   INTEGER READ  sMaxBuffer,
+   INTEGER READ  percentVPreLim,
+   INTEGER WRITE percentV,
+   INTEGER READ  vMax,
+   INTEGER WRITE vRequested,
+   INTEGER READ  aMax,
+   INTEGER WRITE vActual
+)
+BLOCK
+   // Reference percentage calculation
+
+   IF autoMode THEN
+      distance = abs (sActual - sTarget);
+
+      IF distance < margin THEN
+         IF stopTimer > stopTime THEN
+            completed.act;
+         ENDIF 
+      ELSE
+         stopTimer.res;
+      ENDIF
+
+      IF command and not completed THEN
+         percentV = sqrt (driveFactor * distance);
+
+         IF percentV > 100 THEN
+            percentV = 100;
+         ENDIF
+
+         IF sActual > sTarget THEN
+            percentV = -1 * percentV;
+         ENDIF
+      ELSE
+         percentV = 0;
+      ENDIF
+   ELSE
+      percentV = controller;
+   ENDIF
+
+   // Correction for limit switches
+
+   IF percentV < 0 THEN
+      IF sActual < sMinPreLimit THEN
+         IF sActual < sMinLimit THEN
+            percentV = 0;
+         ELSIF percentV < - 1 * percentVPreLim THEN
+            percentV = - 1 * percentVPreLim;
+         ENDIF
+      ENDIF
+   ELSE
+      IF sActual > sMaxPreLimit THEN
+         IF sActual > sMaxLimit THEN
+            percentV = 0;
+         ELSIF percentV > percentVPreLim THEN
+            percentV = percentVPreLim;
+         ENDIF
+      ENDIF
+   ENDIF
+
+   // Requested speed calculation
+
+   vRequested = percentV * vMax / 100;
+
+   // Actual speed calculation
+
+   IF vRequested > vActual THEN
+      vActual = vActual + aMax * sweepTime;
+      IF vActual > vRequested THEN
+         vActual = vRequested;
+      ENDIF
+   ELSIF vRequested < vActual THEN
+      vActual = vActual - aMax * sweepTime;
+      IF vActual < vRequested THEN
+         vActual = vRequested;
+      ENDIF
+   ENDIF
+
+   // Position calculation
+
+   sActual = sActual + vActual * sweepTime;
+
+   // Correction for buffers
+
+   IF sActual < sMinBuffer THEN
+      sActual = sMinBuffer;
+   ELSIF sActual > sMaxBuffer THEN
+      sActual = sMaxBuffer;
+   ENDIF
+ENDBLOCK
+
+
+
