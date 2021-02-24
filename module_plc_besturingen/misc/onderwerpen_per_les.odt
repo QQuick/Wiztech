@@ -1,0 +1,58 @@
+﻿Les 1
+
+Input Sweep Output
+Delta T
+Alles maar 1 x aansturen
+Geen lussen
+Geen vertakkingen
+
+Prog
+	In les: Knipperende LED
+	Huiswerk:  Uitbreiden met dimbare LED
+
+Les 2
+
+In bedrijf stelling ECT:
+5 maanden DEC ELN VAX
+1 dag PLC
+
+Simulatie (daar gaan opgaven over)
+Real time debuggen: praktische strategieen
+FDPU/ringbuffer
+
+Prog :
+
+	In les:
+	Uitleg koppelen PLC's, splitsing in physics en control
+	API heen: versnelling, terug: snelheid + grafieken
+
+	Huiswerk: versnellen max, remmen met max, max snelheid, dodeman.
+	API zelf bedenken, maxima zitten in hardware, dodeman grijpt in in hardware (waarom)
+
+Les 3: Robot-arm
+F= ma, s = s0 + v0t + 1/2 at^2
+
+Opg.
+	In les: schrijf formule om
+	Thuis: optimaal positioneren (staat op site?)
+
+Les 4:
+	Borealis, alle onderdelen
+	In les: In welke laag hoort dit thuis
+	Huiswerk: Onwerp een container-plant (a la ECT)
+
+Les 5:
+	Voorbeeld zelf-sturende auto
+	Filmpje van Joris en Dylan
+	In les: Melding van pylon-posities
+	Huiswerk: Automatische besturing
+
+Les 6:
+	PID-regelaar
+	In les: Maak losse PID regelaar in Simulator
+	Huiswerk: Gebruik hem voor de zelfsturende auto
+	Regel 'm in.
+
+Les 7:
+	Eindopgave: 4 pits inductie-kookplaat
+ 

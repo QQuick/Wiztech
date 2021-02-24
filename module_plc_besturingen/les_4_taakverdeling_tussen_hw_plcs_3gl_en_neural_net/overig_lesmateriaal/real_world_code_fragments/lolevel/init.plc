@@ -1,0 +1,69 @@
+#include "layout.h"
+
+#define per_sec  / (1 sec)
+#define per_sec2 / (1 sec * 1 sec)
+
+xMinBuffer   = cXMinBuffer;
+xMinLimit    = cXMinLimit;
+xMinPreLimit = cXMinPreLimit;
+xMaxPreLimit = cXMaxPreLimit;
+xMaxLimit    = cXMaxLimit;
+xMaxBuffer   = cXMaxBuffer;
+
+yMinBuffer   = cYMinBuffer;
+yMinLimit    = cYMinLimit;
+yMinPreLimit = cYMinPreLimit;
+yMaxPreLimit = cYMaxPreLimit;
+yMaxLimit    = cYMaxLimit;
+yMaxBuffer   = cYMaxBuffer;
+
+zMinBuffer   = cZMinBuffer;
+zMinLimit    = cZMinLimit;
+zMinPreLimit = cZMinPreLimit;
+zMaxPreLimit = cZMaxPreLimit;
+zMaxLimit    = cZMaxLimit;
+zMaxBuffer   = cZMaxBuffer;
+
+xTolerance =  4 cm;
+yTolerance =  4 cm;
+zTolerance = 15 cm;
+
+xMargin =  2 cm;
+yMargin =  2 cm;
+zMargin = 10 cm;
+
+xStopTime = 1 sec;
+yStopTime = 1 sec;
+zStopTime = 1 sec;
+
+aXMax = 0.4 m per_sec2;
+aYMax = 0.2 m per_sec2;
+aZMax = 0.1 m per_sec2;
+
+vXMax = 4 m per_sec;
+vYMax = 2 m per_sec;
+vZMax = 1 m per_sec;
+
+percentVXPreLim = 10;
+percentVYPreLim = 10;
+percentVZPreLim = 10;
+
+// Drive factors, used to compute speed reference percentages as a function of the target distance
+
+xDriveFactor = 2. * 100 * 100 * aXMax / (vXMax * vXMax);
+yDriveFactor = 2. * 100 * 100 * aYMax / (vYMax * vYMax);
+zDriveFactor = 2. * 100 * 100 * aZMax / (vZMax * vZMax);
+
+// Blink time
+
+blinkTime = 0.75 sec;
+
+// System parameters
+
+minSweepTime = 1 hour;
+
+// Init crane location
+
+xActual = (xMinLimit + xMaxLimit) / 2;
+yActual = (yMinLimit + yMaxLimit) / 2;
+zActual = zMinLimit;

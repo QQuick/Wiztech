@@ -1,0 +1,3 @@
+Eerst alles in en uit SimPyLC (eenvoudige auto) en nieuwe versie uploaden, downloaden, testen incl. arduino.
+Dan verder met les 2: lesindeling, progs etc.
+ 

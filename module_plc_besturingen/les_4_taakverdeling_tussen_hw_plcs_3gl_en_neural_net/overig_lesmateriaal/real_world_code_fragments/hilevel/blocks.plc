@@ -1,0 +1,64 @@
+MARKER FUNC checkSlip (INTEGER READ slip, INTEGER WRITE ticket)
+BLOCK
+   RESULT false;                       // Start with the assumption that communication failed
+
+   IF ticket == 0 THEN                 // If high level control was initialized
+      ticket = 1;                      //    Give out unique ticket nr. 1 to prevent confusion
+      RESULT true;                     //    Communications partner returned all previous (nonexistent) post  // Added 29/9/95
+   ENDIF                               //    with old slips (> 1) and default slip (0)
+
+   IF slip > 0 THEN                    // If no default slip, initialized by communications partner
+      IF slip == ticket THEN           //    If slip belonged to ticked handed out most recently
+         RESULT true;                  //       Communications partner returned post
+         ticket = ticket + 1;          //       Propose number for new ticket
+         IF ticket > ticketRange THEN  //       If proposed number out of range
+            ticket = 2;                //          Start again with low ticket numbers
+         ENDIF
+      ENDIF
+   ENDIF
+ENDBLOCK
+
+PROC splitRoute (INTEGER READ xEnd)
+BLOCK
+   yLane = yActual;
+   movingOutTilt.unl;
+   movingOutBulk.unl;
+   IF abs (xEnd - xActual) > xTolerance THEN
+      IF yActual < yTiltBand THEN
+         IF    (xActual < xMinTiltBand and xEnd > xMinTiltBand)
+               or
+               (xActual > xMaxTiltBand and xEnd < xMaxTiltBand)
+               or
+               (xActual >= xMinTiltBand and xActual <= xMaxTiltBand) THEN
+            yLane = yTiltBand;
+            movingOutTilt.lat;
+         ENDIF
+      ELSIF yActual > yBulkBand THEN
+         IF    (xActual > xBulkBand and xEnd < xBulkBand)
+               or
+               (xActual <= xBulkBand) THEN
+            yLane = yBulkBand;
+            movingOutBulk.lat;
+         ENDIF
+      ENDIF
+   ENDIF
+ENDBLOCK
+
+MARKER FUNC approach (
+   INTEGER READ  sProposedIn,
+   INTEGER READ  sActual,
+   INTEGER READ  tolerance,
+   INTEGER READ  overlapMargin,
+   LATCH   WRITE order,
+   INTEGER WRITE sProposedOut
+)
+BLOCK
+   sProposedOut = sProposedIn;
+   IF abs (sProposedOut - sActual) > tolerance THEN
+      order.lat;
+      RESULT abs (sProposedOut - sActual) < overlapMargin;
+   ELSE
+      RESULT true;
+   ENDIF
+ENDBLOCK
+

@@ -1,0 +1,393 @@
+//______________________________________________________________________________
+//
+//
+//     H I G H   L E V E L   C O N T R O L   B O R E A L I S   S A S C
+//
+//______________________________________________________________________________
+
+UNIT Request_reading
+
+IF checkSlip (requestSlip, requestTicket) THEN
+   inRequest = requestCode;
+ELSE
+   inRequest = rqNone;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Operation_interrupt
+
+SELECT inRequest FROM
+   IS rqReset DO
+      reset.one;
+   IS rqHold DO
+      hold.one;
+   IS rqResume DO
+      pause.unl;
+ENDSEL
+
+IF hold or suspend THEN
+   pause.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Pedal_pulse_detection
+
+IF pedalDown THEN
+   pedalGoesDown.one;
+   IF pedalGoesDown and pedalTimer < pedalTime THEN
+      pedalPulse.one;
+   ENDIF
+   pedalTimer.res;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_request_buffering
+
+IF reset THEN
+   activeRequest = 0;
+   pendingRequest = 0;
+ENDIF
+
+IF pendingRequest != rqNone and activeRequest == rqNone THEN
+   activeRequest  = pendingRequest;
+   pendingRequest = rqNone;
+
+   xGet = xGetPending;
+   yGet = yGetPending;
+   zGet = zGetPending;
+   xPut = xPutPending;
+   yPut = yPutPending;
+   zPut = zPutPending;
+ENDIF
+
+IF rqMove <= inRequest and inRequest <= rqGetPut and pendingRequest == rqNone THEN
+   pendingRequest = inRequest;
+
+   xGetPending = xFrom;
+   yGetPending = yFrom;
+   zGetPending = zFrom;
+   xPutPending = xTo;
+   yPutPending = yTo;
+   zPutPending = zTo;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_stepper
+
+IF reset THEN
+   routeStep = rIdle;
+   manualSegment.unl;
+ENDIF
+
+SELECT routeStep FROM
+   IS rIdle DO
+      IF not (xOrder or yOrder or zOrder) THEN
+         xProposed = xActual;
+         yProposed = yActual;
+         zProposed = zActual;
+      ENDIF
+      IF activeRequest == rqGet or activeRequest == rqGetPut THEN
+         routeStep.inc;
+      ELSIF activeRequest == rqMove or activeRequest == rqPut THEN
+         routeStep = rHighPut;
+      ENDIF;
+   IS rHighGet DO
+      splitRoute (xGet);
+      IF approach (zHigh, zActual, zTolerance, marginZHighGet, zOrder, zProposed) THEN
+         routeStep.inc;
+      ENDIF 
+   IS rLaneGet DO
+      IF approach (yLane, yActual, yTolerance, marginYLaneGet, yOrder, yProposed) THEN
+         routeStep.inc;
+      ENDIF 
+   IS rXGet DO
+      IF    approach (xGet, xActual, xTolerance, marginXYGet, xOrder, xProposed) 
+            and
+            (  not yOrder 
+               or
+               (movingOutTilt and yGet > yLane)
+               or
+               (movingOutBulk and yGet < yLane)
+            ) THEN
+         routeStep.inc;
+      ENDIF
+   IS rYGet DO
+      IF    approach (yGet, yActual, yTolerance, marginYGet, yOrder, yProposed)
+            and
+            abs (xProposed - xActual) < marginXZGet THEN
+         routeStep.inc;
+      ENDIF
+   IS rZGet DO
+      IF    approach (zGet, zActual, zTolerance, marginZGet, zOrder, zProposed)
+            and
+            not (xOrder or yOrder) THEN
+         routeStep.inc;
+      ENDIF
+   IS rWaitGet DO
+      manualSegment.lat;
+      IF twistLocked and pedalPulse THEN
+         manualSegment.unl;
+         routeStep.inc;
+      ENDIF
+   IS rHighPut DO
+      IF approach (zHigh, zActual, zTolerance, marginZHighGet, zOrder, zProposed) THEN
+         IF activeRequest == rqGet THEN
+            routeStep = rAccept;
+         ELSE
+            splitRoute (xPut);
+            routeStep.inc;
+         ENDIF
+      ENDIF
+   IS rLanePut DO
+      IF approach (yLane, yActual, yTolerance, marginYLanePut, yOrder, yProposed) THEN
+         routeStep.inc;
+      ENDIF
+   IS rXPut DO
+      IF    approach (xPut, xActual, xTolerance, marginXYPut, xOrder, xProposed)
+            and 
+            (  not yOrder
+               or
+               (movingOutTilt and yPut > yLane)
+               or
+               (movingOutBulk and yPut < yLane)
+            ) THEN
+         routeStep.inc;
+      ENDIF
+   IS rYPut DO
+      IF    approach (yPut, yActual, yTolerance, marginYPut, yOrder, yProposed)
+            and
+            abs (xProposed - xActual) < marginXZPut THEN
+         IF activeRequest == rqMove THEN
+            routeStep = rAccept;
+         ELSE
+            routeStep.inc;
+         ENDIF
+      ENDIF
+   IS rZPut DO
+      IF    approach (zPut, zActual, zTolerance, marginZPut, zOrder, zProposed)
+            and
+            not (xOrder or yOrder) THEN
+         routeStep.inc;
+      ENDIF
+   IS rWaitPut DO
+      manualSegment.lat;
+      IF not twistLocked and pedalPulse THEN
+         manualSegment.unl;
+         routeStep.inc;
+      ENDIF
+   IS rHighEnd DO
+      IF approach (zHigh, zActual, zTolerance, marginZHighEnd, zOrder, zProposed) THEN
+         routeStep.inc;
+      ENDIF
+   IS rAccept DO
+      activeRequest = rqNone;
+      routeStep = rIdle;
+ENDSEL
+
+//______________________________________________________________________________
+
+UNIT Retargetting
+
+// Delaying gantry while moving trolley to safe position
+
+xTarget = xProposed;
+freezeX.unl;
+
+IF yActual < yTiltFree and yProposed > yTiltFree THEN  // Moving out at tilting 1 to 6
+   IF xActual < xMinTiltFree and xProposed > xMinTiltFree THEN
+      xTarget = xMinTiltFree;
+   ELSIF xActual > xMaxTiltFree and xProposed < xMaxTiltFree THEN
+      xTarget = xMaxTiltFree;
+   ELSIF xActual > xMinTiltFree and xActual < xMaxTiltFree THEN
+      xTarget = xActual;
+      freezeX.lat;
+   ENDIF
+ELSIF yActual > yBulkFree and yProposed < yBulkFree THEN  // Moving out at bulk tilting
+   IF xActual > xBulkFree and xProposed < xBulkFree THEN
+      xTarget = xBulkFree;
+   ELSIF xActual < xBulkFree THEN
+      xTarget = xActual;
+      freezeX.lat;
+   ENDIF
+ENDIF
+
+// Delaying trolley while moving gantry to end position
+
+yTarget = yProposed;
+
+IF yProposed < yTiltFree THEN  // Moving in at tilting 1 to 6
+   IF    (xActual > xMinTiltFree and xProposed < xMinTiltFree)
+         or
+         (xActual < xMaxTiltFree and xProposed > xMaxTiltFree)
+         or
+         (  xProposed >= xMinTiltFree and xProposed <= xMaxTiltFree
+            and
+            abs (xProposed - xActual) > marginXTilt
+         ) THEN
+      yTarget = yTiltFree;
+   ENDIF
+ELSIF yProposed > yBulkFree THEN  // Moving in at bulk tilting
+   IF    (xActual < xBulkFree and xProposed > xBulkFree)
+         or
+         (  xProposed <= xBulkFree
+            and
+            abs (xProposed - xActual) > marginXBulk
+         ) THEN
+      yTarget = yBulkFree;
+   ENDIF
+ENDIF
+
+// No delays needed for hoisting
+
+zTarget = zProposed;
+
+//______________________________________________________________________________
+
+UNIT Command_communication
+
+IF checkSlip (commandSlip, commandTicket) THEN
+   IF xCommand and xCompleted and abs (xProposed - xActual) < xTolerance THEN
+      xEnded.one;
+   ENDIF
+   IF yCommand and yCompleted and abs (yProposed - yActual) < yTolerance THEN
+      yEnded.one;
+   ENDIF
+   IF zCommand and zCompleted and abs (zProposed - zActual) < zTolerance THEN
+      zEnded.one;
+   ENDIF
+
+   IF xCommandBuf THEN
+      xCommand.lat;
+   ELSE
+      xCommand.unl;
+   ENDIF
+   IF yCommandBuf THEN
+      yCommand.lat;
+   ELSE
+      yCommand.unl;
+   ENDIF
+   IF zCommandBuf THEN
+      zCommand.lat;
+   ELSE
+      zCommand.unl;
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Movement_termination
+
+IF reset or xEnded THEN
+   xOrder.unl;
+ENDIF
+IF reset or yEnded THEN
+   yOrder.unl;
+ENDIF
+IF reset or zEnded or manualSegment THEN
+   zOrder.unl;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Command_generation
+
+IF pedalDown and not pause THEN
+   IF xOrder and not freezeX THEN
+      xCommandBuf.act;
+   ENDIF
+   IF yOrder THEN
+      yCommandBuf.act;
+   ENDIF
+   IF zOrder THEN
+      zCommandBuf.act;
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Twistlock_flutter_surpression
+
+IF twistLocked THEN
+   twistGoLock.one;
+ELSE
+   twistGoUnlock.one;
+ENDIF
+
+IF twistTimer > twistTime THEN
+   IF twistLocked THEN
+      twistAreLocked.lat;
+   ELSE
+      twistAreLocked.unl;
+   ENDIF
+ENDIF
+
+IF twistGoLock or twistGoUnlock THEN
+   twistTimer.res;
+
+   xTop = xActual;
+   yTop = yActual;
+   zTop = zActual;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Requesting_get_or_put_report
+
+IF twistAreLocked THEN
+   doneGet.one;
+ELSE
+   donePut.one;
+ENDIF
+
+IF initTimer > initTime THEN
+   IF doneGet THEN
+      reportGet.lat;
+   ELSIF donePut THEN
+      reportPut.lat;
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Report_writing
+
+IF reportGet or reportPut or reportFault THEN
+   IF checkSlip (reportSlip, reportTicket) THEN
+      IF reportGet THEN
+         reportCode = rpGet;
+         reportGet.unl;
+      ELSIF reportPut THEN
+         reportCode = rpPut;
+         reportPut.unl;
+      ELSIF reportFault THEN
+         reportCode = rpFault;
+         reportFault.unl;
+      ENDIF
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Sweeptime_measurement
+
+sweepTime = sweepTimer;
+sweepTimer.res;
+IF sweepTime > maxSweepTime THEN
+   maxSweepTime = sweepTime;
+ELSIF sweepTime < minSweepTime and sweepTime != 0 THEN
+   minSweepTime = sweepTime;
+ENDIF
+
+//______________________________________________________________________________
+//
+//
+//                               E I N D E
+//
+//______________________________________________________________________________
+
+
+

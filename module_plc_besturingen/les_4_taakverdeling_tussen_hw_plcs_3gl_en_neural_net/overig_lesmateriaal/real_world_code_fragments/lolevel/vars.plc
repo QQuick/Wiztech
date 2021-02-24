@@ -1,0 +1,162 @@
+PAGE (Control_panel)
+
+SKIP (Mode_switches, 1, 0)
+VAR (INPUT,        emergButton)
+VAR (INPUT,        semiAutoSwitch)
+VAR (INPUT,        pedal)
+
+SKIP (Twistlock_buttons, 1, 0)
+VAR (ONESHOT,      lockButton)
+VAR (ONESHOT,      unlockButton)
+
+SKIP (Controlers, 1, 0)
+VAR (INTEGER,      xController)
+VAR (INTEGER,      yController)
+VAR (INTEGER,      zController)
+
+SKIP (Auxiliary_input, 1, 0)
+VAR (INTEGER,      containWeight)
+
+SKIP (Mode_lamp, 2, 1)
+VAR (MARKER,       semiAutoLamp)
+
+SKIP (Twistlock_lamps, 2, 0)
+VAR (MARKER,       lockedLamp)
+VAR (MARKER,       unlockedLamp)
+
+SKIP (Gantry, 1, 1)
+VAR (INPUT,        xCommand)
+VAR (INTEGER,      xTarget)
+VAR (INTEGER,      xActual)
+VAR (MARKER,       xCompleted)
+VAR (INTEGER,      vXActual)
+
+SKIP (Trolley, 1, 0)
+VAR (INPUT,        yCommand)
+VAR (INTEGER,      yTarget)
+VAR (INTEGER,      yActual)
+VAR (MARKER,       yCompleted)
+VAR (INTEGER,      vYActual)
+
+SKIP (Hoist, 1, 0)
+VAR (INPUT,        zCommand)
+VAR (INTEGER,      zTarget)
+VAR (INTEGER,      zActual)
+VAR (MARKER,       zCompleted)
+VAR (INTEGER,      vZActual)
+
+PAGE (General_variables)
+
+SKIP (To_high_level_control, 1, 0)
+VAR (MARKER,       suspend)
+VAR (MARKER,       pedalDown)
+VAR (LATCH,        twistLocked)
+
+SKIP (From_high_level_control, 1, 0)
+VAR (INPUT,        manualSegment)
+
+SKIP (Synchronization, 1, 0)
+VAR (INTEGER,      commandTicket)
+VAR (INTEGER,      commandSlip)
+
+SKIP (Status_variables, 1, 0)
+VAR (MARKER,       semiAutoMode)
+VAR (MARKER,       autoMode)
+
+SKIP (Target_distances, 1, 1)
+VAR (INTEGER,      xDistance)
+VAR (INTEGER,      yDistance)
+VAR (INTEGER,      zDistance)
+
+SKIP (Stop_timers, 1, 0)
+VAR (TIMER,        xStopTimer)
+VAR (TIMER,        yStopTimer)
+VAR (TIMER,        zStopTimer)
+
+SKIP (Req_percent_speeds, 1, 1)
+VAR (INTEGER,      percentVX)
+VAR (INTEGER,      percentVY)
+VAR (INTEGER,      percentVZ)
+
+SKIP (Req_speeds, 1, 0)
+VAR (INTEGER,      vXRequested)
+VAR (INTEGER,      vYRequested)
+VAR (INTEGER,      vZRequested)
+
+SKIP (Blinking_lights, 1, 0)
+VAR (LATCH,        blinkOn)
+VAR (TIMER,        blinkTimer)
+
+PAGE (Track_constants)
+
+SKIP (Limit_switches_x, 1, 0)
+VAR (INTEGER,      xMinBuffer)
+VAR (INTEGER,      xMinLimit)
+VAR (INTEGER,      xMinPreLimit)
+VAR (INTEGER,      xMaxPreLimit)
+VAR (INTEGER,      xMaxLimit)
+VAR (INTEGER,      xMaxBuffer)
+
+SKIP (Limit_switches_y, 1, 1)
+VAR (INTEGER,      yMinBuffer)
+VAR (INTEGER,      yMinLimit)
+VAR (INTEGER,      yMinPreLimit)
+VAR (INTEGER,      yMaxPreLimit)
+VAR (INTEGER,      yMaxLimit)
+VAR (INTEGER,      yMaxBuffer)
+
+SKIP (Limit_switches_z, 1, 1)
+VAR (INTEGER,      zMinBuffer)
+VAR (INTEGER,      zMinLimit)
+VAR (INTEGER,      zMinPreLimit)
+VAR (INTEGER,      zMaxPreLimit)
+VAR (INTEGER,      zMaxLimit)
+VAR (INTEGER,      zMaxBuffer)
+
+PAGE (General_constants)
+
+SKIP (Start_tolerances, 1, 0)
+VAR (INTEGER,      xTolerance)
+VAR (INTEGER,      yTolerance)
+VAR (INTEGER,      zTolerance)
+
+SKIP (Stop_margins, 1, 0)
+VAR (INTEGER,      xMargin)
+VAR (INTEGER,      yMargin)
+VAR (INTEGER,      zMargin)
+
+SKIP (Stop_times, 1, 0)
+VAR (REAL,         xStopTime)
+VAR (REAL,         yStopTime)
+VAR (REAL,         zStopTime)
+
+SKIP (Prelim_speed_percent, 1, 1)
+VAR (INTEGER,      percentVXPreLim)
+VAR (INTEGER,      percentVYPreLim)
+VAR (INTEGER,      percentVZPreLim)
+
+SKIP (Maximum_speeds, 1, 0)
+VAR (INTEGER,      vXMax)
+VAR (INTEGER,      vYMax)
+VAR (INTEGER,      vZMax)
+
+SKIP (Drive_accellerations, 1, 1)
+VAR (INTEGER,      aXMax)
+VAR (INTEGER,      aYMax)
+VAR (INTEGER,      aZMax)
+
+SKIP (Drive_factors, 1, 0)
+VAR (REAL,         xDriveFactor)
+VAR (REAL,         yDriveFactor)
+VAR (REAL,         zDriveFactor)
+
+SKIP (Blink_timebasis, 1, 0)
+VAR (REAL,         blinkTime)
+
+PAGE (System_parameters)
+
+SKIP (Sweeptime_measurement, 1, 0)
+VAR (REAL,         sweepTime)
+VAR (REAL,         minSweepTime)
+VAR (REAL,         maxSweepTime)
+VAR (TIMER,        sweepTimer)

@@ -1,0 +1,59 @@
+#include "layout.h"
+
+// Obstacle margins
+
+marginXTilt = 10 cm;
+marginXBulk = 10 cm;
+
+// Hysteresis bands
+
+xBand = 50 cm;
+yBand = 50 cm;
+
+// Overlap margins
+
+marginZHighGet = 20 cm;
+marginYLaneGet = 1000 m;
+marginXYGet    = 1000 m;
+marginXZGet    = 20 cm;
+marginYGet     = 20 cm;
+marginZGet     = 20 cm;
+marginZHighPut = 20 cm;
+marginYLanePut = 1000 m;
+marginXYPut    = 1000 m;
+marginXZPut    = 20 cm; 
+marginYPut     = 20 cm;
+marginZPut     = 20 cm;
+marginZHighEnd = 20 cm;
+
+// Fixed coordinates
+
+zHigh = cZHigh;
+
+xMinTiltFree = cXMinTiltFree;
+xMaxTiltFree = cXMaxTiltFree;
+yTiltFree    = cYTiltFree;
+xBulkFree    = cXBulkFree;
+yBulkFree    = cYBulkFree;
+
+xMinTiltBand = xMinTiltFree - xBand;
+xMaxTiltBand = xMaxTiltFree + xBand;
+yTiltBand    = yTiltFree    + yBand;
+xBulkBand    = xBulkFree    + xBand;
+yBulkBand    = yBulkFree    - yBand; 
+
+// Time constants
+
+initTime  = 5 sec;
+pedalTime = 5 sec;
+twistTime = 5 sec;
+
+// Ticket numbering
+
+ticketRange = 1000;
+
+// System parameters
+
+minSweepTime = 1 hour;
+
+
