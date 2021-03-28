@@ -1,0 +1,57 @@
+//   H O N G K O N G   I N T E R N A T I O N A L   T E R M I N A L S
+
+PROC positioning (
+
+   // Out
+   MARKER WRITE completed,
+   REAL   WRITE vAutoFrac,
+
+   // In
+   MARKER READ  command,
+   REAL   READ  sTarget,
+   REAL   WRITE sActual,
+
+   // Const
+   REAL   READ  vMax,
+   REAL   READ  aMax,
+   REAL   READ  margin,
+   REAL   READ  stopTime,
+   REAL   READ  predictTime,
+   REAL   READ  speedFactor,
+
+   // Aux
+   TIMER  WRITE stopTimer,
+   REAL   WRITE distance,
+   REAL   WRITE sPredict,
+   REAL   WRITE distPredict
+)
+BLOCK
+   distance = abs (sTarget - sActual);
+
+   sPredict = sActual + vAutoFrac * vMax * predictTime;
+   distPredict = abs (sTarget - sPredict);
+
+   IF distance < margin THEN
+      IF stopTimer > stopTime THEN
+         completed.act;
+      ENDIF
+   ELSE
+      stopTimer.res;
+   ENDIF
+
+   IF command and not completed THEN
+      vAutoFrac = speedFactor * sqrt (2 * aMax * distPredict) / vMax;
+
+      IF vAutoFrac > 1. THEN
+         vAutoFrac = 1.;
+      ENDIF
+
+      IF sPredict > sTarget THEN
+         vAutoFrac = -1 * vAutoFrac;
+      ENDIF
+   ELSE
+      vAutoFrac = 0;
+   ENDIF
+ENDBLOCK
+
+

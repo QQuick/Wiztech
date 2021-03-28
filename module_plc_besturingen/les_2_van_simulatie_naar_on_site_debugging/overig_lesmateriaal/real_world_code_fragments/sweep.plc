@@ -1,0 +1,1531 @@
+//________________________________________________________________________________________
+//
+//
+//     V O L G O R D E B E S T U R I N G   A U T O M A T E D   S T A C K I N G   C R A N E
+//
+//________________________________________________________________________________________
+
+UNIT Lees_net
+IN   iRequest, iRequestFlag
+OUT  allocReq, deallocReq, startReq, shutDownReq, holdReq, resumeReq
+OUT  speedReq, autoPosReq, positionReq, recallReq, stastistReq
+OUT  iRequestFlag
+
+IF iRequestFlag THEN                   // Mailbox met verzoeken vanaf PCS of TOD is gevuld
+   SELECT iRequest FROM                //    Geef het betreffende request door
+      IS alloc DO
+         allocReq.act;
+      IS dealloc DO
+         deallocReq.act;
+      IS start DO
+         startReq.act;
+      IS shutDown DO
+         shutDownReq.act;
+      IS route DO
+         routeReq.act;
+      IS hold DO
+         holdReq.act;
+      IS resume DO
+         resumeReq.act;
+      IS speed DO
+         speedReq.act;
+      IS autoPos DO
+         autoPosReq.act;
+      IS position DO
+         positionReq.act;
+      IS recall DO
+         recallReq.act;
+      IS statist DO
+         statistReq.act;
+   ENDSEL
+   iRequestFlag.unl;
+ENDIF                                  // Alle requests aan ASC blijven maar 1 sweep staan
+
+IF iReplyFlag THEN                     // Mailbox met antwoorden vanaf PCS of TOD is gevuld
+   // Afgehandeld door NetCom
+ENDIF                                  // Alle replies van ASC blijven maar 1 sweep staan
+
+//______________________________________________________________________________
+
+UNIT Alloceren
+IN   allocReq, autoBed, holdRoute
+OUT  allocReply, allocResult, allocPoging
+
+IF allocReq THEN                            // Als er een allocatieverzoek is
+   IF autoBed or holdRoute THEN             //    Als de kraan reeds gealloceerd is
+      allocGeweigerd.lat;                   //       Registreer weigering dubbele allocatie
+   ELSE                                     //    Als de kraan nog niet gealloceerd is
+      allocPoging.lat;                      //       Probeer allocatie
+   ENDIF
+ENDIF
+
+IF allocPoging THEN                         // Als een allocatiepoging loopt
+   IF    (allocTim > allocTijd) or          //    Als allocatie lang genoeg geprobeerd of
+         autoBed THEN                       //    geslaagd is
+      IF autoBed THEN                       //       Als allocatiepoging geslaagd is
+         allocGeslaagd.lat;                 //          Registreer slagen allocatie
+      ELSE                                  //       Als allocatiepoging mislukt is
+         allocMislukt.lat;                  //          Registreer mislukken allocatie
+      ENDIF
+      allocPoging.unl;                      //       Allocatiepoging afgerond
+   ENDIF
+ELSE                                        // Als geen allocatiepoging loopt
+   allocTim.res;                            //    Houd allocatie-timer op 0
+ENDIF
+
+IF allocGeweigerd or allocGeslaagd or allocMislukt THEN
+                                            // Als het resultaat bekend is
+   IF allocGeslaagd THEN                    //    Als alloceren geslaagd is
+       allocResult = ok;                    //       Zet antwoord RESULT_OK klaar
+   ELSE                                     //    Als alloceren niet geslaagd is
+       allocResult = other;                 //       Zet antwoord OTHER_CONTROL klaar
+   ENDIF
+   allocReply.lat;                          //    Trigger verzending van antwoord
+   allocGeweigerd.unl;                      //    Maak schoon schip voor volgend verzoek
+   allocGeslaagd.unl;                       //    Idem
+   allocMislukt.unl;                        //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Dealloceren
+IN   deallocReq, autoBed, holdRoute, routeWachtStap
+OUT  deallocReply, deallocResult, deallocPoging
+
+IF    deallocReq and                        // Als er een deallocatieverzoek is
+      (autoBed or holdRoute) THEN           // en de kraan gealloceerd is
+   IF not routeWachtStap THEN               //    Als de kraan bezig is
+      deallocGeweigerd.lat;                 //       Registreer weigering deallocatie
+   ELSE                                     //    Als kraan gereed is
+      deallocPoging.lat;                    //       Probeer deallocatie
+   ENDIF
+ENDIF
+
+IF deallocPoging THEN                       // Als een deallocatiepoging loopt
+   IF    (deallocTim > deallocTijd) or      //    Als deallocatie lang genoeg geprobeerd of
+         not (autoBed or holdRoute) THEN    //    geslaagd of onnodig is
+      IF not (autoBed or holdRoute) THEN    //       Als deallocatiepoging geslaagd of onnodig is
+         deallocGeslaagd.lat;               //          Registreer slagen deallocatie
+      ELSE                                  //       Als deallocatiepoging mislukt is
+         deallocMislukt.lat;                //          Registreer mislukken deallocatie
+      ENDIF
+      deallocPoging.unl;                    //       Deallocatiepoging afgerond
+   ENDIF
+ELSE                                        // Als geen deallocatiepoging loopt
+   deallocTim.res;                          //    Houd deallocatie-timer op 0
+ENDIF
+
+IF deallocGeweigerd or deallocGeslaagd or deallocMislukt THEN
+                                            // Als het resultaat bekend is
+   IF deallocGeslaagd THEN                  //    Als deallocatie geslaagd of onnodig is
+       deallocResult = ok;                  //       Zet antwoord RESULT_OK klaar
+   ELSE                                     //    Als deallocatie niet geslaagd is
+       deallocResult = progress;            //       Zet antwoord ROUTE_IN_PROGRESS klaar
+   ENDIF
+   deallocReply.lat;                        //    Trigger verzending van antwoord
+   deallocGeweigerd.unl;                    //    Maak schoon schip voor volgend verzoek
+   deallocGeslaagd.unl;                     //    Idem
+   deallocMislukt.unl;                      //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Start
+IN   startReq, autoBed, holdRoute, ingeschakeld
+OUT  startReply, startResult, startBevel
+
+IF    startReq and                          // Als er een startverzoek is en
+      (autoBed or holdRoute) THEN           // en de kraan gealloceerd is
+   startBevel.lat;                          //    Probeer te starten
+ENDIF
+
+IF startBevel THEN                          // Als een startpoging loopt
+   IF    (startTim > startTijd) or          //    Als starten lang genoeg geprobeerd or
+         ingeschakeld THEN                  //    of geslaagd of onnodig is
+      IF ingeschakeld THEN                  //       Als startpoging geslaagd of onnodig is
+         startGeslaagd.lat;                 //          Registreer slagen startpoging
+      ELSE                                  //       Als startpoging mislukt is
+         startMislukt.lat;                  //          Registreer mislukken startpoging
+      ENDIF
+      startBevel.unl;                       //       Startpoging afgerond
+   ENDIF
+ELSE                                        // Als geen startpoging loopt
+   startTim.res;                            //    Houd start-timer op 0
+ENDIF
+
+IF startGeslaagd or startMislukt THEN       // Als het resultaat bekend is
+   IF startGeslaagd THEN                    //    Als starten geslaagd of onnodig is
+       startResult = ok;                    //       Zet antwoord RESULT_OK klaar
+   ELSE                                     //    Als starten niet geslaagd is
+       startResult = failed;                //       Zet antwoord START_FAILED klaar
+   ENDIF
+   startReply.lat;                          //    Trigger verzending van antwoord
+   startGeslaagd.unl;                       //    Maak schoon ship voor volgend verzoek
+   startMislukt.unl;                        //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Shut_down
+IN   shutDownReq, autoBed, holdRoute, ingeschakeld
+OUT  shutDownReply, shutDownResult, shutDownBevel
+
+IF    shutDownReq and                       // Als er een shutdown verzoek is en
+      (autoBed or holdRoute) THEN           // de kraan gealloceerd is
+   IF not routeWachtStap THEN               //    Als de kraan bezig is
+      shutDownGeweigerd.lat;                //       Registreer weigering shutdown
+   ELSE                                     //    Als kraanactiviteit gereedgemeld is
+      shutDownBevel.lat;                    //       Probeer shutdown
+   ENDIF
+ENDIF
+
+IF shutDownBevel THEN                       // Als een shutdownpoging loopt
+   IF    (shutDownTim > shutDownTijd) or    //    Als shutdown lang genoeg geprobeerd of
+         not ingeschakeld THEN              //    geslaagd of onnodig is
+      IF not ingeschakeld THEN              //       Als shutdown poging geslaagd of onnodig is
+         shutDownGeslaagd.lat;              //          Registreer slagen shutdown poging
+      ELSE                                  //       Als shutdown poging mislukt is
+         shutDownMislukt.lat;               //          Registreer mislukken shutdown poging
+      ENDIF
+      shutDownBevel.unl;                    //       Shutdownpoging afgerond
+   ENDIF
+ELSE                                        // Als geen shutdownpoging loopt
+   shutDownTim.res;                         //    Houd shutdown-timer op 0
+ENDIF
+
+IF shutDownGeslaagd or shutDownMislukt THEN // Als het resultaat bekend is
+   IF shutDownGeslaagd THEN                 //    Als shutdown geslaagd of onnodig is
+       shutDownResult = ok;                 //       Zet antwoord RESULT_OK klaar
+   ELSE                                     //    Als shutDown niet geslaagd is
+       shutDownResult = progress;           //       Zet antwoord ROUTE_IN_PROGRESS klaar
+   ENDIF
+   shutDownReply.lat;                       //    Trigger verzending van antwoord
+   shutDownGeweigerd.unl;                   //    Maak schoon schip voor volgend verzoek
+   shutDownGeslaagd.unl;                    //    Idem
+   shutDownMislukt.unl;                     //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_opdracht
+IN   routeReq, pickUp, putDown, xPcsStart, yPcsStart, zPcsStart, xPcsEind, yPcsEind, zPcsEind, sprPcsWens
+IN   autoBed, holdRoute, routeAfgemeld
+OUT  routeReply, routeResult, startRoute, resetVoorHerstart, routeAfgemeld
+OUT  pickUpIs, putDownIs, xPcsStartIs, yPcsStartIs, zPcsStartiS, xPcsEindIs, yPcsEindIs, zPcsEindIs, sprPcsWensIs
+OUT  xPlcStart, yPlcStart, zPlcStart, xPlcEind, yPlcEind, zPlcEind
+
+IF routeAfgemeld THEN                            // Als afmelding oude route verzonden aan PCS
+   IF routeAfmeldTim > routeAfmeldTijd THEN      //    Als afmelding oude route ontvangen door PCS
+      IF routeAfrondStap or routeWachtStap THEN  //       Als oude route vrijwel of geheel voltooid
+         startMag.act;                           //          Opstarten nieuwe route mag
+      ELSE                                       //       Als oude route niet vrijwel of geheel voltooid
+         traagStartMag.act;                      //          Vertraagd opstarten nieuwe route mag
+      ENDIF
+   ENDIF
+ELSE                                             // Als afmelding oude route nog niet verzonden aan PCS
+   routeAfmeldTim.res;                           //    Houd afmeld-timer op 0
+   herstartMag.act;                              //    Rerouting mag
+ENDIF
+
+IF volgendeRoute and startMag THEN               // Als volgende route order reeds binnen en starten mag
+   routeAlsnog.act;                              //    Breng deze order alsnog ten uitvoer
+   volgendeRoute.unl;                            //    Maak schoon schip voor volgende vertraagde routeorder
+ENDIF
+
+IF resetVoorHerstart THEN                        // Als de oude route werd afgebroken voor een herstart
+   routeHerstarten.act;                          //    Herstart route met nieuwe doelcoordinaten
+ENDIF
+
+IF routeReq and (autoBed or holdRoute) THEN      // Als er een routeorder is en kraan niet door PCS gedealloc. is
+   IF holdRoute THEN                             //    Als de kraan als gevolg van een hold tijdelijk gedealloceerd is
+      reallocPoging.lat;                         //       Probeer de kraan te realloceren
+   ENDIF
+   routePoging.lat;                              //    Start poging tot uitvoering van route
+ENDIF
+
+IF reallocPoging THEN                            // Als reallocatiepoging loopt
+   IF (reallocTim > reallocTijd) or autoBed THEN //    Als reallocatie lang genoeg geprobeerd of geslaagd is
+      reallocPoging.unl;                         //       Reallocatiepoging afgerond
+   ENDIF
+ELSE                                             // Als geen reallocatiepoging loopt
+   reallocTim.res;                               //    Houd reallocatie-timer op 0
+ENDIF
+
+IF routePoging and not reallocPoging THEN        // Als routeuitvoering gewenst en geen realloc meer bezig
+   routePoging.unl;
+
+   IF    sprPcsWens == sprPcsWensIs and          //    Als uitgangstoestand ongewijzigd
+         xPcsStart  == xPcsStartIs and
+         yPcsStart  == yPcsStartIs and
+         zPcsStart  == zPcsStartIs THEN          //       Registreer dat uitg. toest. ongewijzigd is
+         zelfdeStartPos.act;
+   ENDIF
+
+   IF    autoBed and                             // Als kraan gealloceerd en niet in hold en
+         ingeschakeld and                        // kraan aanstaat en
+         (startMag or traagStartMag or herstartMag) and (
+                                                 // order op een geschikt moment komt en
+            not (pickUp or putDown) or           // alleen telescoperen of
+            (not vergrendeld and pickUp) or      // oppakken met eventueel wegzetten of
+            (vergrendeld and putDown and (not pickUp or zelfdeStartPos))
+                                                 // alleen wegzetten
+         ) THEN
+      IF startMag THEN                           //    Als starten nu toegestaan
+         routeOpstarten.act;                     //       Start route
+      ELSIF traagStartMag THEN                   //    Als starten straks toegestaan
+         volgendeRoute.lat;                      //       Bereid vertraagde start voor
+      ELSE                                       //    Als start niet toegestaan
+         resetVoorHerstart.act;                  //       Vat order op als herroeping oude order
+      ENDIF
+
+      routeResult = ok;
+   ELSE
+      routeResult = conflict;
+   ENDIF
+
+   routeReply.lat;
+ENDIF
+
+IF routeOpstarten or routeAlsnog or routeHerstarten THEN
+   IF pickUp THEN
+      pickUpIs.lat;
+   ELSE
+      pickUpIs.unl;
+   ENDIF
+
+   IF putDown THEN
+      putDownIs.lat;
+   ELSE
+      putDownIs.unl;
+   ENDIF
+
+   sprPcsWensIs = sprPcsWens;
+
+   xPcsStartIs = xPcsStart;
+   yPcsStartIs = yPcsStart;
+   zPcsStartIs = zPcsStart;
+   xPcsEindIs  = xPcsEind;
+   yPcsEindIs  = yPcsEind;
+   zPcsEindIs  = zPcsEind;
+
+   xPlcStart = CALLFUNC xPlcUitPcs (xPcsStart);
+   yPlcStart = CALLFUNC yPlcUitPcs (xPcsStart, yPcsStart);
+   zPlcStart = CALLFUNC zPlcUitPcs (zPcsStart);
+   xPlcEind  = CALLFUNC xPlcUitPcs (xPcsEind);
+   yPlcEind  = CALLFUNC yPlcUitPcs (xPcsEind, yPcsEind);
+   zPlcEind  = CALLFUNC zPlcUitPcs (zPcsEind);
+
+   routeAfgemeld.unl;                            //    Vergeet vorige route-afmelding
+   startRoute.act;                               //    Start of herstart nieuwe route
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Hold
+IN   holdReq, autoBed, holdRoute, routeWachtStap
+OUT  holdReply, holdResult, holdPoging
+
+IF    holdReq and                      // Als er een holdverzoek is en
+      (autoBed or holdRoute) THEN      // de kraan gealloceerd is
+   IF not routeWachtStap THEN          //    Als kraan bezig
+      holdPoging.one;                  //       Registreer holdpoging
+      holdRoute.lat;                   //       Initieer hold
+      holdGeslaagd.lat;                //       Registreer hold
+   ELSE                                //    Als kraan niet bezig is
+      holdGeweigerd.lat;               //       Registreer weigering hold
+   ENDIF
+ENDIF
+
+IF holdGeweigerd or holdGeslaagd THEN  // Als het resultaat bekend is
+   IF holdGeslaagd THEN                //    Als hold geslaagd is
+       holdResult = ok;                //       Zet antwoord RESULT_OK klaar
+   ELSE                                //    Als dealloceren niet geslaagd is
+       holdResult = noMove;            //       Zet antwoord NOT_MOVING klaar
+   ENDIF
+   holdReply.lat;                      // Trigger verzending van antwoord
+   holdGeweigerd.unl;                  // Maak schoon schip voor volgend verzoek
+   holdGeslaagd.unl;                   // Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Resume
+IN   resumeReq, autoBed, holdRoute
+OUT  resumeReply, resumeResult, resumePoging
+
+IF    resumeReq and                    // Als er een resumeverzoek is en
+      (autoBed or holdRoute) THEN      // de kraan gealloceerd is
+   IF not holdRoute THEN               //    Als de kraan niet in hold-toestand verkeert
+      resumeGeweigerd.lat;             //       Registreer weigering resume
+   ELSE                                //    Als de kraan in de hold-toestand verkeert
+      resumePoging.lat;                //       Probeer resume
+   ENDIF
+ENDIF
+
+IF resumePoging THEN                   // Als een resume-poging loopt
+   IF    (resumeTim > resumeTijd) or   //    Als resume lang genoeg geprobeerd of
+         autoBed THEN                  //    geslaagd is
+      IF autoBed THEN                  //       Als resumepoging geslaagd is
+         resumeRoute.act;              //          Hervat de onderbroken route
+         resumeGeslaagd.lat;           //          Registreer slagen resume
+      ELSE                             //       Als resumepoging niet geslaagd is
+         resumeMislukt.lat;            //          Registreer mislukken resume
+      ENDIF
+      resumePoging.unl;                //       Resumepoging afgerond
+   ENDIF
+ELSE                                   //    Als geen resume-poging loopt
+   resumeTim.res;                      //       Houd resume-timer op 0
+ENDIF
+
+IF resumeGeweigerd or resumeGeslaagd or resumeMislukt THEN
+                                       // Als het resultaat bekend is
+   IF resumeGeweigerd THEN             //    Als resume geweigerd is
+       resumeResult = noInter;         //       Zet antwoord NOT_MOVING klaar
+   ELSIF resumeGeslaagd THEN           //    Als resumepoging geslaagd is
+       resumeResult = ok;              //       Zet antwoord RESULT_OK klaar
+   ELSE                                //    Als resumepoging mislukt is
+       resumeResult = other;           //       Zet antwoord OTHER_CONTROL klaar
+   ENDIF
+   resumeReply.lat;                    //    Trigger verzending van antwoord
+   resumeGeweigerd.unl;                //    Maak schoon schip voor volgend verzoek
+   resumeGeslaagd.unl;                 //    Idem
+   resumeMislukt.unl;                  //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Speed
+IN   speedReq, vWens, autoBed, ascType
+OUT  speedReply, speedResult, snelBevel, traagBevel
+
+IF speedReq and autoBed THEN           // Als verzoek om snelheidsverandering en gealloceerd
+   IF  ascType == manned and           //    Als kraan bemand is en
+       vWens == high THEN              //    hoge snelheid wordt gevraagd
+      speedGeweigerd.lat;              //       Registreer weigering verzoek
+   ELSE                                //    Als lage snelh. gevr. of kraan niet manned
+      IF vWens == high THEN            //       Als verzoek om hoge snelheid
+         snelBevel.lat;                //          Probeer snelheidsverhoging
+      ELSE                             //       Als verzoek om lage snelheid
+         traagBevel.lat;               //          Probeer snelheidsverlaging
+      ENDIF
+   ENDIF
+ENDIF
+
+IF    (snelBevel and snelheidIsHoog) or          // Als snelheid aangepast of ongewijzigd
+      (traagBevel and not snelheidIsHoog) THEN   // overeenkomstig bevel
+   snelheidOk.act;                               //    Registreer dat kraan gewenste snelheid heeft
+ENDIF
+
+IF snelBevel or traagBevel THEN             // Als poging tot snelheidswijziging loopt
+   IF    (speedTim > speedTijd) or          //    Als snelheidswijziging lang genoeg geprobeerd is of
+         snelheidOk THEN                    //    geslaagd of onnodig is
+      IF snelheidOk THEN                    //       Als snelheidswijziging geslaagd of onnodig is
+         speedGeslaagd.lat;                 //          Registreer slagen snelheidswijziging
+      ELSE                                  //       Als snelheidswijziging mislukt is
+         speedMislukt.lat;                  //          Registreer mislukken snelheidswijziging
+      ENDIF
+      snelBevel.unl;                        //       Wijzigingspoging
+      traagBevel.unl;                       //       afgerond
+   ENDIF
+ELSE                                        // Als geen startpoging loopt
+   speedTim.res;                            //    Houd start-timer op 0
+ENDIF
+
+IF    speedGeweigerd or
+      speedGeslaagd or
+      speedMislukt THEN                     // Als het resultaat bekend is
+   IF speedGeslaagd THEN                    //    Als starten geslaagd of onnodig is
+       speedResult = ok;                    //       Zet antwoord RESULT_OK klaar
+   ELSE                                     //    Als starten niet geslaagd is
+       speedResult = manned;                //       Zet antwoord START_FAILED klaar
+   ENDIF
+   speedReply.lat;                          //    Trigger verzending van antwoord
+   speedGeweigerd.unl;                      //    Maak schoon ship voor volgend verzoek
+   speedGeslaagd.unl;                       //    Idem
+   speedMislukt.unl;                        //    Idem
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Auto_pos_report
+IN  autoPosReq, trigOnX, trigOnY, trigOnZ, trigOnTwis, trigIntX, trigIntY, trigIntZ
+IN  xPlcEcht, yPlcEcht, zPlcEcht, vergrendeld
+OUT autoPosReply, autoPosResult, positionReport, xPcsEcht, yPcsEcht, zPcsEcht
+
+xPcsEcht = CALLFUNC xPcsUitPlc (xPlcEcht);
+yPcsEcht = CALLFUNC yPcsUitPlc (xPlcEcht, yPlcEcht);
+zPcsEcht = CALLFUNC zPcsUitPlc (zPlcEcht);
+
+IF vergrendeld THEN
+   twisClosed.lat;
+ELSIF ontgrendeld THEN
+   twisClosed.unl;
+ENDIF
+
+IF autoPosReq and autoBed THEN
+   IF trigOnX THEN
+      trigOnXIs.lat;
+      trigIntXIs = trigIntX;
+      xTrigOud = xPcsEcht;
+   ELSE
+      trigOnXIs.unl;
+   ENDIF
+
+   IF trigOnY THEN
+      trigOnYIs.lat;
+      trigIntYIs = trigIntY;
+      yTrigOud = yPcsEcht;
+   ELSE
+      trigOnYIs.unl;
+   ENDIF
+
+   IF trigOnZ THEN
+      trigOnZIs.lat;
+      trigIntZIs = trigIntZ;
+      zTrigOud = zPcsEcht;
+   ELSE
+      trigOnZIs.unl;
+   ENDIF
+
+   IF trigOnTwis THEN
+      trigOnTwisIs.lat;
+   ELSE
+      trigOnTwisIs.unl;
+   ENDIF
+
+   autoPosResult = ok;
+   autoPosReply.lat;
+ENDIF
+
+IF (xPcsEcht == xPcsLand or xPcsEcht == xPcsWater) THEN
+   enterTransfer.one;
+ELSIF (xPcsEcht == 1 or xPcsEcht == lastSecWs) THEN
+   enterStack.one;
+ENDIF
+
+IF    trigOnXIs and
+      (abs (xPcsEcht - xTrigOud) >= trigIntXIs or enterTransfer or enterStack) THEN
+   xTrigger.act;
+   xTrigOud = xPcsEcht;
+ENDIF
+
+IF    trigOnYIs and
+      (abs (yPcsEcht - yTrigOud) >= trigIntYIs) THEN
+   yTrigger.act;
+   yTrigOud = yPcsEcht;
+ENDIF
+
+IF    trigOnZIs and
+      (abs (zPcsEcht - zTrigOud) >= trigIntZIs) THEN
+   zTrigger.act;
+   zTrigOud = zPcsEcht;
+ENDIF
+
+IF vergrendeld THEN
+   vergrendelen.one;
+ELSE
+   ontgrendelen.one;
+ENDIF
+
+IF    trigOnTwisIs and
+      (vergrendelen or ontgrendelen) THEN
+   twisTrigger.act;
+ENDIF
+
+IF    autoBed and
+      (xTrigger or yTrigger or zTrigger or twisTrigger) THEN
+   positionReport.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Pos_request
+IN  positionReq, autoBed
+OUT positionReply, positionResult
+
+IF positionReq and autoBed THEN
+   positionResult = ok;
+   positionReply.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_recall_request
+IN   recallReq, autoBed, vergrendeld, zPlcEcht
+IN   pickUp, putDown, xPcsStart, yPcsStart, zPcsStart, xPcsEind, yPcsEind, zPcsEind
+IN   pickUpIs, putDownIs, xPcsStartIs, yPcsStartIs, zPcsStartIs, xPcsEindIs, yPcsEindIs, zPcsEindIs
+OUT  recallReply, recallResult, inProgress, contIsUp
+
+IF not routeWachtStap and
+   pickUp     == pickUpIs     and
+   putDown    == putDownIs    and
+   sprPcsWens == sprPcsWensIs and
+   xPcsStart  == xPcsStartIs  and
+   yPcsStart  == yPcsStartIs  and
+   zPcsStart  == zPcsStartIs  and
+   xPcsEind   == xPcsEindIs   and
+   yPcsEind   == yPcsEindIs   and
+   zPcsEind   == zPcsEindIs THEN
+   inProgress.act;
+ENDIF
+
+IF vergrendeld and zPlcEcht < zPlc0 + margeZ0Put THEN
+   contIsUp.act;
+ENDIF
+
+IF recallReq and autoBed THEN
+   recallResult = ok;
+   recallReply.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Statistics_request
+IN   statistReq, autoBed
+OUT  statistReply
+
+IF statistReq and autoBed THEN
+   statistReply.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Alloc_en_dealloc_bevelen
+IN   allocPoging, reallocPoging, resumePoging, deallocPoging, holdPoging
+OUT  allocBevel, deallocBevel
+
+IF allocPoging or reallocPoging or resumePoging THEN
+   allocBevel.lat;
+ENDIF
+IF autoBed or deallocBevel THEN
+   allocBevel.unl;
+ENDIF
+
+IF deallocPoging or holdPoging THEN
+   deallocBevel.lat;
+ENDIF
+IF not autoBed or allocBevel THEN
+   deallocBevel.unl;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Positietests
+IN   xPlcEcht, yPlcEcht, zPlcEcht
+IN   xPlcStart, yPlcStart, zPlcStart, xPlcEind, yPlcEind, zPlcEind
+IN   kraanBevel, xGereed, katBevel, yGereed, hijsBevel, oplegBevel, zGereed
+IN   iSlotFlag, oSlotFlag
+OUT  alOpXStart, alOpXEind, alOpYStart, alOpYEind, alOpYLaan, alOpZ0
+OUT  xVoltooid, yVoltooid, zVoltooid
+OUT  nabijXStart, nabijXEind, nabijX1Land
+OUT  nabijYStart, nabijYEind, nabijYLaanGet, nabijYLaanPut, nabijYLaanLand
+OUT  nabijZ0Get, nabijZ0Put, nabijZ0Eind
+
+// Testen of kraan toevallig meteen al op de goede plaats staat
+
+IF abs (xPlcEcht - xPlcStart) <= spelingX THEN
+   alOpXStart.act;
+ENDIF
+
+IF abs (xPlcEcht - xPlcEind) <= spelingX THEN
+   alOpXEind.act;
+ENDIF
+
+// Testen of kat toevallig meteen al op de goede plaats staat
+
+IF abs (yPlcEcht - yPlcStart) <= spelingY THEN
+   alOpYStart.act;
+ENDIF
+
+IF abs (yPlcEcht - yPlcEind) <= spelingY THEN
+   alOpYEind.act;
+ENDIF
+
+IF abs (yPlcEcht - yPlcLaan) <= spelingY THEN
+   alOpYLaan.act;
+ENDIF
+
+// Testen of spreader meteen toevallig al op z0 hangt
+
+IF abs (zPlcEcht - zPlc0) <= spelingZ THEN
+   alOpZ0.act;
+ENDIF
+
+// Testen kraanrijden voltooid of x binnen rondwerk-marge
+
+IF kraanBevel and not oSlotFlag and xGereed and iSlotFlag THEN
+   xVoltooid.act;
+ENDIF
+
+IF xVoltooid or (abs (xPlcEcht - xPlcStart) <= margeXStart) THEN
+   nabijXStart.act;
+ENDIF
+IF xVoltooid or (abs (xPlcEcht - xPlcEind) <= margeXEind) THEN
+   nabijXEind.act;
+ENDIF
+IF xVoltooid or (abs (xPlcEcht - xPlc1) <= margeX1Land) THEN
+   nabijX1Land.act;
+ENDIF
+
+// Testen katrijden voltooid of y binnen rondwerkmarge
+
+IF katBevel and not oSlotFlag and yGereed and iSlotFlag THEN
+   yVoltooid.act;
+ENDIF
+
+IF yVoltooid or abs (yPlcEcht - yPlcStart) <= margeYStart THEN
+   nabijYStart.act;
+ENDIF
+IF yVoltooid or abs (yPlcEcht - yPlcEind) <= margeYEind THEN
+   nabijYEind.act;
+ENDIF
+IF yVoltooid or abs (yPlcEcht - yPlcLaan) <= margeYLaanGet THEN
+   nabijYLaanGet.act;
+ENDIF
+IF yVoltooid or abs (yPlcEcht - yPlcLaan) <= margeYLaanPut THEN
+   nabijYLaanPut.act;
+ENDIF
+IF yVoltooid or abs (yPlcEcht - yPlcLaan) <= margeYLaanLand THEN
+   nabijYLaanLand.act;
+ENDIF
+
+// Testen hijsen voltooid of z binnen rondwerkmarge
+
+IF (hijsBevel or oplegBevel) and not oSlotFlag and zGereed and iSlotFlag THEN
+   zVoltooid.act;
+ENDIF
+
+IF zVoltooid or abs (zPlcEcht - zPlc0) <= margeZ0Get THEN
+   nabijZ0Get.act;
+ENDIF
+IF zVoltooid or abs (zPlcEcht - zPlc0) <= margeZ0Put THEN
+   nabijZ0Put.act;
+ENDIF
+IF zVoltooid or abs (zPlcEcht - zPlc0) <= margeZ0Eind THEN
+   nabijZ0Eind.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_stappenautomaat
+IN   startRoute, resumeRoute, resetVoorHerstart, deallocPoging, autoBed
+IN   pickUpIs, putDownIs, geenSecundBew, geenPrimairBew
+IN   alOpXStart, alOpXEind, alOpYStart, alOpYEind, alOpYLaan, alOpZ0
+IN   nabijXStart, nabijXEind, nabijX1Land
+IN   nabijYStart, nabijYEind, nabijYLaanGet, nabijYLaanPut, nabijYLaanLand
+IN   nabijZ0Get, nabijZ0Put, nabijZ0Eind
+IN   spreadWachtStap, vergrendeld, ontgrendeld
+OUT  naarXStart, naarXEind
+OUT  naarYStart, naarYEind, naarYLaanGet, naarYLaanPut, naarYLaanLand
+OUT  naarZStart, naarZEind, naarZ0Get, naarZ0Put, naarZ0Eind
+OUT  startSpreader, vergrendBevel, ongrendBevel
+OUT  scherpUpReport, scherpCompReport, zPlcContainer
+
+IF startRoute or resumeRoute or deallocPoging THEN    // Als route ge- of herstart of deallocatiepoging door PCS
+   holdRoute.unl;                                     //    Verlaat eventuele hold-toestand
+ENDIF;
+
+IF holdRoute or resetVoorHerstart THEN                // Als hold- of herstart-commando ontvangen
+   reset.act;                                         //    Reset bewegingen en route-stappenautomaat
+ENDIF
+
+IF reset THEN                                         // Als reset gewenst
+   routeStap = rWacht;                                //    Zet route-stappenautomaat in wacht-stand
+ENDIF
+
+SELECT routeStap FROM                                 // Selecteer stap van route-stappenautomaat
+   IS rWacht DO                                       //    Als huidige stap is "wachten op nieuwe route"
+      routeWachtStap.act;                             //       Registreer wachtstap
+      IF (startRoute or resumeRoute) and autoBed THEN //       Als (her)starten of hervatten route en autom. bedien.
+         IF    resumeRoute and                        //          Als hervatten route
+               twiOntWas and not vergrendeld THEN     //          en container reeds weggezet
+            routeStap = gaZ0Eind;                     //             Ga naar stap gaZ0Eind
+         ELSE                                         //          Als (her)starten route of hervatten
+            IF putDownIs and vergrendeld THEN         //             Als alleen container moet worden weggezet
+               routeStap = gaZ0Put;                   //                Ga naar stap gaZ0Put
+            ELSE                                      //             Anders, cont. oppakken of alleen spread. telescop.
+               routeStap.inc;                         //                Ga naar volgende stap: gaZ0Get
+            ENDIF
+         ENDIF
+      ENDIF
+   IS gaZ0Get DO                                      //    Als huidige stap is "hijs naar z0 in oppak-fase"
+      IF not alOpZ0 THEN                              //       Als spreader niet al gehesen tot z0
+         naarZ0Get.lat;                               //          Start hijsen naar z0
+      ENDIF
+      IF not naarZ0Get or nabijZ0Get THEN             //       Als hijsbew. inactief of gehesen tot nabij z0
+         routeStap.inc;                               //          Ga naar volgende stap: startSpr
+      ENDIF
+   IS startSpr DO                                     //    Als huidige stap is "start spreader-stappenautomaat"
+      startSpreader.act;                              //       Start spreader-stappenautomaat
+      IF not pickUpIs THEN                            //       Als slechts spreader telescoperen
+         routeStap = wachtSpr;                        //          Ga naar stap wachtSpr
+      ELSIF alOpXStart THEN                           //       Anders als kraan al op oppak-positie staat
+         routeStap = gaYS;                            //          Ga naar stap gaYS
+      ELSE                                            //       Anders, kraan moet nog naar de oppak-positie
+         routeStap.inc;                               //          Ga naar volgende stap: gaYLGet
+      ENDIF
+   IS gaYLGet DO                                      //    Als huidige stap is "kat naar laan in oppak-fase"
+      IF not alOpYLaan THEN                           //       Als kat niet al in laanpositie staat
+         naarYLaanGet.lat;                            //          Start katrijden naar laan
+      ENDIF
+      IF    (not naarYLaanGet or nabijYLaanGet) and   //       Als katbew. inactief of kat nabij laan en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: gaXS
+      ENDIF
+   IS gaXS DO                                         //    Als huidige stap is "kraanrijden naar oppak-positie"
+      naarXStart.lat;                                 //       Start kraanrijden naar de oppak-positie
+      IF    (not naarXStart or nabijXStart) and       //          Als kraanbew. inactief of kraan nabij oppak-positie en
+            geenSecundBew THEN                        //          geen secundaire beweging bezig is
+         routeStap.inc;                               //             Ga naar volgende stap: gaYS
+      ENDIF
+   IS gaYS DO                                         //    Als huidige stap is "katrijden naar oppak-positie"
+      IF not alOpYStart THEN                          //       Als kat niet al op oppak-positie staat
+         naarYStart.lat;                              //          Start katrijden naar de oppak-positie
+      ENDIF
+      IF not naarYStart or nabijYStart THEN           //       Als katbew. inactief of kat nabij oppak-positie
+         routeStap.inc;                               //          Ga naar volgende stap: wachtSpr
+      ENDIF
+   IS wachtSpr DO                                     //    Als huidige stap is "wacht tot spreader klaar"
+      IF not spreadWachtStap THEN                     //       Als spreader nog niet gereed
+         // Niets doen                                //          Wacht tot spreader op maat
+      ELSIF geenSecundBew THEN                        //       Anders als geen secundaire beweging bezig is
+         IF pickUpIs THEN                             //          Als container moet worden opgepakt en
+            routeStap.inc;                            //             Ga naar volgende stap: gaZS
+         ELSE                                         //          Als alleen spreader getelescopeerd
+            routeStap = rWacht;                       //             Ga naar stap rWacht
+         ENDIF
+      ENDIF
+   IS gaZS DO                                         //    Als huidige stap is "vieren tot op container"
+      IF zVoltooid THEN                               //       Als spreader op container ligt
+         routeStap.inc;                               //          Ga naar volgende stap: twiVer
+      ELSE                                            //       Als spreader nog niet op container ligt
+         naarZStart.act;                              //          Vier spreader tot op container
+      ENDIF
+   IS twiVer DO                                       //    Als huidige stap is "vergrendelen twistlocks"
+      IF vergrendeld THEN                             //       Als twistlocks vergrendeld zijn
+         zPlcContainer = zPlcEcht;                    //          Onthoud werkelijke containerhoogte
+         scherpUpReport.lat;                          //          Zet CONTAINER_UP_REPORT op scherp
+         routeStap.inc;                               //          Ga naar volgende stap: gaZ0Get
+      ELSE                                            //       Als twistlocks nog niet vergrendeld zijn
+         vergrendBevel.act;                           //          Vergrendel twistlocks
+      ENDIF
+   IS gaZ0Put DO                                      //    Als huidige stap is "hijs naar z0 voor afzet-fase"
+      IF not alOpZ0 THEN                              //       Als spreader niet al gehesen tot z0
+         naarZ0Put.lat;                               //          Start hijsen naar z0
+      ENDIF
+      IF    (not naarZ0Put or nabijZ0Put) and         //       Als hijsbew. inactief of gehesen tot nabij z0 en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig
+         IF not putDownIs THEN                        //          Als container niet hoeft te worden weggezet
+            IF xPcsStart == xPcsLand THEN             //             Als op landzijdig transferpunt
+               routeStap = gaYLLand;                  //                ga naar stap gaYLLand
+            ELSE                                      //             Anders
+               routeStap = afronden;                  //                Ga naar stap afronden
+            ENDIF
+         ELSIF alOpXEind THEN                         //          Anders als kraan al op afzet-positie staat
+            routeStap = gaYE;                         //             Ga naar stap gaYE
+         ELSE                                         //          Anders, kraan moet nog naar afzetpositie
+            routeStap.inc;                            //             Ga naar volgende stap: gaYLPut
+         ENDIF
+      ENDIF
+   IS gaYLPut DO                                      //    Als huidige stap is "kat naar laan in afzet-fase"
+      IF not alOpYLaan THEN                           //       Als kat niet al in laanpositie staat
+         naarYLaanPut.lat;                            //          Start katrijden naar laan
+      ENDIF
+      IF    (not naarYLaanPut or nabijYLaanPut) and   //       Als katbew. inactief of kat nabij laan en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: gaXE
+      ENDIF
+   IS gaXE DO                                         //    Als huidige stap is "kraanrijden naar afzet-positie"
+      naarXEind.lat;                                  //       Start kraanrijden naar afzet-positie
+      IF    (not naarXEind or nabijXEind) and         //       Als kraanbew. inactief of kraan nabij afzet-positie en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: gaYE
+      ENDIF
+   IS gaYE DO                                         //    Als huidige stap is "katrijden naar afzet-positie"
+      IF not alOpYEind THEN                           //       Als kat niet al op afzet-positie staat
+         naarYEind.lat;                               //          Start katrijden naar de afzet-positie
+      ENDIF
+      IF    (not naarYEind or nabijYEind) and         //       Als katbew. inactief of kat nabij oppak-positie en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: gaZE
+      ENDIF
+   IS gaZE DO                                         //    Als huidige stap is "neerzetten container"
+      IF zVoltooid THEN                               //       Als spreader opligt, dus container staat
+         routeStap.inc;                               //          Ga naar volgende stap: twiOnt
+      ELSE                                            //       Als spreader nog niet op container ligt
+         naarZEind.act;                               //          Vier spreader tot hij op container ligt
+      ENDIF
+   IS twiOnt DO                                       //    Als huidige stap is "ontgrendelen twistlocks"
+      twiOntWas.lat;                                  //       Onthoud stap >= twiOntWas, voor eventuele resume
+      IF ontgrendeld THEN                             //       Als twistlocks ontgrendeld zijn
+         zPlcContainer = zPlcEcht;                    //          Onthoud werkelijke containerhoogte
+         scherpCompReport.lat;                        //          Zet ROUTE_COMPLETE_REPORT op scherp
+         routeStap.inc;                               //          Ga naar volgende stap: gaZ0Eind
+      ELSE                                            //       Als twistlocks nog niet ontgrendeld zijn
+         ontgrendBevel.act;                           //          Ontgrendel twistlocks
+      ENDIF
+   IS gaZ0Eind DO                                     //    Als huidige stap is "hijs naar z0 in eindfase"
+      IF not alOpZ0 THEN                              //       Als spreader niet al gehesen tot z0
+         naarZ0Eind.lat;                              //          Start hijsen naar z0
+      ENDIF
+      IF    (not naarZ0Eind or nabijZ0Eind) and       //       Als hijsbew. inactief of gehesen tot nabij z0 en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         IF xPcsEind == xPcsLand THEN                 //          Als op landzijdig transferpunt
+            routeStap.inc;                            //             Ga naar volgende stap: gaYLLand
+         ELSE                                         //          Anders, niet op landz. transferp.
+            routeStap = afronden;                     //             Ga naar stap afronden
+         ENDIF
+      ENDIF
+   IS gaYLLand DO                                     //    Als huidige stap is "kat naar laan LZ transferp."
+      IF not alOpYLaan THEN                           //       Als kat niet al in laanpositie staat
+         naarYLaanLand.lat;                           //          Start katrijden naar laan
+      ENDIF
+      IF    (not naarYLaanLand or nabijYLaanLand) and //       Als katbew. inactief of kat nabij laan en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: gaX1Land
+      ENDIF
+   IS gaX1Land DO                                     //    Als huidige stap is "kraan naar x1 uit LZ transf.p."
+      naarX1Land.lat;                                 //       Ga naar x1 vanaf landzijdig transferpunt
+      IF    (not naarX1Land or nabijX1Land) and       //       Als kraanbew. inactief of kraan nabij x1 en
+            geenSecundBew THEN                        //       geen secundaire beweging bezig is
+         routeStap.inc;                               //          Ga naar volgende stap: afronden
+      ENDIF
+   IS afronden DO                                     //    Als huidige stap is "afronden lopende bewegingen"
+      routeAfrondStap.act;                            //       Registreer afrondstap
+      IF startRoute and autoBed THEN                  //       Als rondwerkend starten route en automatische bediening
+         IF putDownIs and vergrendeld THEN            //          Als alleen container moet worden weggezet
+            routeStap = gaZ0Put;                      //             Ga naar stap gaZ0Put
+         ELSE                                         //          Anders, cont. oppakken of alleen spread. telescop.
+            routeStap = gaZ0Get;                      //             Ga naar stap gaZ0Get
+         ENDIF
+      ELSIF geenPrimairBew THEN                       //    Anders als alle nog lopende bewegingen afgerond zijn
+         routeStap = rWacht;                          //       Ga naar de wachtstap
+      ENDIF
+ENDSEL
+
+IF (startRoute or resumeRoute) and autoBed THEN       // Als route ge- of herstart en automatische bediening
+   twiOntWas.unl;                                     //    Vergeet status oude route
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Starten_bewegingen
+IN   naarXStart, naarXEind
+IN   naarYStart, naarYEind, naarYLaanGet, naarYLaanPut, naarYLaanLand
+IN   naarZStart, naarZEind, naarZ0Get, naarZ0Put, naarZ0Eind
+OUT  inXStart, inXEind
+OUT  inYStart, inYEind, inYLaanGet, inYLaanPut, inYLaanLand
+OUT  inZStart, inZEind, inZ0Get, inZ0Put, inZ0Eind
+
+// Kraanrijden
+
+IF naarXStart THEN
+   inXStart.one;
+ENDIF
+
+IF naarXEind THEN
+   inXEind.one;
+ENDIF
+
+IF naarX1Land THEN
+   inX1Land.one;
+ENDIF
+
+// Katrijden
+
+IF naarYStart THEN
+   inYStart.one;
+ENDIF
+
+IF naarYEind THEN
+   inYEind.one;
+ENDIF
+
+IF naarYLaanGet THEN
+   inYLaanGet.one;
+ENDIF
+
+IF naarYLaanPut THEN
+   inYLaanPut.one;
+ENDIF
+
+IF naarYLaanLand THEN
+   inYLaanLand.one;
+ENDIF
+
+// Hijsen
+
+IF naarZStart THEN
+   inZStart.one;
+ENDIF
+
+IF naarZEind THEN
+   inZEind.one;
+ENDIF
+
+IF naarZ0Get THEN
+   inZ0Get.one;
+ENDIF
+
+IF naarZ0Put THEN
+   inZ0Put.one;
+ENDIF
+
+IF naarZ0Eind THEN
+   inZ0Eind.one;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Route_deelhandelingen
+IN   reset, xVoltooid, yVoltooid, zVoltooid
+IN   inXStart, inXEind
+IN   inYStart, inYEind, inYLaanGet, inYLaanPut, inYLaanLand
+IN   inZStart, inZEind, inZ0Get, inZ0Put, inZ0Eind
+OUT  naarXStart, naarXEind
+OUT  naarYStart, naarYEind, naarYLaanGet, naarYLaanPut, naarYLaanLand
+OUT  naarZStart, naarZEind, naarZ0Get, naarZ0Put, naarZ0Eind
+
+IF reset or xVoltooid or inXEind or inX1Land THEN
+   naarXStart.unl;
+ENDIF
+
+IF reset or xVoltooid or inXStart or inX1Land THEN
+   naarXEind.unl;
+ENDIF
+
+IF reset or xVoltooid or inXStart or inXEind THEN
+   naarX1Land.unl;
+ENDIF
+
+IF reset or yVoltooid or inYEind or inYLaanGet or inYLaanPut or inYLaanLand THEN
+   naarYStart.unl;
+ENDIF
+
+IF reset or yVoltooid or inYStart or inYLaanGet or inYLaanPut or inYLaanLand THEN
+   naarYEind.unl;
+ENDIF
+
+IF reset or yVoltooid or inYStart or inYEind or inYLaanPut or inYLaanLand THEN
+   naarYLaanGet.unl;
+ENDIF
+
+IF reset or yVoltooid or inYStart or inYEind or inYLaanGet or inYLaanLand THEN
+   naarYLaanPut.unl;
+ENDIF
+
+IF reset or yVoltooid or inYStart or inYEind or inYLaanGet or inYLaanPut THEN
+   naarYLaanLand.unl;
+ENDIF
+
+IF reset or zVoltooid or inZStart or inZEind or inZ0Put or inZ0Eind THEN
+   naarZ0Get.unl;
+ENDIF
+
+IF reset or zVoltooid or inZStart or inZEind or inZ0Get or inZ0Eind THEN
+   naarZ0Put.unl;
+ENDIF
+
+IF reset or zVoltooid or inZStart or inZEind or inZ0Get or inZ0Put THEN
+   naarZ0Eind.unl;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Stoppen_bewegingen
+IN   naarXStart, naarXEind
+IN   naarYStart, naarYEind, naarYLaanGet, naarYLaanPut, naarYLaanLand
+IN   naarZStart, naarZEind, naarZ0Get, naarZ0Put, naarZ0Eind
+OUT  uitXStart, uitXEind
+OUT  uitYStart, uitYEind, uitYLaanGet, uitYLaanPut, uitYLaanLand
+OUT  uitZStart, uitZEind, uitZ0Get, uitZ0Put, uitZ0Eind
+
+// Kraanrijden
+
+IF not naarXStart THEN
+   uitXStart.one;
+ENDIF
+
+IF not naarXEind THEN
+   uitXEind.one;
+ENDIF
+
+IF not naarX1Land THEN
+   uitX1Land.one;
+ENDIF
+
+// Katrijden
+
+IF not naarYStart THEN
+   uitYStart.one;
+ENDIF
+
+IF not naarYEind THEN
+   uitYEind.one;
+ENDIF
+
+IF not naarYLaanGet THEN
+   uitYLaanGet.one;
+ENDIF
+
+IF not naarYLaanPut THEN
+   uitYLaanPut.one;
+ENDIF
+
+IF not naarYLaanLand THEN
+   uitYLaanLand.one;
+ENDIF
+
+// Hijsen
+
+IF not naarZStart THEN
+   uitZStart.one;
+ENDIF
+
+IF not naarZEind THEN
+   uitZEind.one;
+ENDIF
+
+IF not naarZ0Get THEN
+   uitZ0Get.one;
+ENDIF
+
+IF not naarZ0Put THEN
+   uitZ0Put.one;
+ENDIF
+
+IF not naarZ0Eind THEN
+   uitZ0Eind.one;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Instellen_wensposities
+IN   inXStart, inXEind
+IN   inYStart, inYEind, inYLaanGet, inYLaanPut, inYLaanLand
+IN   inZStart, inZEind, inZ0Get, inZ0Put, inZ0Eind
+IN   xPlcStart, yPlcStart, zPlcStart, xPlcEind, yPlcEind, zPlcEind
+OUT  xPlcWens, yPlcWens, zPlcWens
+
+IF inXStart THEN
+   xPlcWens = xPlcStart;
+ENDIF
+
+IF inXEind THEN
+   xPlcWens = xPlcEind;
+ENDIF
+
+IF inX1Land THEN
+   xPlcWens = xPlc1;
+ENDIF
+
+IF inYStart THEN
+   yPlcWens = yPlcStart;
+ENDIF
+
+IF inYEind THEN
+   yPlcWens = yPlcEind;
+ENDIF
+
+IF inYLaanGet or inYLaanPut or inYLaanLand THEN
+   yPlcWens = yPlcLaan;
+ENDIF
+
+IF inZStart THEN
+   zPlcWens = zPlcStart;
+ENDIF
+
+IF inZEind THEN
+   zPlcWens = zPlcEind;
+ENDIF
+
+IF inZ0Get or inZ0Put or inZ0Eind THEN
+   zPlcWens = zPlc0;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Af_en_aanmelden_bewegingen
+IN   inXStart, inXEind
+IN   inYStart, inYEind, inYLaanGet, inYLaanPut, inYLaanLand
+IN   inZStart, inZEind, inZ0Get, inZ0Put, inZ0Eind
+IN   uitXStart, uitXEind
+IN   uitYStart, uitYEind, uitYLaanGet, uitYLaanPut, uitYLaanLand
+IN   uitZStart, uitZEind, uitZ0Get, uitZ0Put, uitZ0Eind
+OUT  primaireBew, secundaireBew, geenPrimairBew, geenSecundBew
+
+// Afmelden (1 of meer tegelijk)
+
+IF uitXStart or uitXEind or uitX1Land THEN
+  IF primaireBew == kraanBew THEN
+     primaireBew = secundaireBew;
+  ENDIF
+  secundaireBew = geenBew;
+ENDIF
+
+IF uitYStart or uitYEind or uitYLaanGet or uitYLaanPut or uitYLaanLand THEN
+  IF primaireBew == katBew THEN
+     primaireBew = secundaireBew;
+  ENDIF
+  secundaireBew = geenBew;
+ENDIF
+
+IF uitZStart or uitZEind or uitZ0Get or uitZ0Put or uitZ0Eind THEN
+  IF primaireBew == hijsBew THEN
+     primaireBew = secundaireBew;
+  ENDIF
+  secundaireBew = geenBew;
+ENDIF
+
+IF primaireBew == geenBew THEN
+   geenPrimairBew.act;
+ENDIF
+
+IF secundaireBew == geenBew THEN
+   geenSecundBew.act;
+ENDIF
+
+// Aanmelden (1 tegelijk)
+
+IF inXStart or inXEind or inX1Land THEN
+   aanTeMeldenBew = kraanBew;
+ELSIF inYStart or inYEind or inYLaanGet or inYLaanPut or inYLaanLand THEN
+   aanTeMeldenBew = katBew;
+ELSIF inZStart or inZEind or inZ0Get or inZ0Put or inZ0Eind THEN
+   aanTeMeldenBew = hijsBew;
+ENDIF
+
+IF aanTeMeldenBew != 0 THEN
+   IF primaireBew == geenBew THEN
+      primaireBew = aanTeMeldenBew;
+   ELSIF secundaireBew == 0 THEN
+      secundaireBew = aanTeMeldenBew;
+   ELSE
+      drieBewegFout.lat;
+   ENDIF
+   aanTeMeldenBew = geenBew;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Bevelen_hoofdbewegingen
+IN   naarXStart, naarXEind
+IN   naarYStart, naarYEind, naarYLaanGet, naarYLaanPut, naarYLaanLand
+IN   naarZStart, naarZEind, naarZ0Get, naarZ0Put, naarZ0Eind
+IN   primaireBew, secundaireBew
+IN   xMinimaalOk, yMinimaalOk, zMinimaalOk
+OUT  kraanBevel, katBevel, oplegBevel, hijsBevel
+
+// Vooraanvragen
+
+IF naarXStart or naarXEind or naarX1Land THEN
+   kraanVraag.act;
+ENDIF
+
+IF naarYStart or naarYEind or naarYLaanGet or naarYLaanPut or naarYLaanLand THEN
+   katVraag.act;
+ENDIF
+
+IF naarZStart or naarZEind THEN
+   oplegVraag.act;
+ENDIF
+
+IF naarZ0Get or naarZ0Put or naarZ0Eind THEN
+   hijsVraag.act;
+ENDIF
+
+// Minimale voorwaarden primaire beweging
+
+IF    (primaireBew == kraanBew and xMinimaalOk) or
+      (primaireBew == katBew   and yMinimaalOk) or
+      (primaireBew == hijsBew  and zMinimaalOk) THEN
+   primMinimaalOk.act;
+ENDIF
+
+IF not primMinimaalOk THEN
+   primStabielTim.res;
+ELSIF primStabielTim > primStabielTijd THEN
+   primIsStabiel.act;
+ENDIF
+
+// Eigenlijke bevelen
+
+IF kraanVraag and xMinimaalOk and
+      (primaireBew == kraanBew or (secundaireBew == kraanBew and primIsStabiel)) THEN
+   kraanBevel.act;
+ENDIF
+
+IF katVraag and yMinimaalOk and
+      (primaireBew == katBew   or (secundaireBew == katBew   and primIsStabiel)) THEN
+   katBevel.act;
+ENDIF
+
+IF oplegVraag and zMinimaalOk and
+      (primaireBew == hijsBew  or (secundaireBew == hijsBew  and primIsStabiel)) THEN
+   oplegBevel.act;
+ENDIF
+
+IF hijsVraag and zMinimaalOk and
+      (primaireBew == hijsBew  or (secundaireBew == hijsBew  and primIsStabiel)) THEN
+   hijsBevel.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Voortgangs_rapportage
+IN   scherpUpReport, scherpCompReport, xPcsStartIs, xPcsEindIs, xPlcEcht, zPlcEcht
+IN   lastSecWs, zPlcContainer
+OUT  contUpReport, routeCompReport, routeAfgemeld
+
+// Container_up_report
+
+IF    (xPcsStartIs == xPcsWater and zPlcEcht < grensZWaterUp)
+      or
+      (xPcsStartIs >= 1 and xPcsStartIs <= lastSecWs and
+         zPlcEcht < zPlcContainer - margeZStackUp)
+      or
+      (xPcsStartIs == xPcsLand and xPlcEcht > xPlc1 - margeXLandUp) THEN
+   contUpOk.act;
+ENDIF
+
+IF scherpUpReport and contUpOk THEN
+   zPcsContainer = zPcsUitPlc (zPlcContainer);
+   contUpReport.lat;
+   contUpGemeld.one;
+   scherpUpReport.unl;
+ENDIF
+
+// Route_complete_report
+
+IF    (xPcsEindIs == xPcsWater and zPlcEcht < grensZWaterComp)
+      or
+      (xPcsEindIs >= 1 and xPcsEindIs <= lastSecWs and
+         zPlcEcht < zPlcContainer - margeZStackComp)
+      or
+      (xPcsEindIs == xPcsLand and xPlcEcht > xPlc1 - margeXLandComp) THEN
+   routeCompOk.act;
+ENDIF
+
+IF scherpCompReport and routeCompOk THEN
+   routeCompReport.lat;
+   routeCompGemeld.one;
+   scherpCompReport.unl;
+ENDIF
+
+// Registreren_afmelden_route
+
+IF    routeCompGemeld or
+      (contUpGemeld and not pickUpIs) or
+      allocBevel THEN
+    routeAfgemeld.lat;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Spreader_positietests
+IN   sprWensIs
+OUT  sprWens20, sprWens40, sprWens45, sprLenIsWens
+
+SELECT sprPcsWensIs FROM
+   IS 20 DO
+      sprWens20.act;
+   IS 40 DO
+      sprWens40.act;
+   IS 45 DO
+      sprWens45.act;
+ENDSEL
+
+IF    (sprLenIs20 and sprWens20) or
+      (sprLenIs40 and sprWens40) or
+      (sprLenIs45 and sprWens45) THEN
+   sprLenIsWens.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Spreader_stappenautomaat
+IN   startSpreader, autoBed, reset, sprLenIs20, sprLenIs40, sprLenIs45
+OUT  sprGaWens, sprGaSmeer20, sprGaSmeer45
+
+IF reset THEN
+   spreadStap = sWacht;
+ENDIF
+
+SELECT spreadStap FROM                           // Selecteer stap van spreader-stappenautomaat
+   IS sWacht DO                                  //    Als huidige stap is "wachten tot telescoperen nodig"
+      IF not (startSpreader and autoBed) THEN    //       Als geen startcommando of geen autom. bediening
+         spreadWachtStap.act;                    //          Spreader in wacht-status
+      ELSE                                       //       Als spreader telescoperen nodig is
+         spreadStap.inc;                         //          Ga naar volgende stap: smeerIn
+      ENDIF
+/* Smeercyclus overbodig bij 2000-8 ASC's, toch nog laten staan wegens mogelijk eerst uitschuiven
+   vanwege reproductienauwkeurigheid.
+   IS smeerIn DO                                 //    Als huidige stap is "inschuiven ter smering"
+      IF sprLenIs20 THEN                         //       Als spreader ingeschoven is
+         spreadStap.inc;                         //          Ga naar volgende stap: smeerUit
+      ELSE                                       //       Als spreader nog niet ingeschoven is
+         sprGaSmeer20.act;                       //          Schuif spreader in
+      ENDIF
+   IS smeerUit DO                                //    Als huidige stap is "uitschuiven ter smering"
+      IF sprLenIs45 THEN                         //       Als spreader uitgeschoven is
+         spreadStap.inc;                         //          Ga naar volgende stap: wensIn
+      ELSE                                       //       Als spreader nog niet ingeschoven is
+         sprGaSmeer45.act;                       //          Schuif spreader in
+      ENDIF
+*/
+   IS wensIn DO                                  //    Als huidige stap is "inschuiven tot wenslengte"
+      IF sprLenIsWens THEN                       //       Als spreader wenslengte bereikt heeft
+         spreadStap = sWacht;                    //          Ga naar de wacht-stap. Mission completed.
+      ELSE                                       //       Als spreader wenslengte nog niet bereikt heeft
+         sprGaWens.act;                          //          Schuif spreader naar gewenste lengte
+      ENDIF
+ENDSEL
+
+//______________________________________________________________________________
+
+UNIT Telescoperen_naar_wenslengte
+IN   sprGaWens, sprWens20, sprWens40, sprWens45, sprGaSmeer20, sprGaSmeer45
+OUT  sprLen20Bevel, sprLen40Bevel, sprLen45Bevel
+
+IF (sprGaWens and sprWens20) or sprGaSmeer20 THEN
+   sprLen20Bevel.act;
+ELSIF sprGaWens and sprWens40 THEN
+   sprLen40Bevel.act;
+ELSIF (sprGaWens and sprWens45) or sprGaSmeer45 THEN
+   sprLen45Bevel.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Status_evaluatie
+IN   algMinimaalOk, sprMinimaalOk, kabMinimaalOk
+OUT  algMinimaalAf, sprMinimaalAf, kabMinimaalAf
+
+IF not algMinimaalOk THEN
+   algMinimaalAf.act;
+ENDIF
+
+IF not sprMinimaalOk THEN
+   sprMinimaalAf.act;
+ENDIF
+
+IF not kabMinimaalOk THEN
+   kabMinimaalAf.act;
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Schrijf_net
+IN  allocReply, deallocReply, startReply, shutDownReply, routeReply, holdReply, resumeReply
+IN  oRequestFlag, oReplyFlag, reportFlag
+OUT speedReply, autoPosReply, positionReply, recallReply, statistReply
+OUT contUpReport, routeCompReport, positionReport
+OUT oRequest, oRequestFlag, oReply, oReplyFlag, report, reportFlag
+
+IF not oRequestFlag THEN               // Mailbox voor verzoeken aan PCS of TOD is geleegd
+   // Afgehandeld door NetCom
+ENDIF
+
+IF not oReplyFlag THEN                 // Mailbox voor antwoorden aan PCS of TOD is geleegd
+   oReplyFlag.lat;
+   IF allocReply THEN
+      oReply = alloc;
+      result = allocResult;
+      allocReply.unl;
+   ELSIF deallocReply THEN
+      oReply = dealloc;
+      result = deallocResult;
+      deallocReply.unl;
+   ELSIF startReply THEN
+      oReply = start;
+      result = startResult;
+      startReply.unl;
+   ELSIF shutDownReply THEN
+      oReply = shutDown;
+      result = shutDownResult;
+      shutDownReply.unl;
+   ELSIF routeReply THEN
+      oReply = route;
+      result = routeResult;
+      routeReply.unl;
+   ELSIF holdReply THEN
+      oReply = hold;
+      result = holdResult;
+      holdReply.unl;
+   ELSIF resumeReply THEN
+      oReply = resume;
+      result = resumeResult;
+      resumeReply.unl;
+   ELSIF speedReply THEN
+      oReply = speed;
+      result = speedResult;
+      speedReply.unl;
+   ELSIF autoPosReply THEN
+      oReply = autoPos;
+      result = autoPosResult;
+      autoPosReply.unl;
+   ELSIF positionReply THEN
+      oReply = position;
+      result = positionResult;
+      positionReply.unl;
+   ELSIF recallReply THEN
+      oReply = recall;
+      result = recallResult;
+      recallReply.unl;
+   ELSIF statistReply THEN
+      oReply = statist;
+      statistReply.unl;
+   ELSE
+      oReplyFlag.unl;
+   ENDIF
+ENDIF
+
+IF not reportFlag THEN                 // Mailbox voor rapporten aan PCS of TOD is geleegd
+   reportFlag.lat;
+   IF contUpReport THEN
+      report = contUp;
+      contUpReport.unl;
+   ELSIF routeCompReport THEN
+      report = routComp;
+      routeCompReport.unl;
+   ELSIF positionReport THEN
+      report = position;
+      positionReport.unl;
+   ELSE
+      reportFlag.unl;
+   ENDIF
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Bedien_mailbox_flags_slot_PLC
+IN   iSlotFlag
+OUT  iSlotFlag, oSlotFlag
+
+IF iSlotFlag THEN                      // Als antwoord op vorige mail binnen
+   oSlotFlag.lat;                      //    Zend nieuwe mail
+   iSlotFlag.unl;                      //    Antwoord op vorige mail gelezen
+ENDIF
+
+//______________________________________________________________________________
+
+UNIT Sweeptijd_meting
+IN   none
+OUT  none
+
+sweepTijd = sweepTim;
+sweepTim.res;
+IF sweepTijd > maxSweepTijd THEN
+   maxSweepTijd = sweepTijd;
+ELSIF sweepTijd < minSweepTijd and sweepTijd != 0 THEN
+   minSweepTijd = sweepTijd;
+ENDIF
+
+//______________________________________________________________________________
+//
+//
+//                               E I N D E
+//
+//______________________________________________________________________________
+
+
