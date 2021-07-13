@@ -42,7 +42,7 @@ struct Ray {
     Object *currentObject;
 
     Ray (float xStart, float yStart, Objects &objects):
-        support (Vec3D (0, 0, 0.6)),
+        support (Vec3D (0, 0, 3)),
         direction (Vec3D (xStart, yStart, 0) .sub (support) .unit ()),
         objects (objects),
         brightness (1),
@@ -134,10 +134,10 @@ struct Floor: Object {
 
 struct Raytracer {
     Objects objects = Objects ({
-        new Floor (0, -6, -2,  20, 1.5),
-        new Sphere (-0.4, 0.25, -1, 0.8),
-        new Sphere (1.1, 0.9, -1.2, 0.4),
-        new Sphere (1, -0.5, -1.5, 0.4)
+        new Floor (0, -1.2, -2,  20, 0.7),
+        new Sphere (-0.4, 0.23, -1, 0.4),
+        new Sphere (0.4, 0.4, -1.2, 0.3),
+        new Sphere (0.7, -0.15, -1.5, 0.2)
     });
 
     ~Raytracer () {
@@ -196,7 +196,7 @@ struct Raytracer {
         st::cout << '\n';
     }
 
-    float getX (float colIndex) {return (colIndex - nrOfCols / 2) / (0.6* nrOfCols);}
+    float getX (float colIndex) {return (colIndex - nrOfCols / 2) / (0.65 * nrOfCols);}
     float getY (float rowIndex) {return (nrOfRows - rowIndex - nrOfRows / 2) / nrOfRows;}
 };
 
