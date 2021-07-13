@@ -1,6 +1,8 @@
 // Copyright: GEATEC engineering, 2020
 // License: Apache 2
 
+// Nice compiler and hi-res console when zoomed out and nrOfRows == 192: https://www.onlinegdb.com/online_c++_compiler
+
 #include <math.h>
 #include <iostream>
 #include <vector>
